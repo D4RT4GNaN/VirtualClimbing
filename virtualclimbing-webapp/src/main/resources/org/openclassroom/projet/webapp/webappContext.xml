@@ -5,4 +5,9 @@
         http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd">
     
+    <!-- == DataSource == -->
+	<bean id="dataSourceProjet" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName" value="java:comp/env/jdbc/postgres" />
+	</bean>
+    
 </beans>
