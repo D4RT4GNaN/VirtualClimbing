@@ -11,4 +11,16 @@ import org.openclassroom.projet.model.bean.user.User;
  */
 public interface ActionDao {
 	
+	/**
+	 * Add reservation of {@link Topo} in the database
+	 * @param pBooking -
+	 */
+	void rentTopo(Booking pBooking);
+	
+	/**
+	 * Return the list of {@link Booking} for an {@link User}
+	 * @param pUser -
+	 */
+	List<Booking> listBooking(User pUser);
+	
 }
