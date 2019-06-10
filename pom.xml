@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- =============================================================== -->
+    <!-- Informations du projet -->
+    <!-- =============================================================== -->
+    <!-- ===== Informations Maven ===== -->
+    <groupId>org.openclassroom.projet</groupId>
+    <artifactId>virtualclimbing</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <!-- ===== Informations générales ===== -->
+    <name>${projectName}</name>
+    <url>http://example.org</url>
+    <description>
+        Le super projet de discusssion !
+    </description>
+
+    <organization>
+        <name>Mon Entreprise</name>
+        <url>https://exemple.org</url>
+    </organization>
+
+    <!-- =============================================================== -->
+    <!-- DistributionManagement -->
+    <!-- =============================================================== -->
+    <distributionManagement>
+        <site>
+            <id>site-projet</id>
+            <url>scp://localhost/tmp/</url>
+        </site>
+    </distributionManagement>
+
+
+    <!-- =============================================================== -->
+    <!-- Propriétés -->
+    <!-- =============================================================== -->
+    <properties>
+        <projectName>VirtualClimbing</projectName>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+
+    <!-- =============================================================== -->
+    <!-- Modules -->
+    <!-- =============================================================== -->
+    <modules>
+        <module>virtualclimbing-webapp</module>
+        <module>virtualclimbing-business</module>
+        <module>virtualclimbing-model</module>
+        <module>virtualclimbing-technical</module>
+    	<module>virtualclimbing-consumer</module>
+  </modules>
+</project>
