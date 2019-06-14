@@ -6,9 +6,11 @@ import java.util.List;
 import javax.inject.Named;
 
 import org.openclassroom.projet.consumer.contract.dao.TopoDao;
+import org.openclassroom.projet.consumer.impl.rowmapper.RouteRM;
 import org.openclassroom.projet.consumer.impl.rowmapper.SectorRM;
 import org.openclassroom.projet.consumer.impl.rowmapper.SiteRM;
 import org.openclassroom.projet.consumer.impl.rowmapper.TopoRM;
+import org.openclassroom.projet.model.bean.topo.Route;
 import org.openclassroom.projet.model.bean.topo.Sector;
 import org.openclassroom.projet.model.bean.topo.Site;
 import org.openclassroom.projet.model.bean.topo.Topo;
@@ -163,7 +165,7 @@ public class TopoDaoImpl extends AbstractDao implements TopoDao {
 
 	@Override
 	public void addSector(Sector pSector) {
-		String vRequest = "INSERT INTO sector (name, name_site, iamge_url) "
+		String vRequest = "INSERT INTO sector (name, name_site, image_url) "
 				+ "VALUES (:name, :nameSite, :imageUrl)";
 
 		MapSqlParameterSource vParams = new MapSqlParameterSource();
@@ -173,6 +175,58 @@ public class TopoDaoImpl extends AbstractDao implements TopoDao {
 		
 		getNamedParameterJdbcTemplate().update(vRequest, vParams);
 		
+	}
+	
+	
+	
+	// ==============================================
+	//                     Route
+	// ==============================================
+
+	@Override
+	public Route getRoute(String pNameRoute) {
+		String vRequest = "SELECT * FROM route"
+				+ " WHERE name=?";
+		RowMapper<Route> vRowMapper = new RouteRM();
+		
+		Route vRoute = getJdbcTemplate().queryForObject(vRequest, vRowMapper, pNameRoute);
+		
+		return vRoute;
+	}
+
+	@Override
+	public List<Route> getListRoute() {
+		String vRequest = "SELECT * FROM route";
+		RowMapper<Route> vRowMapper = new RouteRM();
+		
+		List<Route> vListRoute = getJdbcTemplate().query(vRequest, vRowMapper);
+		
+		return vListRoute;
+	}
+
+	@Override
+	public List<Route> searchRoute(String pKeyword) {
+		String vRequest = "SELECT * FROM route WHERE lower(name) LIKE ?";
+		RowMapper<Route> vRowMapper = new RouteRM();
+		
+		List<Route> vListRoute = getJdbcTemplate().query(vRequest, vRowMapper, "%" + pKeyword + "%");
+		
+		return vListRoute;
+	}
+
+	@Override
+	public void addRoute(Route pRoute) {
+		String vRequest = "INSERT INTO route (name, grade, height, note, name_sector) "
+				+ "VALUES (:name, :grade, :height, :note, :nameSector)";
+
+		MapSqlParameterSource vParams = new MapSqlParameterSource();
+		vParams.addValue("name", pRoute.getName(), Types.VARCHAR);
+		vParams.addValue("grade", pRoute.getGrade(), Types.VARCHAR);
+		vParams.addValue("height", pRoute.getHeight(), Types.INTEGER);
+		vParams.addValue("note", pRoute.getNote(), Types.VARCHAR);
+		vParams.addValue("nameSector", pRoute.getSector().getName(), Types.VARCHAR);
+		
+		getNamedParameterJdbcTemplate().update(vRequest, vParams);
 	}
 
 }

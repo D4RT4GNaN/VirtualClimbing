@@ -2,6 +2,7 @@ package org.openclassroom.projet.consumer.contract.dao;
 
 import java.util.List;
 
+import org.openclassroom.projet.model.bean.topo.Route;
 import org.openclassroom.projet.model.bean.topo.Sector;
 import org.openclassroom.projet.model.bean.topo.Site;
 import org.openclassroom.projet.model.bean.topo.Topo;
@@ -96,5 +97,34 @@ public interface TopoDao {
 	 * @param pSector -
 	 */
 	void addSector(Sector pSector);
+	
+	
+	
+	// ==============================================
+	//                     Route
+	// ==============================================
+	
+	/**
+	 * Get {@link Route} in database by giving it its name
+	 * @param pNameRoute -
+	 */
+	Route getRoute(String pNameRoute);
+	
+	/**
+	 * Get the list of all {@link Route} in database
+	 */
+	List<Route> getListRoute();
+	
+	/**
+	 * Get a list of {@link Route} whose name contains the keyword
+	 * @param pKeyword -
+	 */
+	List<Route> searchRoute(String pKeyword);
+	
+	/**
+	 * Adding a {@link Route} in database
+	 * @param pRoute -
+	 */
+	void addRoute(Route pRoute);
 	
 }
