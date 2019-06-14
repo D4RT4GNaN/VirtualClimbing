@@ -9,5 +9,9 @@
 	<bean id="dataSourceProjet" class="org.springframework.jndi.JndiObjectFactoryBean">
 		<property name="jndiName" value="java:comp/env/jdbc/postgres" />
 	</bean>
-    
+	
+	<!-- == JdbcTemplate == -->
+    <bean id="topoDaoImpl" class="org.openclassroom.projet.consumer.impl.TopoDaoImpl">
+    	<property name="pDataSource" ref="dataSourceProjet" />
+    </bean>
 </beans>

@@ -19,7 +19,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
  */
 @Named
 public class ActionDaoImpl extends AbstractDao implements ActionDao {
-
+	
 	@Override
 	public void rentTopo(Booking pBooking) {
 		String vRequest = "INSERT INTO booking"
@@ -36,20 +36,16 @@ public class ActionDaoImpl extends AbstractDao implements ActionDao {
 		vParams.addValue("name_topo", pBooking.getTopo().getName(), Types.VARCHAR);
 		vParams.addValue("pseudo_user", pBooking.getUser().getPseudo(), Types.VARCHAR);
 		
-		NamedParameterJdbcTemplate vJdbcTemplate = new NamedParameterJdbcTemplate(getDataSource());
-		
-		vJdbcTemplate.update(vRequest, vParams);
+		getNamedParameterJdbcTemplate().update(vRequest, vParams);
 	}
 
 	@Override
 	public List<Booking> listBooking(User pUser) {
 		String vRequest = "SELECT * FROM booking"
-						+ " WHERE pseudo_user=?";
-		JdbcTemplate vJdbcTemplate = new JdbcTemplate(getDataSource());
-		
+						+ " WHERE pseudo_user=?";		
 		RowMapper<Booking> vRowMapper = new BookingRM();
 		
-		List<Booking> vListBooking = vJdbcTemplate.query(vRequest, vRowMapper, pUser.getPseudo());
+		List<Booking> vListBooking = getJdbcTemplate().query(vRequest, vRowMapper, pUser.getPseudo());
 		
 		return vListBooking;
 	}
