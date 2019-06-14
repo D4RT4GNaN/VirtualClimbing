@@ -6,8 +6,10 @@ import java.util.List;
 import javax.inject.Named;
 
 import org.openclassroom.projet.consumer.contract.dao.TopoDao;
+import org.openclassroom.projet.consumer.impl.rowmapper.SectorRM;
 import org.openclassroom.projet.consumer.impl.rowmapper.SiteRM;
 import org.openclassroom.projet.consumer.impl.rowmapper.TopoRM;
+import org.openclassroom.projet.model.bean.topo.Sector;
 import org.openclassroom.projet.model.bean.topo.Site;
 import org.openclassroom.projet.model.bean.topo.Topo;
 import org.springframework.jdbc.core.RowMapper;
@@ -120,6 +122,57 @@ public class TopoDaoImpl extends AbstractDao implements TopoDao {
 		vParams.registerSqlType("location", Types.VARCHAR);
 		
 		getNamedParameterJdbcTemplate().update(vRequest, vParams);
+	}
+
+
+		
+	// ==============================================
+	//                     Sector
+	// ==============================================
+
+	@Override
+	public Sector getSector(Sector pNameSector) {
+		String vRequest = "SELECT * FROM sector"
+				+ " WHERE name=?";
+		RowMapper<Sector> vRowMapper = new SectorRM();
+		
+		Sector vSector = getJdbcTemplate().queryForObject(vRequest, vRowMapper, pNameSector);
+		
+		return vSector;
+	}
+
+	@Override
+	public List<Sector> getListSector() {
+		String vRequest = "SELECT * FROM sector";
+		RowMapper<Sector> vRowMapper = new SectorRM();
+		
+		List<Sector> vListSector = getJdbcTemplate().query(vRequest, vRowMapper);
+		
+		return vListSector;
+	}
+
+	@Override
+	public List<Sector> searchSector(String pKeyword) {
+		String vRequest = "SELECT * FROM sector WHERE lower(name) LIKE ?";
+		RowMapper<Sector> vRowMapper = new SectorRM();
+		
+		List<Sector> vListSector = getJdbcTemplate().query(vRequest, vRowMapper, "%" + pKeyword + "%");
+		
+		return vListSector;
+	}
+
+	@Override
+	public void addSector(Sector pSector) {
+		String vRequest = "INSERT INTO sector (name, name_site, iamge_url) "
+				+ "VALUES (:name, :nameSite, :imageUrl)";
+
+		MapSqlParameterSource vParams = new MapSqlParameterSource();
+		vParams.addValue("name", pSector.getName(), Types.VARCHAR);
+		vParams.addValue("nameSite", pSector.getSite().getName(), Types.VARCHAR);
+		vParams.addValue("imageUrl", pSector.getImageUrl(), Types.VARCHAR);
+		
+		getNamedParameterJdbcTemplate().update(vRequest, vParams);
+		
 	}
 
 }

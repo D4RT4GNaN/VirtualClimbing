@@ -2,6 +2,7 @@ package org.openclassroom.projet.consumer.contract.dao;
 
 import java.util.List;
 
+import org.openclassroom.projet.model.bean.topo.Sector;
 import org.openclassroom.projet.model.bean.topo.Site;
 import org.openclassroom.projet.model.bean.topo.Topo;
 
@@ -66,5 +67,34 @@ public interface TopoDao {
 	 * @param pSite -
 	 */
 	void addSite(Site pSite);
+	
+	
+	
+	// ==============================================
+	//                     Sector
+	// ==============================================
+	
+	/**
+	 * Get {@link Sector} in database by giving it its name
+	 * @param pNameSector -
+	 */
+	Sector getSector(Sector pNameSector);
+	
+	/**
+	 * Get the list of all {@link Sector} in database
+	 */
+	List<Sector> getListSector();
+	
+	/**
+	 * Get a list of {@link Sector} whose name contains the keyword
+	 * @param pKeyword -
+	 */
+	List<Sector> searchSector(String pKeyword);
+	
+	/**
+	 * Adding a {@link Sector} in database
+	 * @param pSector -
+	 */
+	void addSector(Sector pSector);
 	
 }
