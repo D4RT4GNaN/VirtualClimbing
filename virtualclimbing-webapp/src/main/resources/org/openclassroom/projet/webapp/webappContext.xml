@@ -11,7 +11,7 @@
 	</bean>
 	
 	<!-- == JdbcTemplate == -->
-    <bean id="topoDaoImpl" class="org.openclassroom.projet.consumer.impl.TopoDaoImpl">
+    <bean id="abstractDaoImpl" class="org.openclassroom.projet.consumer.impl.AbstractDao">
     	<property name="pDataSource" ref="dataSourceProjet" />
     </bean>
 </beans>

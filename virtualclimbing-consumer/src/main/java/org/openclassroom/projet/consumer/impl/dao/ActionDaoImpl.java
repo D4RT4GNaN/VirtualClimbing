@@ -7,7 +7,12 @@ import javax.inject.Named;
 
 import org.openclassroom.projet.consumer.contract.dao.ActionDao;
 import org.openclassroom.projet.consumer.impl.rowmapper.BookingRM;
+import org.openclassroom.projet.consumer.impl.rowmapper.CommentRM;
 import org.openclassroom.projet.model.bean.action.Booking;
+import org.openclassroom.projet.model.bean.action.Comment;
+import org.openclassroom.projet.model.bean.topo.Sector;
+import org.openclassroom.projet.model.bean.topo.Site;
+import org.openclassroom.projet.model.bean.topo.Topo;
 import org.openclassroom.projet.model.bean.user.User;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -19,6 +24,10 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
  */
 @Named
 public class ActionDaoImpl extends AbstractDao implements ActionDao {
+	
+	// ===================================
+	//               Booking
+	// ===================================
 	
 	@Override
 	public void rentTopo(Booking pBooking) {
@@ -48,6 +57,62 @@ public class ActionDaoImpl extends AbstractDao implements ActionDao {
 		List<Booking> vListBooking = getJdbcTemplate().query(vRequest, vRowMapper, pUser.getPseudo());
 		
 		return vListBooking;
+	}
+
+	
+	
+	// ===================================
+	//               Comment
+	// ===================================
+	
+	@Override
+	public List<Comment> getListCommentTopo(Topo pTopo) {
+		String vRequest = "SELECT * FROM comment"
+				+ " WHERE name_topo=?";		
+		RowMapper<Comment> vRowMapper = new CommentRM();
+		
+		List<Comment> vListComment = getJdbcTemplate().query(vRequest, vRowMapper, pTopo.getName());
+		
+		return vListComment;
+	}
+
+	@Override
+	public List<Comment> getListCommentSite(Site pSite) {
+		String vRequest = "SELECT * FROM comment"
+				+ " WHERE name_site=?";		
+		RowMapper<Comment> vRowMapper = new CommentRM();
+		
+		List<Comment> vListComment = getJdbcTemplate().query(vRequest, vRowMapper, pSite.getName());
+		
+		return vListComment;
+	}
+
+	@Override
+	public List<Comment> getListCommentSector(Sector pSector) {
+		String vRequest = "SELECT * FROM comment"
+				+ " WHERE name_sector=?";		
+		RowMapper<Comment> vRowMapper = new CommentRM();
+		
+		List<Comment> vListComment = getJdbcTemplate().query(vRequest, vRowMapper, pSector.getName());
+		
+		return vListComment;
+	}
+
+	@Override
+	public void addComment(Comment pComment) {
+		String vRequest = "INSERT INTO comment "
+						+ "VALUES (:title, :description, :pseudo_user, :name_topo, :name_site, :name_sector)";
+
+		MapSqlParameterSource vParams = new MapSqlParameterSource();
+		vParams.addValue("title", pComment.getTitle(), Types.VARCHAR);
+		vParams.addValue("description", pComment.getDescription(), Types.VARCHAR);
+		vParams.addValue("pseudo_user", pComment.getUser().getPseudo(), Types.VARCHAR);
+		vParams.addValue("name_topo", pComment.getTopo().getName(), Types.VARCHAR);
+		vParams.addValue("name_site", pComment.getSite().getName(), Types.VARCHAR);
+		vParams.addValue("name_sector", pComment.getSector().getName(), Types.VARCHAR);
+		
+		getNamedParameterJdbcTemplate().update(vRequest, vParams);
+		
 	}
 	
 }
