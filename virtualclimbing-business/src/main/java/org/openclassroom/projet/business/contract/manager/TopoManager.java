@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.openclassroom.projet.model.bean.topo.Route;
 import org.openclassroom.projet.model.bean.topo.Sector;
+import org.openclassroom.projet.model.bean.topo.Site;
 import org.openclassroom.projet.model.bean.topo.Topo;
 
 public interface TopoManager {
@@ -30,6 +31,31 @@ public interface TopoManager {
 	 * @param pTopo -
 	 */
 	void addTopo(Topo pTopo);
+	
+	
+	
+	// ==============================================
+	//                     Sector
+	// ==============================================
+	
+	/**
+	 * Search and return the list of {@link Sector} containing the keyword, if its not empty.
+	 * Otherwise, this return the list of all {@link Sector}
+	 * @param pKeyword -
+	 */
+	List<Sector> searchSector(String pKeyword);
+	
+	/**
+	 * Return the list of {@link Sector} in a {@link Site}
+	 * @param pSite -
+	 */
+	List<Sector> getListSectorForSite(Site pSite);
+	
+	/**
+	 * Add a new {@link Sector}
+	 * @param pSector -
+	 */
+	void addSector(Sector pSector);
 	
 	
 	

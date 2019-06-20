@@ -87,6 +87,12 @@ public interface TopoDao {
 	List<Sector> getListSector();
 	
 	/**
+	 * Search and return the list of {@link Sector} in a {@link Site}
+	 * @param pSite -
+	 */
+	List<Sector> getListSectorForSite(Site pSite);
+	
+	/**
 	 * Get a list of {@link Sector} whose name contains the keyword
 	 * @param pKeyword -
 	 */

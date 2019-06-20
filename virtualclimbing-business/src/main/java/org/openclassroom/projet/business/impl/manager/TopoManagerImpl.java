@@ -5,6 +5,7 @@ import java.util.List;
 import org.openclassroom.projet.business.contract.manager.TopoManager;
 import org.openclassroom.projet.model.bean.topo.Route;
 import org.openclassroom.projet.model.bean.topo.Sector;
+import org.openclassroom.projet.model.bean.topo.Site;
 import org.openclassroom.projet.model.bean.topo.Topo;
 
 public class TopoManagerImpl extends AbstractManager implements TopoManager {
@@ -32,6 +33,33 @@ public class TopoManagerImpl extends AbstractManager implements TopoManager {
 	@Override
 	public void addTopo(Topo pTopo) {
 		getDaoFactory().getTopoDao().addTopo(pTopo);		
+	}
+	
+	
+	
+	// ==============================================
+	//                     Sector
+	// ==============================================
+	
+	@Override
+	public List<Sector> searchSector(String pKeyword) {
+		List<Sector> vListSector = null;
+		if (pKeyword.isEmpty())
+			vListSector = getDaoFactory().getTopoDao().searchSector(pKeyword);
+		else
+			vListSector = getDaoFactory().getTopoDao().getListSector();
+		return vListSector;
+	}
+
+	@Override
+	public List<Sector> getListSectorForSite(Site pSite) {
+		List<Sector> vListSector = getDaoFactory().getTopoDao().getListSectorForSite(pSite);
+		return vListSector;
+	}
+
+	@Override
+	public void addSector(Sector pSector) {
+		getDaoFactory().getTopoDao().addSector(pSector);
 	}
 
 	

@@ -152,6 +152,17 @@ public class TopoDaoImpl extends AbstractDao implements TopoDao {
 		
 		return vListSector;
 	}
+	
+	@Override
+	public List<Sector> getListSectorForSite(Site pSite) {
+		String vRequest = "SELECT * FROM sector "
+						+ "WHERE name_site = ?";
+		RowMapper<Sector> vRowMapper = new SectorRM();
+		
+		List<Sector> vListSector = getJdbcTemplate().query(vRequest, vRowMapper, pSite.getName());
+		
+		return vListSector;
+	}
 
 	@Override
 	public List<Sector> searchSector(String pKeyword) {
