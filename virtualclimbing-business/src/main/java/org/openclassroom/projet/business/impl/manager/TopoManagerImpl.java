@@ -38,6 +38,27 @@ public class TopoManagerImpl extends AbstractManager implements TopoManager {
 	
 	
 	// ==============================================
+	//                      Site
+	// ==============================================
+	
+	@Override
+	public List<Site> searchSite(String pKeyword) {
+		List<Site> vListSite = null;
+		if (pKeyword.isEmpty())
+			vListSite = getDaoFactory().getTopoDao().getListSite();
+		else 
+			vListSite = getDaoFactory().getTopoDao().searchSite(pKeyword);
+		return vListSite;
+	}
+	
+	@Override
+	public void addSite(Site pSite) {
+		getDaoFactory().getTopoDao().addSite(pSite);
+	}
+	
+	
+	
+	// ==============================================
 	//                     Sector
 	// ==============================================
 	
@@ -45,9 +66,9 @@ public class TopoManagerImpl extends AbstractManager implements TopoManager {
 	public List<Sector> searchSector(String pKeyword) {
 		List<Sector> vListSector = null;
 		if (pKeyword.isEmpty())
-			vListSector = getDaoFactory().getTopoDao().searchSector(pKeyword);
-		else
 			vListSector = getDaoFactory().getTopoDao().getListSector();
+		else
+			vListSector = getDaoFactory().getTopoDao().searchSector(pKeyword);
 		return vListSector;
 	}
 
@@ -75,7 +96,6 @@ public class TopoManagerImpl extends AbstractManager implements TopoManager {
 			vListRoute = getDaoFactory().getTopoDao().getListRoute();
 		else
 			vListRoute = getDaoFactory().getTopoDao().searchRoute(pKeyword);
-		
 		return vListRoute;
 	}
 

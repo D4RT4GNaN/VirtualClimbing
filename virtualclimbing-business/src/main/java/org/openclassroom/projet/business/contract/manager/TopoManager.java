@@ -35,6 +35,25 @@ public interface TopoManager {
 	
 	
 	// ==============================================
+	//                      Site
+	// ==============================================
+	
+	/**
+	 * Search and return the list of {@link Site} containing the keyword, if its not empty.
+	 * Otherwise, this return the complete list of {@link Site}
+	 * @param pKeyword -
+	 */
+	List<Site> searchSite(String pKeyword);
+	
+	/**
+	 * Add a new {@link Site}
+	 * @param pSite -
+	 */
+	void addSite(Site pSite);
+	
+	
+	
+	// ==============================================
 	//                     Sector
 	// ==============================================
 	
