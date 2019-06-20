@@ -14,24 +14,8 @@ public abstract class AbstractDao {
 	@Named("dataSourceProjet")
 	private DataSource dataSource;
 	
-	private JdbcTemplate jdbcTemplate;
-	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-	
-	public JdbcTemplate getJdbcTemplate() {
-		return jdbcTemplate;
-	}
-	
-	public NamedParameterJdbcTemplate getNamedParameterJdbcTemplate() {
-		return namedParameterJdbcTemplate;
-	}
-	
 	protected DataSource getDataSource() {
 		return dataSource;
 	}
-	
-	public void setDataSource(DataSource pDataSource) {
-		jdbcTemplate = new JdbcTemplate(pDataSource);
-		namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(pDataSource);
-	}
-	
+
 }

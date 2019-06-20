@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="s" uri="/struts-tags" %>
     
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <a class="navbar-brand text-center" href="index">
@@ -30,12 +31,12 @@
                     <a data-toggle="modal" href="#loginPopUp">Connexion</a>
                 </div>
         
-                <form method="post" class="searchbar" action="/virtualclimbing-webapp/search">
-                    <input class="search_input" type="text" name="searchBar" placeholder="Recherche...">
-                    <a href="" onclick="form.submit()" class="search_icon">
+                <s:form action="search" class="searchbar">
+                    <input type="text" class="search_input" name="keyword" placeholder="Recherche..." />
+                    <a onclick="this.parentNode.submit(); return false;" class="search_icon">
                         <span class="fas fa-search"></span>
                     </a>
-                </form>
+                </s:form>
             </div>
         </div>
     </div>

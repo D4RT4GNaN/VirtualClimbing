@@ -14,14 +14,16 @@ import org.openclassroom.projet.model.bean.topo.Route;
 import org.openclassroom.projet.model.bean.topo.Sector;
 import org.openclassroom.projet.model.bean.topo.Site;
 import org.openclassroom.projet.model.bean.topo.Topo;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 /**
  * Implementation class of {@link TopoDao}
  */
-@Named
+@Named("topoDao")
 public class TopoDaoImpl extends AbstractDao implements TopoDao {
 	
 	// ==============================================
@@ -34,7 +36,8 @@ public class TopoDaoImpl extends AbstractDao implements TopoDao {
 						+ " WHERE name=?";
 		RowMapper<Topo> vRowMapper = new TopoRM();
 		
-		Topo vTopo = getJdbcTemplate().queryForObject(vRequest, vRowMapper, pNameTopo);
+		JdbcTemplate vJdbcTemplate = new JdbcTemplate(getDataSource());
+		Topo vTopo = vJdbcTemplate.queryForObject(vRequest, vRowMapper, pNameTopo);
 		
 		return vTopo;
 	}
@@ -44,7 +47,8 @@ public class TopoDaoImpl extends AbstractDao implements TopoDao {
 		String vRequest = "SELECT * FROM topo";
 		RowMapper<Topo> vRowMapper = new TopoRM();
 		
-		List<Topo> vListTopo = getJdbcTemplate().query(vRequest, vRowMapper);
+		JdbcTemplate vJdbcTemplate = new JdbcTemplate(getDataSource());
+		List<Topo> vListTopo = vJdbcTemplate.query(vRequest, vRowMapper);
 		
 		return vListTopo;
 	}
@@ -54,7 +58,8 @@ public class TopoDaoImpl extends AbstractDao implements TopoDao {
 		String vRequest = "SELECT * FROM topo WHERE lower(name) LIKE ?";
 		RowMapper<Topo> vRowMapper = new TopoRM();
 		
-		List<Topo> vListTopo = getJdbcTemplate().query(vRequest, vRowMapper, "%" + pKeyword + "%");
+		JdbcTemplate vJdbcTemplate = new JdbcTemplate(getDataSource());
+		List<Topo> vListTopo = vJdbcTemplate.query(vRequest, vRowMapper, "%" + pKeyword + "%");
 		
 		return vListTopo;
 	}
@@ -70,7 +75,8 @@ public class TopoDaoImpl extends AbstractDao implements TopoDao {
 		vParams.addValue("description", pTopo.getDescription(), Types.VARCHAR);
 		vParams.addValue("pseudo", pTopo.getUser().getPseudo(), Types.VARCHAR);
 		
-		getNamedParameterJdbcTemplate().update(vRequest, vParams);
+		NamedParameterJdbcTemplate vNamedParameterJdbcTemplate = new NamedParameterJdbcTemplate(getDataSource());
+		vNamedParameterJdbcTemplate.update(vRequest, vParams);
 	}
 	
 	
@@ -85,7 +91,8 @@ public class TopoDaoImpl extends AbstractDao implements TopoDao {
 				+ " WHERE name=?";
 		RowMapper<Site> vRowMapper = new SiteRM();
 		
-		Site vSite = getJdbcTemplate().queryForObject(vRequest, vRowMapper, pNameSite);
+		JdbcTemplate vJdbcTemplate = new JdbcTemplate(getDataSource());
+		Site vSite = vJdbcTemplate.queryForObject(vRequest, vRowMapper, pNameSite);
 		
 		return vSite;
 	}
@@ -95,7 +102,8 @@ public class TopoDaoImpl extends AbstractDao implements TopoDao {
 		String vRequest = "SELECT * FROM site";
 		RowMapper<Site> vRowMapper = new SiteRM();
 		
-		List<Site> vListSite = getJdbcTemplate().query(vRequest, vRowMapper);
+		JdbcTemplate vJdbcTemplate = new JdbcTemplate(getDataSource());
+		List<Site> vListSite = vJdbcTemplate.query(vRequest, vRowMapper);
 		
 		return vListSite;
 	}
@@ -105,7 +113,8 @@ public class TopoDaoImpl extends AbstractDao implements TopoDao {
 		String vRequest = "SELECT * FROM site WHERE lower(name) LIKE ?";
 		RowMapper<Site> vRowMapper = new SiteRM();
 		
-		List<Site> vListSite = getJdbcTemplate().query(vRequest, vRowMapper, "%" + pKeyword + "%");
+		JdbcTemplate vJdbcTemplate = new JdbcTemplate(getDataSource());
+		List<Site> vListSite = vJdbcTemplate.query(vRequest, vRowMapper, "%" + pKeyword + "%");
 		
 		return vListSite;
 	}
@@ -123,7 +132,8 @@ public class TopoDaoImpl extends AbstractDao implements TopoDao {
 		vParams.registerSqlType("rockType", Types.VARCHAR);
 		vParams.registerSqlType("location", Types.VARCHAR);
 		
-		getNamedParameterJdbcTemplate().update(vRequest, vParams);
+		NamedParameterJdbcTemplate vNamedParameterJdbcTemplate = new NamedParameterJdbcTemplate(getDataSource());
+		vNamedParameterJdbcTemplate.update(vRequest, vParams);
 	}
 
 
@@ -138,7 +148,8 @@ public class TopoDaoImpl extends AbstractDao implements TopoDao {
 				+ " WHERE name=?";
 		RowMapper<Sector> vRowMapper = new SectorRM();
 		
-		Sector vSector = getJdbcTemplate().queryForObject(vRequest, vRowMapper, pNameSector);
+		JdbcTemplate vJdbcTemplate = new JdbcTemplate(getDataSource());
+		Sector vSector = vJdbcTemplate.queryForObject(vRequest, vRowMapper, pNameSector);
 		
 		return vSector;
 	}
@@ -148,7 +159,8 @@ public class TopoDaoImpl extends AbstractDao implements TopoDao {
 		String vRequest = "SELECT * FROM sector";
 		RowMapper<Sector> vRowMapper = new SectorRM();
 		
-		List<Sector> vListSector = getJdbcTemplate().query(vRequest, vRowMapper);
+		JdbcTemplate vJdbcTemplate = new JdbcTemplate(getDataSource());
+		List<Sector> vListSector = vJdbcTemplate.query(vRequest, vRowMapper);
 		
 		return vListSector;
 	}
@@ -159,7 +171,8 @@ public class TopoDaoImpl extends AbstractDao implements TopoDao {
 						+ "WHERE name_site = ?";
 		RowMapper<Sector> vRowMapper = new SectorRM();
 		
-		List<Sector> vListSector = getJdbcTemplate().query(vRequest, vRowMapper, pSite.getName());
+		JdbcTemplate vJdbcTemplate = new JdbcTemplate(getDataSource());
+		List<Sector> vListSector = vJdbcTemplate.query(vRequest, vRowMapper, pSite.getName());
 		
 		return vListSector;
 	}
@@ -169,7 +182,8 @@ public class TopoDaoImpl extends AbstractDao implements TopoDao {
 		String vRequest = "SELECT * FROM sector WHERE lower(name) LIKE ?";
 		RowMapper<Sector> vRowMapper = new SectorRM();
 		
-		List<Sector> vListSector = getJdbcTemplate().query(vRequest, vRowMapper, "%" + pKeyword + "%");
+		JdbcTemplate vJdbcTemplate = new JdbcTemplate(getDataSource());
+		List<Sector> vListSector = vJdbcTemplate.query(vRequest, vRowMapper, "%" + pKeyword + "%");
 		
 		return vListSector;
 	}
@@ -184,8 +198,8 @@ public class TopoDaoImpl extends AbstractDao implements TopoDao {
 		vParams.addValue("nameSite", pSector.getSite().getName(), Types.VARCHAR);
 		vParams.addValue("imageUrl", pSector.getImageUrl(), Types.VARCHAR);
 		
-		getNamedParameterJdbcTemplate().update(vRequest, vParams);
-		
+		NamedParameterJdbcTemplate vNamedParameterJdbcTemplate = new NamedParameterJdbcTemplate(getDataSource());
+		vNamedParameterJdbcTemplate.update(vRequest, vParams);
 	}
 	
 	
@@ -200,7 +214,8 @@ public class TopoDaoImpl extends AbstractDao implements TopoDao {
 				+ " WHERE name=?";
 		RowMapper<Route> vRowMapper = new RouteRM();
 		
-		Route vRoute = getJdbcTemplate().queryForObject(vRequest, vRowMapper, pNameRoute);
+		JdbcTemplate vJdbcTemplate = new JdbcTemplate(getDataSource());
+		Route vRoute = vJdbcTemplate.queryForObject(vRequest, vRowMapper, pNameRoute);
 		
 		return vRoute;
 	}
@@ -210,7 +225,8 @@ public class TopoDaoImpl extends AbstractDao implements TopoDao {
 		String vRequest = "SELECT * FROM route";
 		RowMapper<Route> vRowMapper = new RouteRM();
 		
-		List<Route> vListRoute = getJdbcTemplate().query(vRequest, vRowMapper);
+		JdbcTemplate vJdbcTemplate = new JdbcTemplate(getDataSource());
+		List<Route> vListRoute = vJdbcTemplate.query(vRequest, vRowMapper);
 		
 		return vListRoute;
 	}
@@ -221,7 +237,8 @@ public class TopoDaoImpl extends AbstractDao implements TopoDao {
 						+ "WHERE name_sector = ?";
 		RowMapper<Route> vRowMapper = new RouteRM();
 		
-		List<Route> vListRoute = getJdbcTemplate().query(vRequest, vRowMapper, pSector.getName());
+		JdbcTemplate vJdbcTemplate = new JdbcTemplate(getDataSource());
+		List<Route> vListRoute = vJdbcTemplate.query(vRequest, vRowMapper, pSector.getName());
 		
 		return vListRoute;
 	}
@@ -231,7 +248,8 @@ public class TopoDaoImpl extends AbstractDao implements TopoDao {
 		String vRequest = "SELECT * FROM route WHERE lower(name) LIKE ?";
 		RowMapper<Route> vRowMapper = new RouteRM();
 		
-		List<Route> vListRoute = getJdbcTemplate().query(vRequest, vRowMapper, "%" + pKeyword + "%");
+		JdbcTemplate vJdbcTemplate = new JdbcTemplate(getDataSource());
+		List<Route> vListRoute = vJdbcTemplate.query(vRequest, vRowMapper, "%" + pKeyword + "%");
 		
 		return vListRoute;
 	}
@@ -248,7 +266,8 @@ public class TopoDaoImpl extends AbstractDao implements TopoDao {
 		vParams.addValue("note", pRoute.getNote(), Types.VARCHAR);
 		vParams.addValue("nameSector", pRoute.getSector().getName(), Types.VARCHAR);
 		
-		getNamedParameterJdbcTemplate().update(vRequest, vParams);
+		NamedParameterJdbcTemplate vNamedParameterJdbcTemplate = new NamedParameterJdbcTemplate(getDataSource());
+		vNamedParameterJdbcTemplate.update(vRequest, vParams);
 	}
 
 }

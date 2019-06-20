@@ -8,8 +8,10 @@ import javax.inject.Named;
 import org.openclassroom.projet.consumer.contract.dao.UserDao;
 import org.openclassroom.projet.consumer.impl.rowmapper.UserRM;
 import org.openclassroom.projet.model.bean.user.User;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 /**
  * Implementation class of {@link UserDao}
@@ -23,7 +25,8 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
 				+ " WHERE pseudo=?";
 		RowMapper<User> vRowMapper = new UserRM();
 		
-		User vUser = getJdbcTemplate().queryForObject(vRequest, vRowMapper, pPseudo);
+		JdbcTemplate vJdbcTemplate = new JdbcTemplate(getDataSource());
+		User vUser = vJdbcTemplate.queryForObject(vRequest, vRowMapper, pPseudo);
 		
 		return vUser;
 	}
@@ -33,7 +36,8 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
 		String vRequest = "SELECT * FROM identified_user";
 		RowMapper<User> vRowMapper = new UserRM();
 		
-		List<User> vListUser = getJdbcTemplate().query(vRequest, vRowMapper);
+		JdbcTemplate vJdbcTemplate = new JdbcTemplate(getDataSource());
+		List<User> vListUser = vJdbcTemplate.query(vRequest, vRowMapper);
 		
 		return vListUser;
 	}
@@ -50,7 +54,8 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
 		vParams.registerSqlType("password", Types.VARCHAR);
 		vParams.registerSqlType("registrationDate", Types.DATE);
 		
-		getNamedParameterJdbcTemplate().update(vRequest, vParams);
+		NamedParameterJdbcTemplate vNamedParameterJdbcTemplate = new NamedParameterJdbcTemplate(getDataSource());
+		vNamedParameterJdbcTemplate.update(vRequest, vParams);
 	}
 
 }

@@ -45,7 +45,8 @@ public class ActionDaoImpl extends AbstractDao implements ActionDao {
 		vParams.addValue("name_topo", pBooking.getTopo().getName(), Types.VARCHAR);
 		vParams.addValue("pseudo_user", pBooking.getUser().getPseudo(), Types.VARCHAR);
 		
-		getNamedParameterJdbcTemplate().update(vRequest, vParams);
+		NamedParameterJdbcTemplate vNamedParameterJdbcTemplate = new NamedParameterJdbcTemplate(getDataSource());
+		vNamedParameterJdbcTemplate.update(vRequest, vParams);
 	}
 
 	@Override
@@ -54,7 +55,8 @@ public class ActionDaoImpl extends AbstractDao implements ActionDao {
 						+ " WHERE pseudo_user=?";		
 		RowMapper<Booking> vRowMapper = new BookingRM();
 		
-		List<Booking> vListBooking = getJdbcTemplate().query(vRequest, vRowMapper, pUser.getPseudo());
+		JdbcTemplate vJdbcTemplate = new JdbcTemplate(getDataSource());
+		List<Booking> vListBooking = vJdbcTemplate.query(vRequest, vRowMapper, pUser.getPseudo());
 		
 		return vListBooking;
 	}
@@ -71,7 +73,8 @@ public class ActionDaoImpl extends AbstractDao implements ActionDao {
 				+ " WHERE name_topo=?";		
 		RowMapper<Comment> vRowMapper = new CommentRM();
 		
-		List<Comment> vListComment = getJdbcTemplate().query(vRequest, vRowMapper, pTopo.getName());
+		JdbcTemplate vJdbcTemplate = new JdbcTemplate(getDataSource());
+		List<Comment> vListComment = vJdbcTemplate.query(vRequest, vRowMapper, pTopo.getName());
 		
 		return vListComment;
 	}
@@ -82,7 +85,8 @@ public class ActionDaoImpl extends AbstractDao implements ActionDao {
 				+ " WHERE name_site=?";		
 		RowMapper<Comment> vRowMapper = new CommentRM();
 		
-		List<Comment> vListComment = getJdbcTemplate().query(vRequest, vRowMapper, pSite.getName());
+		JdbcTemplate vJdbcTemplate = new JdbcTemplate(getDataSource());
+		List<Comment> vListComment = vJdbcTemplate.query(vRequest, vRowMapper, pSite.getName());
 		
 		return vListComment;
 	}
@@ -93,7 +97,8 @@ public class ActionDaoImpl extends AbstractDao implements ActionDao {
 				+ " WHERE name_sector=?";		
 		RowMapper<Comment> vRowMapper = new CommentRM();
 		
-		List<Comment> vListComment = getJdbcTemplate().query(vRequest, vRowMapper, pSector.getName());
+		JdbcTemplate vJdbcTemplate = new JdbcTemplate(getDataSource());
+		List<Comment> vListComment = vJdbcTemplate.query(vRequest, vRowMapper, pSector.getName());
 		
 		return vListComment;
 	}
@@ -111,7 +116,8 @@ public class ActionDaoImpl extends AbstractDao implements ActionDao {
 		vParams.addValue("name_site", pComment.getSite().getName(), Types.VARCHAR);
 		vParams.addValue("name_sector", pComment.getSector().getName(), Types.VARCHAR);
 		
-		getNamedParameterJdbcTemplate().update(vRequest, vParams);
+		NamedParameterJdbcTemplate vNamedParameterJdbcTemplate = new NamedParameterJdbcTemplate(getDataSource());
+		vNamedParameterJdbcTemplate.update(vRequest, vParams);
 		
 	}
 	

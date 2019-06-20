@@ -14,5 +14,12 @@
 			<result>/jsp/index.jsp</result>
 		</action>
 		
+		<!-- Search Action -->
+		<action name="search"
+				class="org.openclassroom.projet.webapp.action.SearchAction"
+				method="doResearch">
+			<result>/jsp/search.jsp</result>
+		</action>
+		
 	</package>
 </struts>

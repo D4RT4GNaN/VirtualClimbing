@@ -2,12 +2,15 @@ package org.openclassroom.projet.business.impl.manager;
 
 import java.util.List;
 
+import javax.inject.Named;
+
 import org.openclassroom.projet.business.contract.manager.TopoManager;
 import org.openclassroom.projet.model.bean.topo.Route;
 import org.openclassroom.projet.model.bean.topo.Sector;
 import org.openclassroom.projet.model.bean.topo.Site;
 import org.openclassroom.projet.model.bean.topo.Topo;
 
+@Named("topoManager")
 public class TopoManagerImpl extends AbstractManager implements TopoManager {
 
 	// ==============================================
@@ -23,10 +26,11 @@ public class TopoManagerImpl extends AbstractManager implements TopoManager {
 	@Override
 	public List<Topo> searchTopo(String pKeyword) {
 		List<Topo> vListTopo = null;
-		if (pKeyword != null && pKeyword != "")
+		if (pKeyword != null && pKeyword != "") {
 			vListTopo = getDaoFactory().getTopoDao().searchTopo(pKeyword);
-		else
+		} else {
 			vListTopo = getDaoFactory().getTopoDao().getListTopo();
+		}
 		return vListTopo;
 	}
 
