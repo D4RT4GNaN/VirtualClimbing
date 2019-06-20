@@ -10,8 +10,4 @@
 		<property name="jndiName" value="java:comp/env/jdbc/postgres" />
 	</bean>
 	
-	<!-- == JdbcTemplate == -->
-    <bean id="abstractDaoImpl" class="org.openclassroom.projet.consumer.impl.AbstractDao">
-    	<property name="pDataSource" ref="dataSourceProjet" />
-    </bean>
 </beans>

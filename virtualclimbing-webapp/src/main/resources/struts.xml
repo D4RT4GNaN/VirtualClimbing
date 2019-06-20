@@ -8,9 +8,10 @@
 	<package name="default" extends="struts-default">
 		<!-- Default Action -->
 		<default-action-ref name="index" />
+		
 		<!-- "index" Action -->
 		<action name="index">
-			<result>index.jsp</result>
+			<result>/jsp/index.jsp</result>
 		</action>
 		
 	</package>
