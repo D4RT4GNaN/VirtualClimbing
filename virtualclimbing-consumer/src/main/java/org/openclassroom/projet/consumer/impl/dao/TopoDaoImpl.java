@@ -203,6 +203,17 @@ public class TopoDaoImpl extends AbstractDao implements TopoDao {
 		
 		return vListRoute;
 	}
+	
+	@Override
+	public List<Route> getListRouteForSector(Sector pSector) {
+		String vRequest = "SELECT * FROM route "
+						+ "WHERE name_sector = ?";
+		RowMapper<Route> vRowMapper = new RouteRM();
+		
+		List<Route> vListRoute = getJdbcTemplate().query(vRequest, vRowMapper, pSector.getName());
+		
+		return vListRoute;
+	}
 
 	@Override
 	public List<Route> searchRoute(String pKeyword) {

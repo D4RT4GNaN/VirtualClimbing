@@ -116,6 +116,12 @@ public interface TopoDao {
 	List<Route> getListRoute();
 	
 	/**
+	 * Search and return the list of {@link Route} in a {@link Sector}
+	 * @param pSector -
+	 */
+	List<Route> getListRouteForSector(Sector pSector);
+	
+	/**
 	 * Get a list of {@link Route} whose name contains the keyword
 	 * @param pKeyword -
 	 */
