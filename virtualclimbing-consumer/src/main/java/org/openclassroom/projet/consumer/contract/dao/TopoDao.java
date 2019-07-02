@@ -51,13 +51,13 @@ public interface TopoDao {
 	 * Get a list of all {@link Topo} that contains the {@link Site}, in the database
 	 * @param pSite -
 	 */
-	List<Topo> getListTopoForSite(Site pSite);
+	List<TopoSite> getTopoSite(Site pSite);
 	
 	/**
 	 * Get a list of all {@link Site} in a {@link Topo}, in the database
 	 * @param pTopo -
 	 */
-	List<Site> getListSiteForTopo(Topo pTopo);
+	List<TopoSite> getTopoSite(Topo pTopo);
 	
 	/**
 	 * Add a new link between {@link Topo} and {@link Site} in database

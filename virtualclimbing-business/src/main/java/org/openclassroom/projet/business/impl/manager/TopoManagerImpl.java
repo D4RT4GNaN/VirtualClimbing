@@ -1,5 +1,6 @@
 package org.openclassroom.projet.business.impl.manager;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Named;
@@ -48,13 +49,28 @@ public class TopoManagerImpl extends AbstractManager implements TopoManager {
 	
 	@Override
 	public List<Topo> getListTopoForSite(Site pSite) {
-		List<Topo> vListTopo = getDaoFactory().getTopoDao().getListTopoForSite(pSite);
+		List<TopoSite> vListTopoSite = getDaoFactory().getTopoDao().getTopoSite(pSite);
+		List<Topo> vListTopo = new ArrayList<>();
+		
+		for (TopoSite pTopoSite : vListTopoSite) {
+			Topo vTopo = pTopoSite.getTopo();
+			vListTopo.add(vTopo);
+		}
+		
 		return vListTopo;
 	}
 	
 	@Override
-	public List<Site> getListSiteForTopo(Topo pTopo) {
-		List<Site> vListSite = getDaoFactory().getTopoDao().getListSiteForTopo(pTopo);
+	public List<Site> getListSiteForTopo(Topo pTopo) {		
+		List<TopoSite> vListTopoSite = getDaoFactory().getTopoDao().getTopoSite(pTopo);
+		List<Site> vListSite = new ArrayList<>();
+		
+		for (TopoSite pTopoSite : vListTopoSite) {
+			String nameSite = pTopoSite.getSite().getName();
+			Site vSite = getDaoFactory().getTopoDao().getSite(nameSite);
+			vListSite.add(vSite);
+		}
+		
 		return vListSite;
 	}
 	

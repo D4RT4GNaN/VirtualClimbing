@@ -9,19 +9,32 @@ public class Site {
     private String name;
     
     @NotNull
-    private String equipment;
+    private String location;
     
     @NotNull
-    private int numberRoute;
-    
-    @NotNull
-    private int maxHeight;
+    private String access;
     
     @NotNull
     private String rockType;
     
     @NotNull
-    private String location;
+    private String profil;
+    
+    @NotNull
+    private String anchorage;
+    
+    @NotNull
+    private int maxHeight;
+    
+    @NotNull
+    private int minAltitude;
+    
+    @NotNull
+    private String orientation;
+    
+    @NotNull 
+    private String note;    
+    
 
 
     // ==================== Constructors ====================
@@ -36,19 +49,28 @@ public class Site {
      * Constructor.
      *
      * @param pName -
-     * @param pEquipment -
-     * @param pNumberRoute -
-     * @param pMaxHeight -
-     * @param pRockType -
      * @param pLocation -
+     * @param pAccess -
+     * @param pRockType -
+     * @param pProfil -
+     * @param pAnchorage -
+     * @param pMaxHeight -
+     * @param pMinAltitude -
+     * @param pOrientation -
+     * @param pNote -
      */
-    public Site(String pName, String pEquipment, int pNumberRoute, int pMaxHeight, String pRockType, String pLocation) {
+    public Site(String pName, String pLocation, String pAccess, String pRockType, String pProfil, 
+    			String pAnchorage, int pMaxHeight, int pMinAltitude, String pOrientation, String pNote) {
         name = pName;
-        equipment = pEquipment;
-        numberRoute = pNumberRoute;
-        maxHeight = pMaxHeight;
+        location = pLocation;
+        access = pAccess;
         rockType = pRockType;
-        location = pLocation;    
+        profil = pProfil;
+        anchorage = pAnchorage;
+        maxHeight = pMaxHeight;
+        minAltitude = pMinAltitude;
+        orientation = pOrientation;
+        note = pNote;
     }
 
 
@@ -59,23 +81,17 @@ public class Site {
     public void setName(String pName) {
     	name = pName;
     }
-    public String getEquipment() {
-        return equipment;
+    public String getLocation() {
+        return location;
     }
-    public void setEquipment(String pEquipment) {
-    	equipment = pEquipment;
+    public void setLocation(String pLocation) {
+    	location = pLocation;
     }
-    public int getNumberRoute() {
-        return numberRoute;
+    public String getAccess() {
+    	return access;
     }
-    public void setNumberRoute(int pNumberRoute) {
-    	numberRoute = pNumberRoute;
-    }
-    public int getMaxHeight() {
-        return maxHeight;
-    }
-    public void setMaxHeight(int pMaxHeight) {
-    	maxHeight = pMaxHeight;
+    public void setAccess(String pAccess) {
+    	access = pAccess;
     }
     public String getRockType() {
         return rockType;
@@ -83,12 +99,43 @@ public class Site {
     public void setRockType(String pRockType) {
     	rockType = pRockType;
     }
-    public String getLocation() {
-        return location;
+    public String getProfil() {
+    	return profil;
     }
-    public void setLocation(String pLocation) {
-    	location = pLocation;
+    public void setProfil(String pProfil) {
+    	profil = pProfil;
     }
+    public String getAnchorage() {
+    	return anchorage;
+    }
+    public void setAnchorage(String pAnchorage) {
+    	anchorage = pAnchorage;
+    }
+    public int getMaxHeight() {
+        return maxHeight;
+    }
+    public void setMaxHeight(int pMaxHeight) {
+    	maxHeight = pMaxHeight;
+    }
+    public int getMinAltitude() {
+    	return minAltitude;
+    }
+    public void setMinAltitude(int pMinAltitude) {
+    	minAltitude = pMinAltitude;
+    }
+    public String getOrientation() {
+    	return orientation;
+    }
+    public void setOrientation(String pOrientation) {
+    	orientation = pOrientation;
+    }
+    public String getNote() {
+    	return note;
+    }
+    public void setNote(String pNote) {
+    	note = pNote;
+    }    
+    
 
 
     // ==================== Methods ====================

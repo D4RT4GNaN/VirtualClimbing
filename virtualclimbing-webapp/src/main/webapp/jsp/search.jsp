@@ -39,7 +39,10 @@
 													</p>
 												</div>
 												<div class="card-footer">
-													<s:a action="" class="btn btn-outline-secondary">Voir</s:a>
+													<s:a action="detail_topo" class="btn btn-outline-secondary">
+														<s:param name="topoName" value="name" />
+														Voir
+													</s:a>
 												</div>
 											</div>
 										</div>

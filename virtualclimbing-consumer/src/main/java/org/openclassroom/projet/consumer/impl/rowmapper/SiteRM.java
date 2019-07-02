@@ -4,8 +4,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.openclassroom.projet.model.bean.topo.Site;
-import org.openclassroom.projet.model.bean.topo.Topo;
-import org.openclassroom.projet.model.bean.user.User;
 import org.springframework.jdbc.core.RowMapper;
 
 public class SiteRM implements RowMapper<Site> {
@@ -15,11 +13,15 @@ public class SiteRM implements RowMapper<Site> {
 		Site vSite = new Site();
 		
 		vSite.setName(rs.getString("name"));
-		vSite.setEquipment(rs.getString("equipment"));
-		vSite.setNumberRoute(rs.getInt("number_route"));
-		vSite.setMaxHeight(rs.getInt("max_height"));
-		vSite.setRockType(rs.getString("rock_type"));
 		vSite.setLocation(rs.getString("location"));
+		vSite.setAccess(rs.getString("access"));
+		vSite.setRockType(rs.getString("rock_type"));
+		vSite.setProfil(rs.getString("profil"));
+		vSite.setAnchorage(rs.getString("anchorage"));
+		vSite.setMaxHeight(rs.getInt("max_height"));
+		vSite.setMinAltitude(rs.getInt("min_altitude"));
+		vSite.setOrientation(rs.getString("orientation"));
+		vSite.setNote(rs.getString("note"));
 		
 		return vSite;
 	}

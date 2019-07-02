@@ -10,6 +10,7 @@ import org.openclassroom.projet.consumer.impl.rowmapper.RouteRM;
 import org.openclassroom.projet.consumer.impl.rowmapper.SectorRM;
 import org.openclassroom.projet.consumer.impl.rowmapper.SiteRM;
 import org.openclassroom.projet.consumer.impl.rowmapper.TopoRM;
+import org.openclassroom.projet.consumer.impl.rowmapper.TopoSiteRM;
 import org.openclassroom.projet.model.bean.topo.Route;
 import org.openclassroom.projet.model.bean.topo.Sector;
 import org.openclassroom.projet.model.bean.topo.Site;
@@ -87,25 +88,25 @@ public class TopoDaoImpl extends AbstractDao implements TopoDao {
 	// ==============================================
 	
 	@Override
-	public List<Topo> getListTopoForSite(Site pSite) {
+	public List<TopoSite> getTopoSite(Site pSite) {
 		String vRequest = "SELECT * FROM topo_site WHERE name_site = ?";
-		RowMapper<Topo> vRowMapper = new TopoRM();
+		RowMapper<TopoSite> vRowMapper = new TopoSiteRM();
 		
 		JdbcTemplate vJdbcTemplate = new JdbcTemplate(getDataSource());
-		List<Topo> vListTopo = vJdbcTemplate.query(vRequest, vRowMapper, pSite.getName());
+		List<TopoSite> vListTopoSite = vJdbcTemplate.query(vRequest, vRowMapper, pSite.getName());
 		
-		return vListTopo;
+		return vListTopoSite;
 	}
 	
 	@Override
-	public List<Site> getListSiteForTopo(Topo pTopo) {
+	public List<TopoSite> getTopoSite(Topo pTopo) {
 		String vRequest = "SELECT * FROM topo_site WHERE name_topo = ?";
-		RowMapper<Site> vRowMapper = new SiteRM();
+		RowMapper<TopoSite> vRowMapper = new TopoSiteRM();
 		
 		JdbcTemplate vJdbcTemplate = new JdbcTemplate(getDataSource());
-		List<Site> vListSite = vJdbcTemplate.query(vRequest, vRowMapper, pTopo.getName());
+		List<TopoSite> vListTopoSite = vJdbcTemplate.query(vRequest, vRowMapper, pTopo.getName());
 		
-		return vListSite;
+		return vListTopoSite;
 	}
 	
 	@Override

@@ -6,10 +6,10 @@ public class TopoSite {
 	
 	// ==================== Attributes ====================
     @NotNull
-    private String nameTopo;
+    private Topo topo;
     
     @NotNull
-    private String nameSite;
+    private Site site;
 
 
 
@@ -24,27 +24,27 @@ public class TopoSite {
     /**
      * Constructor.
      *
-     * @param pNameTopo -
-     * @param pNameSite -
+     * @param pTopo -
+     * @param pSite -
      */
-    public TopoSite(String pNameTopo, String pNameSite) {
-        nameTopo = pNameTopo;
-        nameSite = pNameSite;
+    public TopoSite(Topo pTopo, Site pSite) {
+        topo = pTopo;
+        site = pSite;
     }
 
 
     // ==================== Getters/Setters ====================
-    public String getNameTopo() {
-        return nameTopo;
+    public Topo getTopo() {
+        return topo;
     }
-    public void setName(String pNameTopo) {
-    	nameTopo = pNameTopo;
+    public void setTopo(Topo pTopo) {
+    	topo = pTopo;
     }
-    public String getNameSite() {
-        return nameSite;
+    public Site getSite() {
+        return site;
     }
-    public void setNameSite(String pNameSite) {
-    	nameSite = pNameSite;
+    public void setSite(Site pSite) {
+    	site = pSite;
     }
     
 

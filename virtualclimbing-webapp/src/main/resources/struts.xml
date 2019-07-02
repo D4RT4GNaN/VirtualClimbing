@@ -21,5 +21,12 @@
 			<result>/jsp/search.jsp</result>
 		</action>
 		
+		<!-- Detail Action -->
+		<action name="detail_topo"
+				class="org.openclassroom.projet.webapp.action.OverviewAction"
+				method="doDetailTopo">
+			<result name="success">/jsp/detail/detail.jsp</result>		
+		</action>
+		
 	</package>
 </struts>
