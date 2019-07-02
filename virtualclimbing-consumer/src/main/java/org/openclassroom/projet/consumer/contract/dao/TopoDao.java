@@ -6,6 +6,7 @@ import org.openclassroom.projet.model.bean.topo.Route;
 import org.openclassroom.projet.model.bean.topo.Sector;
 import org.openclassroom.projet.model.bean.topo.Site;
 import org.openclassroom.projet.model.bean.topo.Topo;
+import org.openclassroom.projet.model.bean.topo.TopoSite;
 
 /**
  * DAO Interface of package
@@ -39,6 +40,31 @@ public interface TopoDao {
 	 * @param pTopo -
 	 */
 	void addTopo(Topo pTopo);
+	
+	
+	
+	// ==============================================
+	//                   Topo_Site
+	// ==============================================
+	
+	/**
+	 * Get a list of all {@link Topo} that contains the {@link Site}, in the database
+	 * @param pSite -
+	 */
+	List<Topo> getListTopoForSite(Site pSite);
+	
+	/**
+	 * Get a list of all {@link Site} in a {@link Topo}, in the database
+	 * @param pTopo -
+	 */
+	List<Site> getListSiteForTopo(Topo pTopo);
+	
+	/**
+	 * Add a new link between {@link Topo} and {@link Site} in database
+	 * @param pTopo -
+	 * @param pSite -
+	 */
+	void addTopoSite(TopoSite pTopoSite);
 	
 	
 	

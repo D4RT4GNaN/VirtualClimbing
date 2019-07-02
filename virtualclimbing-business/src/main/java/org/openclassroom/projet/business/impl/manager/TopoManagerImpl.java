@@ -9,6 +9,7 @@ import org.openclassroom.projet.model.bean.topo.Route;
 import org.openclassroom.projet.model.bean.topo.Sector;
 import org.openclassroom.projet.model.bean.topo.Site;
 import org.openclassroom.projet.model.bean.topo.Topo;
+import org.openclassroom.projet.model.bean.topo.TopoSite;
 
 @Named("topoManager")
 public class TopoManagerImpl extends AbstractManager implements TopoManager {
@@ -37,6 +38,29 @@ public class TopoManagerImpl extends AbstractManager implements TopoManager {
 	@Override
 	public void addTopo(Topo pTopo) {
 		getDaoFactory().getTopoDao().addTopo(pTopo);		
+	}
+	
+	
+	
+	// ==============================================
+	//                   Topo_Site
+	// ==============================================
+	
+	@Override
+	public List<Topo> getListTopoForSite(Site pSite) {
+		List<Topo> vListTopo = getDaoFactory().getTopoDao().getListTopoForSite(pSite);
+		return vListTopo;
+	}
+	
+	@Override
+	public List<Site> getListSiteForTopo(Topo pTopo) {
+		List<Site> vListSite = getDaoFactory().getTopoDao().getListSiteForTopo(pTopo);
+		return vListSite;
+	}
+	
+	@Override
+	public void addTopoSite(TopoSite pTopoSite) {
+		getDaoFactory().getTopoDao().addTopoSite(pTopoSite);
 	}
 	
 	

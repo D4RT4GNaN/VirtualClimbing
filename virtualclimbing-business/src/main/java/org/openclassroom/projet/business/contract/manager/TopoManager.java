@@ -6,6 +6,7 @@ import org.openclassroom.projet.model.bean.topo.Route;
 import org.openclassroom.projet.model.bean.topo.Sector;
 import org.openclassroom.projet.model.bean.topo.Site;
 import org.openclassroom.projet.model.bean.topo.Topo;
+import org.openclassroom.projet.model.bean.topo.TopoSite;
 
 public interface TopoManager {
 
@@ -31,6 +32,30 @@ public interface TopoManager {
 	 * @param pTopo -
 	 */
 	void addTopo(Topo pTopo);
+	
+	
+	
+	// ==============================================
+	//                    Topo_Site
+	// ==============================================
+	
+	/**
+	 * Return the list of {@link Topo} that contains the given {@link Site}
+	 * @param pSite -
+	 */
+	List<Topo> getListTopoForSite(Site pSite);
+	
+	/**
+	 * Return the list of {@link Site} in a {@link Topo}
+	 * @param pTopo -
+	 */
+	List<Site> getListSiteForTopo(Topo pTopo);
+	
+	/**
+	 * Add a new link between a {@link Topo} and a {@link Site}
+	 * @param pTopoSite -
+	 */
+	void addTopoSite(TopoSite pTopoSite);
 	
 	
 	

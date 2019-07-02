@@ -14,6 +14,7 @@ import org.openclassroom.projet.model.bean.topo.Route;
 import org.openclassroom.projet.model.bean.topo.Sector;
 import org.openclassroom.projet.model.bean.topo.Site;
 import org.openclassroom.projet.model.bean.topo.Topo;
+import org.openclassroom.projet.model.bean.topo.TopoSite;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
@@ -74,6 +75,47 @@ public class TopoDaoImpl extends AbstractDao implements TopoDao {
 		vParams.addValue("officialWebSite", pTopo.getOfficialWebSite(), Types.VARCHAR);
 		vParams.addValue("description", pTopo.getDescription(), Types.VARCHAR);
 		vParams.addValue("pseudo", pTopo.getUser().getPseudo(), Types.VARCHAR);
+		
+		NamedParameterJdbcTemplate vNamedParameterJdbcTemplate = new NamedParameterJdbcTemplate(getDataSource());
+		vNamedParameterJdbcTemplate.update(vRequest, vParams);
+	}
+	
+	
+	
+	// ==============================================
+	//                   Topo_Site
+	// ==============================================
+	
+	@Override
+	public List<Topo> getListTopoForSite(Site pSite) {
+		String vRequest = "SELECT * FROM topo_site WHERE name_site = ?";
+		RowMapper<Topo> vRowMapper = new TopoRM();
+		
+		JdbcTemplate vJdbcTemplate = new JdbcTemplate(getDataSource());
+		List<Topo> vListTopo = vJdbcTemplate.query(vRequest, vRowMapper, pSite.getName());
+		
+		return vListTopo;
+	}
+	
+	@Override
+	public List<Site> getListSiteForTopo(Topo pTopo) {
+		String vRequest = "SELECT * FROM topo_site WHERE name_topo = ?";
+		RowMapper<Site> vRowMapper = new SiteRM();
+		
+		JdbcTemplate vJdbcTemplate = new JdbcTemplate(getDataSource());
+		List<Site> vListSite = vJdbcTemplate.query(vRequest, vRowMapper, pTopo.getName());
+		
+		return vListSite;
+	}
+	
+	@Override
+	public void addTopoSite(TopoSite pTopoSite) {
+		String vRequest = "INSERT INTO site (nameTopo, nameSite) "
+				+ "VALUES (:nameTopo, :nameSite)";
+
+		BeanPropertySqlParameterSource vParams = new BeanPropertySqlParameterSource(pTopoSite);
+		vParams.registerSqlType("nameTopo", Types.VARCHAR);
+		vParams.registerSqlType("nameSite", Types.VARCHAR);
 		
 		NamedParameterJdbcTemplate vNamedParameterJdbcTemplate = new NamedParameterJdbcTemplate(getDataSource());
 		vNamedParameterJdbcTemplate.update(vRequest, vParams);
