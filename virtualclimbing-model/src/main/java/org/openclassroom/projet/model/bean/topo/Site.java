@@ -7,6 +7,13 @@ public class Site {
 	// ==================== Attributes ====================
     @NotNull
     private String name;
+    private String imageUrl;
+    
+    @NotNull
+    private float latitude;
+    
+    @NotNull
+    private float longitude;
     
     @NotNull
     private String location;
@@ -49,6 +56,9 @@ public class Site {
      * Constructor.
      *
      * @param pName -
+     * @param pImageUrl -
+     * @param pLatitude -
+     * @param pLongitude -
      * @param pLocation -
      * @param pAccess -
      * @param pRockType -
@@ -59,9 +69,12 @@ public class Site {
      * @param pOrientation -
      * @param pNote -
      */
-    public Site(String pName, String pLocation, String pAccess, String pRockType, String pProfil, 
-    			String pAnchorage, int pMaxHeight, int pMinAltitude, String pOrientation, String pNote) {
+    public Site(String pName, String pImageUrl, float pLatitude, float pLongitude, String pLocation, String pAccess, String pRockType, 
+    			String pProfil, String pAnchorage, int pMaxHeight, int pMinAltitude, String pOrientation, String pNote) {
         name = pName;
+        imageUrl = pImageUrl;
+        latitude = pLatitude;
+        longitude = pLongitude;
         location = pLocation;
         access = pAccess;
         rockType = pRockType;
@@ -80,6 +93,24 @@ public class Site {
     }
     public void setName(String pName) {
     	name = pName;
+    }
+    public String getImageUrl() {
+    	return imageUrl;
+    }
+    public void setImageUrl(String pImageUrl) {
+    	imageUrl = pImageUrl;
+    }
+    public float getLatitude() {
+    	return latitude;
+    }
+    public void setLatitude(float pLatitude) {
+    	latitude = pLatitude;
+    }
+    public float getLongitude() {
+    	return longitude;
+    }
+    public void setLongitude(float pLongitude) {
+    	longitude = pLongitude;
     }
     public String getLocation() {
         return location;

@@ -29,4 +29,52 @@
 		</action>
 		
 	</package>
+	
+	<package name="ajax" extends="default, json-default">
+
+        <global-results>
+            <result name="error" type="json">
+                <param name="statusCode">400</param>
+                <param name="includeProperties">actionErrors.*,fieldErrors.*</param>
+                <param name="ignoreHierarchy">false</param>
+            </result>
+        </global-results>
+
+        <!--  -->
+        <action name="ajax_getDetailSite"
+                class="org.openclassroom.projet.webapp.action.OverviewAction"
+                method="doAjaxOnSelectSite">
+            <result name="success" type="json">
+            	<param name="root">site</param>
+            </result>
+        </action>
+        
+        <!--  -->
+        <action name="ajax_getListSector"
+                class="org.openclassroom.projet.webapp.action.OverviewAction"
+                method="doAjaxOnSelectSite">
+            <result name="success" type="json">
+            	<param name="root">listSector</param>
+            </result>
+        </action>
+        
+        <!--  -->
+        <action name="ajax_getDetailSector"
+                class="org.openclassroom.projet.webapp.action.OverviewAction"
+                method="doAjaxOnSelectSector">
+            <result name="success" type="json">
+            	<param name="root">sector</param>
+            </result>
+        </action>
+        
+        <!--  -->
+        <action name="ajax_getListRoute"
+                class="org.openclassroom.projet.webapp.action.OverviewAction"
+                method="doAjaxOnSelectSector">
+            <result name="success" type="json">
+            	<param name="root">listRoute</param>
+            </result>
+        </action>
+
+    </package>
 </struts>

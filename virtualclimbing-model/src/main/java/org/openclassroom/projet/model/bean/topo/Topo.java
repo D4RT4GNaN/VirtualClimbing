@@ -16,6 +16,7 @@ public class Topo {
     
     @NotNull
     private User user;
+    private String imageUrl;
 
 
     // ==================== Constructors ====================
@@ -33,12 +34,14 @@ public class Topo {
      * @param pOfficialWebSite -
      * @param pDescrition -
      * @param pUser -
+     * @param pImageUrl -
      */
-    public Topo(String pName, String pOfficialWebSite, String pDescription, User pUser) {
+    public Topo(String pName, String pOfficialWebSite, String pDescription, User pUser, String pImageUrl) {
         name = pName;
         officialWebSite = pOfficialWebSite;
         description = pDescription;
         user = pUser;
+        imageUrl = pImageUrl;
     }
 
 
@@ -67,8 +70,15 @@ public class Topo {
     public void setUser(User pUser) {
         user = pUser;
     }
+    public String getImageUrl() {
+    	return imageUrl;
+    }
+    public void setImageUrl(String pImageUrl) {
+    	imageUrl = pImageUrl;
+    }
 
 
+    
     // ==================== Methods ====================
     @Override
     public String toString() {

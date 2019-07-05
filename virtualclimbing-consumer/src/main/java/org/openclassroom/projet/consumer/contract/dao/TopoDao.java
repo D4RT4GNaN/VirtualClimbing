@@ -105,7 +105,7 @@ public interface TopoDao {
 	 * Get {@link Sector} in database by giving it its name
 	 * @param pNameSector -
 	 */
-	Sector getSector(Sector pNameSector);
+	Sector getSector(String pNameSector);
 	
 	/**
 	 * Get the list of all {@link Sector} in database

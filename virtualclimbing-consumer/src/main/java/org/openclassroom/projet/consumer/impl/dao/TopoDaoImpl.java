@@ -186,7 +186,7 @@ public class TopoDaoImpl extends AbstractDao implements TopoDao {
 	// ==============================================
 
 	@Override
-	public Sector getSector(Sector pNameSector) {
+	public Sector getSector(String pNameSector) {
 		String vRequest = "SELECT * FROM sector"
 				+ " WHERE name=?";
 		RowMapper<Sector> vRowMapper = new SectorRM();

@@ -7,6 +7,7 @@ import org.openclassroom.projet.model.bean.topo.Sector;
 import org.openclassroom.projet.model.bean.topo.Site;
 import org.openclassroom.projet.model.bean.topo.Topo;
 import org.openclassroom.projet.model.bean.topo.TopoSite;
+import org.openclassroom.projet.model.exception.NotFoundException;
 
 public interface TopoManager {
 
@@ -64,6 +65,13 @@ public interface TopoManager {
 	// ==============================================
 	
 	/**
+	 * 
+	 * @param pNameSite -
+	 * @throws NotFoundException 
+	 */
+	Site getSite(String pNameSite) throws NotFoundException;
+	
+	/**
 	 * Search and return the list of {@link Site} containing the keyword, if its not empty.
 	 * Otherwise, this return the complete list of {@link Site}
 	 * @param pKeyword -
@@ -81,6 +89,13 @@ public interface TopoManager {
 	// ==============================================
 	//                     Sector
 	// ==============================================
+	
+	/**
+	 * 
+	 * @param pNameSector -
+	 * @throws NotFoundException
+	 */
+	Sector getSector(String pNameSector) throws NotFoundException;
 	
 	/**
 	 * Search and return the list of {@link Sector} containing the keyword, if its not empty.

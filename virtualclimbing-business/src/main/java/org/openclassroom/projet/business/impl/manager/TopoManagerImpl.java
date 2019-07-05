@@ -11,6 +11,7 @@ import org.openclassroom.projet.model.bean.topo.Sector;
 import org.openclassroom.projet.model.bean.topo.Site;
 import org.openclassroom.projet.model.bean.topo.Topo;
 import org.openclassroom.projet.model.bean.topo.TopoSite;
+import org.openclassroom.projet.model.exception.NotFoundException;
 
 @Named("topoManager")
 public class TopoManagerImpl extends AbstractManager implements TopoManager {
@@ -86,6 +87,12 @@ public class TopoManagerImpl extends AbstractManager implements TopoManager {
 	// ==============================================
 	
 	@Override
+	public Site getSite(String pNameSite) throws NotFoundException {
+		Site vSite = getDaoFactory().getTopoDao().getSite(pNameSite);
+		return vSite;
+	}
+	
+	@Override
 	public List<Site> searchSite(String pKeyword) {
 		List<Site> vListSite = null;
 		if (pKeyword.isEmpty())
@@ -105,6 +112,12 @@ public class TopoManagerImpl extends AbstractManager implements TopoManager {
 	// ==============================================
 	//                     Sector
 	// ==============================================
+	
+	@Override
+	public Sector getSector(String pNameSector) throws NotFoundException {
+		Sector vSector = getDaoFactory().getTopoDao().getSector(pNameSector);
+		return vSector;
+	}
 	
 	@Override
 	public List<Sector> searchSector(String pKeyword) {

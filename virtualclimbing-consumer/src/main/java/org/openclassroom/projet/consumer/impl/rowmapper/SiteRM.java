@@ -13,6 +13,9 @@ public class SiteRM implements RowMapper<Site> {
 		Site vSite = new Site();
 		
 		vSite.setName(rs.getString("name"));
+		vSite.setImageUrl(rs.getString("image_url"));
+		vSite.setLatitude(rs.getFloat("latitude"));
+		vSite.setLongitude(rs.getFloat("longitude"));
 		vSite.setLocation(rs.getString("location"));
 		vSite.setAccess(rs.getString("access"));
 		vSite.setRockType(rs.getString("rock_type"));
