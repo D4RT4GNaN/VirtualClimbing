@@ -93,6 +93,13 @@ public class TopoManagerImpl extends AbstractManager implements TopoManager {
 	}
 	
 	@Override
+	public Site getSiteForSector(Sector pSector) throws NotFoundException {
+		String vNameSite = pSector.getSite().getName();
+		Site vSite = getDaoFactory().getTopoDao().getSite(vNameSite);
+		return vSite;
+	}
+	
+	@Override
 	public List<Site> searchSite(String pKeyword) {
 		List<Site> vListSite = null;
 		if (pKeyword.isEmpty())
@@ -116,6 +123,13 @@ public class TopoManagerImpl extends AbstractManager implements TopoManager {
 	@Override
 	public Sector getSector(String pNameSector) throws NotFoundException {
 		Sector vSector = getDaoFactory().getTopoDao().getSector(pNameSector);
+		return vSector;
+	}
+	
+	@Override
+	public Sector getSectorForRoute(Route pRoute) {
+		String vNameSector = pRoute.getSector().getName();
+		Sector vSector = getDaoFactory().getTopoDao().getSector(vNameSector);
 		return vSector;
 	}
 	
@@ -146,6 +160,12 @@ public class TopoManagerImpl extends AbstractManager implements TopoManager {
 	//                      Route
 	// ============================================== 
 
+	@Override
+	public Route getRoute(String pNameRoute) throws NotFoundException {
+		Route vRoute = getDaoFactory().getTopoDao().getRoute(pNameRoute);
+		return vRoute;
+	}
+	
 	@Override
 	public List<Route> searchRoute(String pKeyword) {
 		List<Route> vListRoute = null;

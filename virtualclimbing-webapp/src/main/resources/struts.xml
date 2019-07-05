@@ -21,11 +21,29 @@
 			<result>/jsp/search.jsp</result>
 		</action>
 		
-		<!-- Detail Action -->
+		<!-- Detail Actions -->
 		<action name="detail_topo"
 				class="org.openclassroom.projet.webapp.action.OverviewAction"
 				method="doDetailTopo">
-			<result name="success">/jsp/detail/detail.jsp</result>		
+			<result name="success">/jsp/detail/detail_topo.jsp</result>		
+		</action>
+		
+		<action name="detail_site"
+				class="org.openclassroom.projet.webapp.action.OverviewAction"
+				method="doDetailSite">
+			<result name="success">/jsp/detail/detail_site.jsp</result>
+		</action>
+		
+		<action name="detail_sector"
+				class="org.openclassroom.projet.webapp.action.OverviewAction"
+				method="doDetailSector">
+			<result name="success">/jsp/detail/detail_site.jsp</result>
+		</action>
+		
+		<action name="detail_route"
+				class="org.openclassroom.projet.webapp.action.OverviewAction"
+				method="doDetailRoute">
+			<result name="success">/jsp/detail/detail_site.jsp</result>
 		</action>
 		
 	</package>

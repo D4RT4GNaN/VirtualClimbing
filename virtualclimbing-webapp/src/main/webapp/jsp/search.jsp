@@ -40,7 +40,7 @@
 												</div>
 												<div class="card-footer">
 													<s:a action="detail_topo" class="btn btn-outline-secondary">
-														<s:param name="topoName" value="name" />
+														<s:param name="name" value="name" />
 														Voir
 													</s:a>
 												</div>
@@ -70,7 +70,10 @@
 													</p>
 												</div>
 												<div class="card-footer">
-													<s:a action="" class="btn btn-outline-secondary">Voir</s:a>
+													<s:a action="detail_site" class="btn btn-outline-secondary">
+														<s:param name="name" value="name" />
+														Voir
+													</s:a>
 												</div>
 											</div>
 										</div>
@@ -95,7 +98,10 @@
 													</h2>
 												</div>
 												<div class="card-footer">
-													<s:a action="" class="btn btn-outline-secondary">Voir</s:a>
+													<s:a action="detail_sector" class="btn btn-outline-secondary" anchor="sector">
+														<s:param name="name" value="name" />
+														Voir
+													</s:a>
 												</div>
 											</div>
 										</div>
@@ -123,7 +129,10 @@
 													</p>
 												</div>
 												<div class="card-footer">
-													<s:a action="" class="btn btn-outline-secondary">Voir</s:a>
+													<s:a action="detail_route" class="btn btn-outline-secondary" anchor="route">
+														<s:param name="name" value="name" />
+														Voir
+													</s:a>
 												</div>
 											</div>
 										</div>

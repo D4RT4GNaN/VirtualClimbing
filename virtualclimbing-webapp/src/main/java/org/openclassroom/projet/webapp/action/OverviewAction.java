@@ -6,6 +6,7 @@ import org.openclassroom.projet.model.bean.topo.Route;
 import org.openclassroom.projet.model.bean.topo.Sector;
 import org.openclassroom.projet.model.bean.topo.Site;
 import org.openclassroom.projet.model.bean.topo.Topo;
+import org.openclassroom.projet.model.exception.NotFoundException;
 
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -16,9 +17,10 @@ public class OverviewAction extends AbstractAction {
 
 	// ==================== Attributes ====================
 		// ----- Input parameter
-		private String topoName;
+		private String name;
 		private Site site;
 		private Sector sector;
+		private Route route;
 		
 		// ----- Output elements
 		Topo topo;
@@ -32,11 +34,11 @@ public class OverviewAction extends AbstractAction {
 		
 		
 		// ==================== Getters/Setters ====================
-		public String getTopoName() {
-			return topoName;
+		public String getName() {
+			return name;
 		}
-		public void setTopoName(String topoName) {
-			this.topoName = topoName;
+		public void setName(String name) {
+			this.name = name;
 		}
 		public Site getSite() {
 			return site;
@@ -49,6 +51,12 @@ public class OverviewAction extends AbstractAction {
 		}
 		public void setSector(Sector pSector) {
 			sector = pSector;
+		}
+		public Route getRoute() {
+			return route;
+		}
+		public void setRoute(Route pRoute) {
+			route = pRoute;
 		}
 		public Topo getTopo() {
 			return topo;
@@ -71,11 +79,54 @@ public class OverviewAction extends AbstractAction {
 		 * @return success
 		 */
 		public String doDetailTopo() {
-			topo = getManagerFactory().getTopoManager().getTopo(topoName);
+			topo = getManagerFactory().getTopoManager().getTopo(name);
 			listSite = getManagerFactory().getTopoManager().getListSiteForTopo(topo);
 			listSector = getManagerFactory().getTopoManager().getListSectorForSite(listSite.get(0));
 			listRoute = getManagerFactory().getTopoManager().getListRouteForSector(listSector.get(0));
 			return ActionSupport.SUCCESS;
+		}
+		
+		/***/
+		public String doDetailSite() {
+			try {
+				site = getManagerFactory().getTopoManager().getSite(name);
+				listSector = getManagerFactory().getTopoManager().getListSectorForSite(site);
+				sector = listSector.get(0);
+				listRoute = getManagerFactory().getTopoManager().getListRouteForSector(listSector.get(0));
+			} catch (NotFoundException e) {
+				e.printStackTrace();
+			}
+			
+			return hasErrors() ? ActionSupport.ERROR : ActionSupport.SUCCESS;
+		}
+		
+		/***/
+		public String doDetailSector() {
+			try {
+				sector = getManagerFactory().getTopoManager().getSector(name);
+				site = getManagerFactory().getTopoManager().getSiteForSector(sector);
+				listSector = getManagerFactory().getTopoManager().getListSectorForSite(site);
+				listRoute = getManagerFactory().getTopoManager().getListRouteForSector(sector);
+			} catch (NotFoundException e) {
+				e.printStackTrace();
+			}
+			
+			return hasErrors() ? ActionSupport.ERROR : ActionSupport.SUCCESS;
+		}
+		
+		/***/
+		public String doDetailRoute() {
+			try {
+				route = getManagerFactory().getTopoManager().getRoute(name);
+				sector = getManagerFactory().getTopoManager().getSectorForRoute(route);
+				site = getManagerFactory().getTopoManager().getSiteForSector(sector);
+				listSector = getManagerFactory().getTopoManager().getListSectorForSite(site);
+				listRoute = getManagerFactory().getTopoManager().getListRouteForSector(sector);
+			} catch (NotFoundException e) {
+				e.printStackTrace();
+			}
+			
+			return hasErrors() ? ActionSupport.ERROR : ActionSupport.SUCCESS;
 		}
 		
 		/***/

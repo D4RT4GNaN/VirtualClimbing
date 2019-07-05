@@ -11,23 +11,36 @@
 		
 		<div id="main_wrapper" class="container-fluid">
             
-            <section id="banner_topo" style="background-image: url(<s:property value="topo.imageUrl" />);">
-                <div id="banner_title">
-                    <h1><s:property value="topo.name" /></h1>
-                </div>
-            </section>
+            <s:if test="topo.name != null">
+	            <section id="main_banner" style="background-image: url(<s:property value="topo.imageUrl" />);">
+	                <div id="banner_title">
+	                    <h1><s:property value="topo.name" /></h1>
+	                </div>
+	            </section>
+            </s:if>
             <section id="site" class="container mt-3">
-                <header class="border-bottom row">
-	                <s:form class="col-sm-6">
-					    <s:select class="form-control" id="selectSite" name="site" list="listSite" 
-					    		  listKey="name" listValue="name" onchange="onSelectSiteChange()" />
-					</s:form>
-                	<h2 class="d-flex justify-content-end col-sm-6">Site</h2>
-                </header>
+               	<s:if test="topo.name != null">
+	               	<header class="border-bottom row">
+		                <s:form class="col-sm-6">
+						    <s:select class="form-control" id="selectSite" name="site" list="listSite" 
+						    		  listKey="name" listValue="name" onchange="onSelectSiteChange()" />
+						</s:form>
+	                	<h2 class="d-flex justify-content-end col-sm-6">Site</h2>
+	                </header>
+               	</s:if>
+               	<s:else>
+               		<header id="banner_topo" style="background-image: url(<s:property value="site.imageUrl" />);">
+		                <div id="banner_title">
+		                    <h1><s:property value="site.name" /></h1>
+		                </div>
+		            </header>
+               	</s:else>
                 <article class="row">
-                    <div id="banner_site" class="col-md-12">
-                        <img class="img-thumbnail" src="<s:property value="listSite.get(0).getImageUrl()" />" alt="Bannière du site colima'100" />
-                    </div>
+                	<s:if test="topo.name == null">
+	                    <div id="banner_site" class="col-md-12">
+	                        <img class="img-thumbnail" src="<s:property value="listSite.get(0).getImageUrl()" />" alt="Bannière du site colima'100" />
+	                    </div>
+                    </s:if>
                     <div id="leafmapid" class="col-md-6 rounded"></div>
                     <div id="information" class="col-md-6 align-self-center">
                         <table class="table table-stripped table-sm">
@@ -127,7 +140,7 @@
 			var urlListRoute = "<s:url action="ajax_getListRoute"/>";
 		
 		</script>
-		<script type="text/javascript" src="javascript/ajaxOverview.js"></script>
+		<script type="text/javascript" src="javascript/ajax_overview.js"></script>
 		<script type="text/javascript" src="javascript/map.js"></script>
 	</body>
 </html>

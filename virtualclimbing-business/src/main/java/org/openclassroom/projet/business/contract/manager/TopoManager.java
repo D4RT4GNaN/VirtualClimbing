@@ -72,6 +72,13 @@ public interface TopoManager {
 	Site getSite(String pNameSite) throws NotFoundException;
 	
 	/**
+	 * 
+	 * @param pSector -
+	 * @throws NotFoundException
+	 */
+	Site getSiteForSector(Sector pSector) throws NotFoundException;
+	
+	/**
 	 * Search and return the list of {@link Site} containing the keyword, if its not empty.
 	 * Otherwise, this return the complete list of {@link Site}
 	 * @param pKeyword -
@@ -98,6 +105,13 @@ public interface TopoManager {
 	Sector getSector(String pNameSector) throws NotFoundException;
 	
 	/**
+	 * 
+	 * @param pRoute -
+	 * @throws NotFoundException
+	 */
+	Sector getSectorForRoute(Route pRoute) throws NotFoundException;
+	
+	/**
 	 * Search and return the list of {@link Sector} containing the keyword, if its not empty.
 	 * Otherwise, this return the list of all {@link Sector}
 	 * @param pKeyword -
@@ -121,6 +135,13 @@ public interface TopoManager {
 	// ==============================================
 	//                     Route
 	// ==============================================
+	
+	/**
+	 * 
+	 * @param pNameRoute -
+	 * @throws NotFoundException
+	 */
+	Route getRoute(String pNameRoute) throws NotFoundException;
 	
 	/**
 	 * Return the list of {@link Route} containing the keyword if its not empty.
