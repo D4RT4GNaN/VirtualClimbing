@@ -1,11 +1,13 @@
 package org.openclassroom.projet.model.bean.topo;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 public class Sector {
 
 	// ==================== Attributes ====================
     @NotNull
+    @Size(min=1, max=100)
     private String name;
     
     @NotNull

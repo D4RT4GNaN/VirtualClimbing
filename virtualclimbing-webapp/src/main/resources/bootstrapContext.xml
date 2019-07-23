@@ -13,4 +13,5 @@
 
     <!-- Inclusion d'autres fichiers de contexte Spring -->
     <import resource="classpath:/org/openclassroom/projet/webapp/webappContext.xml" />
+    <import resource="classpath:/org/openclassroom/projet/business/businessContext.xml" />
 </beans>

@@ -46,7 +46,7 @@ public class TopoDaoImpl extends AbstractDao implements TopoDao {
 
 	@Override
 	public List<Topo> getListTopo() {
-		String vRequest = "SELECT * FROM topo";
+		String vRequest = "SELECT * FROM topo WHERE private=false";
 		RowMapper<Topo> vRowMapper = new TopoRM();
 		
 		JdbcTemplate vJdbcTemplate = new JdbcTemplate(getDataSource());
@@ -57,7 +57,7 @@ public class TopoDaoImpl extends AbstractDao implements TopoDao {
 
 	@Override
 	public List<Topo> searchTopo(String pKeyword) {
-		String vRequest = "SELECT * FROM topo WHERE lower(name) LIKE ?";
+		String vRequest = "SELECT * FROM topo WHERE lower(name) LIKE ? AND private=false";
 		RowMapper<Topo> vRowMapper = new TopoRM();
 		
 		JdbcTemplate vJdbcTemplate = new JdbcTemplate(getDataSource());
@@ -67,15 +67,29 @@ public class TopoDaoImpl extends AbstractDao implements TopoDao {
 	}
 	
 	@Override
+	public List<Topo> searchPrivateTopo() {
+		String vRequest = "SELECT * FROM topo WHERE private=true";
+		RowMapper<Topo> vRowMapper = new TopoRM();
+		
+		JdbcTemplate vJdbcTemplate = new JdbcTemplate(getDataSource());
+		List<Topo> vListTopo = vJdbcTemplate.query(vRequest, vRowMapper);
+		
+		return vListTopo;
+	}
+	
+	@Override
 	public void addTopo(Topo pTopo) {
-		String vRequest = "INSERT INTO topo (name, official_web_site, description, pseudo) "
-						+ "VALUES (:name, :officialWebSite, :description, :pseudo)";
+		System.out.println("test");
+		String vRequest = "INSERT INTO topo (name, official_web_site, description, pseudo, image_url, private) "
+						+ "VALUES (:name, :officialWebSite, :description, :pseudo, :imageUrl, :private)";
 		
 		MapSqlParameterSource vParams = new MapSqlParameterSource();
 		vParams.addValue("name", pTopo.getName(), Types.VARCHAR);
 		vParams.addValue("officialWebSite", pTopo.getOfficialWebSite(), Types.VARCHAR);
 		vParams.addValue("description", pTopo.getDescription(), Types.VARCHAR);
 		vParams.addValue("pseudo", pTopo.getUser().getPseudo(), Types.VARCHAR);
+		vParams.addValue("imageUrl", pTopo.getImageUrl(), Types.VARCHAR);
+		vParams.addValue("private", pTopo.getPrivateTopo(), Types.BOOLEAN);
 		
 		NamedParameterJdbcTemplate vNamedParameterJdbcTemplate = new NamedParameterJdbcTemplate(getDataSource());
 		vNamedParameterJdbcTemplate.update(vRequest, vParams);
@@ -111,12 +125,12 @@ public class TopoDaoImpl extends AbstractDao implements TopoDao {
 	
 	@Override
 	public void addTopoSite(TopoSite pTopoSite) {
-		String vRequest = "INSERT INTO site (nameTopo, nameSite) "
+		String vRequest = "INSERT INTO topo_site (name_topo, name_site) "
 				+ "VALUES (:nameTopo, :nameSite)";
 
-		BeanPropertySqlParameterSource vParams = new BeanPropertySqlParameterSource(pTopoSite);
-		vParams.registerSqlType("nameTopo", Types.VARCHAR);
-		vParams.registerSqlType("nameSite", Types.VARCHAR);
+		MapSqlParameterSource vParams = new MapSqlParameterSource();
+		vParams.addValue("nameTopo", pTopoSite.getTopo().getName(), Types.VARCHAR);
+		vParams.addValue("nameSite", pTopoSite.getSite().getName(), Types.VARCHAR);
 		
 		NamedParameterJdbcTemplate vNamedParameterJdbcTemplate = new NamedParameterJdbcTemplate(getDataSource());
 		vNamedParameterJdbcTemplate.update(vRequest, vParams);
@@ -164,16 +178,23 @@ public class TopoDaoImpl extends AbstractDao implements TopoDao {
 	
 	@Override
 	public void addSite(Site pSite) {
-		String vRequest = "INSERT INTO site (name, equipment, number_route, max_height, rock_type, location) "
-						+ "VALUES (:name, :equipment, :numberRoute, :maxHeight, :rockType, :location)";
+		String vRequest = "INSERT INTO public.site (name, image_url, latitude, longitude, location, access, rock_type, profil, anchorage, max_height, min_altitude, orientation, note) "
+		 			+ "VALUES (:name, :imageUrl, :latitude, :longitude, :location, :access, :rockType, :profil, :anchorage, :maxHeight, :minAltitude, :orientation, :note)";
 		
 		BeanPropertySqlParameterSource vParams = new BeanPropertySqlParameterSource(pSite);
 		vParams.registerSqlType("name", Types.VARCHAR);
-		vParams.registerSqlType("equipment", Types.VARCHAR);
-		vParams.registerSqlType("numberRoute", Types.INTEGER);
-		vParams.registerSqlType("maxHeight", Types.INTEGER);
-		vParams.registerSqlType("rockType", Types.VARCHAR);
+		vParams.registerSqlType("imageUrl", Types.VARCHAR);
+		vParams.registerSqlType("latitude", Types.DECIMAL);
+		vParams.registerSqlType("longitude", Types.DECIMAL);
 		vParams.registerSqlType("location", Types.VARCHAR);
+		vParams.registerSqlType("access", Types.VARCHAR);
+		vParams.registerSqlType("rockType", Types.VARCHAR);
+		vParams.registerSqlType("profil", Types.VARCHAR);
+		vParams.registerSqlType("anchorage", Types.VARCHAR);
+		vParams.registerSqlType("maxHeight", Types.INTEGER);
+		vParams.registerSqlType("minAltitude", Types.INTEGER);
+		vParams.registerSqlType("orientation", Types.VARCHAR);
+		vParams.registerSqlType("note", Types.VARCHAR);
 		
 		NamedParameterJdbcTemplate vNamedParameterJdbcTemplate = new NamedParameterJdbcTemplate(getDataSource());
 		vNamedParameterJdbcTemplate.update(vRequest, vParams);

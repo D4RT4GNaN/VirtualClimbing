@@ -30,10 +30,15 @@ public interface TopoDao {
 	List<Topo> getListTopo();
 	
 	/**
-	 * Search and return all {@link Topo} containing the keyword in the database
+	 * Search and return all public {@link Topo} containing the keyword in the database
 	 * @param pKeyword -
 	 */
 	List<Topo> searchTopo(String pKeyword);
+	
+	/**
+	 * Search and return all private {@link Topo} in the database
+	 */
+	List<Topo> searchPrivateTopo();
 	
 	/**
 	 * Add {@link Topo} in database

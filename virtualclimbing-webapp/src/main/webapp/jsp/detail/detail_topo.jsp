@@ -19,22 +19,13 @@
 	            </section>
             </s:if>
             <section id="site" class="container mt-3">
-               	<s:if test="topo.name != null">
-	               	<header class="border-bottom row">
-		                <s:form class="col-sm-6">
-						    <s:select class="form-control" id="selectSite" name="site" list="listSite" 
-						    		  listKey="name" listValue="name" onchange="onSelectSiteChange()" />
-						</s:form>
-	                	<h2 class="d-flex justify-content-end col-sm-6">Site</h2>
-	                </header>
-               	</s:if>
-               	<s:else>
-               		<header id="banner_topo" style="background-image: url(<s:property value="site.imageUrl" />);">
-		                <div id="banner_title">
-		                    <h1><s:property value="site.name" /></h1>
-		                </div>
-		            </header>
-               	</s:else>
+               	<header class="border-bottom row">
+	                <s:form class="col-sm-6">
+					    <s:select class="form-control" id="selectSite" name="site" list="listSite" 
+					    		  listKey="name" listValue="name" onchange="onSelectSiteChange()" />
+					</s:form>
+                	<h2 class="d-flex justify-content-end col-sm-6">Site</h2>
+                </header>
                 <article class="row">
                 	<s:if test="topo.name == null">
 	                    <div id="banner_site" class="col-md-12">

@@ -2,8 +2,12 @@ package org.openclassroom.projet.business.impl.manager;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
+import javax.inject.Inject;
 import javax.inject.Named;
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
 
 import org.openclassroom.projet.business.contract.manager.TopoManager;
 import org.openclassroom.projet.model.bean.topo.Route;
@@ -11,11 +15,19 @@ import org.openclassroom.projet.model.bean.topo.Sector;
 import org.openclassroom.projet.model.bean.topo.Site;
 import org.openclassroom.projet.model.bean.topo.Topo;
 import org.openclassroom.projet.model.bean.topo.TopoSite;
+import org.openclassroom.projet.model.exception.FunctionalException;
 import org.openclassroom.projet.model.exception.NotFoundException;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 @Named("topoManager")
 public class TopoManagerImpl extends AbstractManager implements TopoManager {
 
+	@Inject
+	@Named("txManagerProjet")
+	private PlatformTransactionManager platformTransactionManager;
+	
 	// ==============================================
 	//                      Topo
 	// ==============================================
@@ -29,17 +41,45 @@ public class TopoManagerImpl extends AbstractManager implements TopoManager {
 	@Override
 	public List<Topo> searchTopo(String pKeyword) {
 		List<Topo> vListTopo = null;
-		if (pKeyword != null && pKeyword != "") {
+		if (pKeyword != null && !pKeyword.isEmpty()) {
 			vListTopo = getDaoFactory().getTopoDao().searchTopo(pKeyword);
 		} else {
 			vListTopo = getDaoFactory().getTopoDao().getListTopo();
 		}
 		return vListTopo;
 	}
+	
+	@Override
+	public List<Topo> searchPrivateTopo() {
+		List<Topo> vListTopo = getDaoFactory().getTopoDao().searchPrivateTopo();
+		return vListTopo;
+	}
 
 	@Override
-	public void addTopo(Topo pTopo) {
-		getDaoFactory().getTopoDao().addTopo(pTopo);		
+	public void addTopo(Topo pTopo) throws FunctionalException {
+		if (pTopo == null) {
+            throw new FunctionalException("Un topo ne peut pas être null !");
+        }
+
+        Set<ConstraintViolation<Topo>> vViolations = getConstraintValidator().validate(pTopo);
+        if (!vViolations.isEmpty()) {
+            throw new FunctionalException("L'objet Topo est invalide",
+                                          new ConstraintViolationException(vViolations));
+        } 
+		
+        TransactionStatus vTransactionStatus
+        = platformTransactionManager.getTransaction(new DefaultTransactionDefinition());
+	    try {
+	    	getDaoFactory().getTopoDao().addTopo(pTopo);
+	
+	        TransactionStatus vTScommit = vTransactionStatus;
+	        vTransactionStatus = null;
+	        platformTransactionManager.commit(vTScommit);
+	    } finally {
+	        if (vTransactionStatus != null) {
+	            platformTransactionManager.rollback(vTransactionStatus);
+	        }
+	    }
 	}
 	
 	
@@ -76,8 +116,30 @@ public class TopoManagerImpl extends AbstractManager implements TopoManager {
 	}
 	
 	@Override
-	public void addTopoSite(TopoSite pTopoSite) {
-		getDaoFactory().getTopoDao().addTopoSite(pTopoSite);
+	public void addTopoSite(TopoSite pTopoSite) throws FunctionalException {
+		if (pTopoSite == null) {
+            throw new FunctionalException("Le lien entre un topo et un site ne peut pas être null !");
+        }
+
+        Set<ConstraintViolation<TopoSite>> vViolations = getConstraintValidator().validate(pTopoSite);
+        if (!vViolations.isEmpty()) {
+            throw new FunctionalException("L'objet TopoSite est invalide",
+                                          new ConstraintViolationException(vViolations));
+        } 
+		
+        TransactionStatus vTransactionStatus
+        = platformTransactionManager.getTransaction(new DefaultTransactionDefinition());
+	    try {
+	    	getDaoFactory().getTopoDao().addTopoSite(pTopoSite);
+	
+	        TransactionStatus vTScommit = vTransactionStatus;
+	        vTransactionStatus = null;
+	        platformTransactionManager.commit(vTScommit);
+	    } finally {
+	        if (vTransactionStatus != null) {
+	            platformTransactionManager.rollback(vTransactionStatus);
+	        }
+	    }
 	}
 	
 	
@@ -100,9 +162,15 @@ public class TopoManagerImpl extends AbstractManager implements TopoManager {
 	}
 	
 	@Override
+	public List<Site> getAllSite() {
+		List<Site> vListSite = getDaoFactory().getTopoDao().getListSite();
+		return vListSite;
+	}
+	
+	@Override
 	public List<Site> searchSite(String pKeyword) {
 		List<Site> vListSite = null;
-		if (pKeyword.isEmpty())
+		if (pKeyword != null && !pKeyword.isEmpty())
 			vListSite = getDaoFactory().getTopoDao().getListSite();
 		else 
 			vListSite = getDaoFactory().getTopoDao().searchSite(pKeyword);
@@ -110,8 +178,30 @@ public class TopoManagerImpl extends AbstractManager implements TopoManager {
 	}
 	
 	@Override
-	public void addSite(Site pSite) {
-		getDaoFactory().getTopoDao().addSite(pSite);
+	public void addSite(Site pSite) throws FunctionalException {
+		if (pSite == null) {
+            throw new FunctionalException("Un site ne peut pas être null !");
+        }
+
+        Set<ConstraintViolation<Site>> vViolations = getConstraintValidator().validate(pSite);
+        if (!vViolations.isEmpty()) {
+            throw new FunctionalException("L'objet Site est invalide",
+                                          new ConstraintViolationException(vViolations));
+        } 
+		
+        TransactionStatus vTransactionStatus
+        = platformTransactionManager.getTransaction(new DefaultTransactionDefinition());
+	    try {
+	    	getDaoFactory().getTopoDao().addSite(pSite);
+	
+	        TransactionStatus vTScommit = vTransactionStatus;
+	        vTransactionStatus = null;
+	        platformTransactionManager.commit(vTScommit);
+	    } finally {
+	        if (vTransactionStatus != null) {
+	            platformTransactionManager.rollback(vTransactionStatus);
+	        }
+	    }
 	}
 	
 	
@@ -134,9 +224,15 @@ public class TopoManagerImpl extends AbstractManager implements TopoManager {
 	}
 	
 	@Override
+	public List<Sector> getAllSector() {
+		List<Sector> vListSector = getDaoFactory().getTopoDao().getListSector();
+		return vListSector;
+	}
+	
+	@Override
 	public List<Sector> searchSector(String pKeyword) {
 		List<Sector> vListSector = null;
-		if (pKeyword.isEmpty())
+		if (pKeyword != null && !pKeyword.isEmpty())
 			vListSector = getDaoFactory().getTopoDao().getListSector();
 		else
 			vListSector = getDaoFactory().getTopoDao().searchSector(pKeyword);
@@ -150,8 +246,30 @@ public class TopoManagerImpl extends AbstractManager implements TopoManager {
 	}
 
 	@Override
-	public void addSector(Sector pSector) {
-		getDaoFactory().getTopoDao().addSector(pSector);
+	public void addSector(Sector pSector) throws FunctionalException {
+		if (pSector == null) {
+            throw new FunctionalException("Un secteur ne peut pas être null !");
+        }
+
+        Set<ConstraintViolation<Sector>> vViolations = getConstraintValidator().validate(pSector);
+        if (!vViolations.isEmpty() || pSector.getSite().getName().isEmpty()) {
+            throw new FunctionalException("L'objet Secteur est invalide",
+                                          new ConstraintViolationException(vViolations));
+        } 
+		
+        TransactionStatus vTransactionStatus
+        = platformTransactionManager.getTransaction(new DefaultTransactionDefinition());
+	    try {
+	    	getDaoFactory().getTopoDao().addSector(pSector);
+	
+	        TransactionStatus vTScommit = vTransactionStatus;
+	        vTransactionStatus = null;
+	        platformTransactionManager.commit(vTScommit);
+	    } finally {
+	        if (vTransactionStatus != null) {
+	            platformTransactionManager.rollback(vTransactionStatus);
+	        }
+	    }
 	}
 
 	
@@ -169,7 +287,7 @@ public class TopoManagerImpl extends AbstractManager implements TopoManager {
 	@Override
 	public List<Route> searchRoute(String pKeyword) {
 		List<Route> vListRoute = null;
-		if (pKeyword.isEmpty())
+		if (pKeyword != null && !pKeyword.isEmpty())
 			vListRoute = getDaoFactory().getTopoDao().getListRoute();
 		else
 			vListRoute = getDaoFactory().getTopoDao().searchRoute(pKeyword);
@@ -183,8 +301,31 @@ public class TopoManagerImpl extends AbstractManager implements TopoManager {
 	}
 
 	@Override
-	public void addRoute(Route pRoute) {
-		getDaoFactory().getTopoDao().addRoute(pRoute);
+	public void addRoute(Route pRoute) throws FunctionalException {
+		if (pRoute == null) {
+            throw new FunctionalException("Une voie ne peut pas être null !");
+        }
+
+        Set<ConstraintViolation<Route>> vViolations = getConstraintValidator().validate(pRoute);
+        if (!vViolations.isEmpty() || pRoute.getSector().getName().isEmpty()) {
+            throw new FunctionalException("L'objet Voie est invalide",
+                                          new ConstraintViolationException(vViolations));
+        } 
+		
+        TransactionStatus vTransactionStatus
+        = platformTransactionManager.getTransaction(new DefaultTransactionDefinition());
+	    try {
+	    	getDaoFactory().getTopoDao().addRoute(pRoute);
+	
+	        TransactionStatus vTScommit = vTransactionStatus;
+	        vTransactionStatus = null;
+	        platformTransactionManager.commit(vTScommit);
+	    } finally {
+	        if (vTransactionStatus != null) {
+	            platformTransactionManager.rollback(vTransactionStatus);
+	        }
+	    }
+	    
 	}
 	
 }

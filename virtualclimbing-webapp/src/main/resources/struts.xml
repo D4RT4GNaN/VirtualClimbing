@@ -46,6 +46,83 @@
 			<result name="success">/jsp/detail/detail_site.jsp</result>
 		</action>
 		
+		<!--  -->
+		<action name="create_content"
+				class="org.openclassroom.projet.webapp.action.CreateContentAction"
+				method="doCreateContent">
+				
+			<interceptor-ref name="store">
+		        <param name="operationMode">RETRIEVE</param>
+		    </interceptor-ref>
+		    <interceptor-ref name="defaultStack" />
+				
+			<result>/jsp/adding_content.jsp</result>
+		</action>
+		
+		<!--  -->
+		<action name="create_topo"
+				class="org.openclassroom.projet.webapp.action.CreateContentAction"
+				method="doCreateTopo">
+			
+			<interceptor-ref name="store">
+		        <param name="operationMode">STORE</param>
+		    </interceptor-ref>
+			<interceptor-ref name="fileUploadStack" />
+			
+			<result name="input">/jsp/adding_content.jsp</result>
+			<result name="success" type="redirectAction">
+				<param name="actionName">create_content</param>
+			</result>
+		</action>
+		
+		<!--  -->
+		<action name="create_site"
+				class="org.openclassroom.projet.webapp.action.CreateContentAction"
+				method="doCreateSite">
+			
+			<interceptor-ref name="store">
+		        <param name="operationMode">STORE</param>
+		    </interceptor-ref>
+			<interceptor-ref name="fileUploadStack" />
+			
+			<result name="input">/jsp/adding_content.jsp</result>
+			<result name="success" type="redirectAction">
+				<param name="actionName">create_content</param>
+			</result>
+		</action>
+		
+		<!--  -->
+		<action name="create_sector"
+				class="org.openclassroom.projet.webapp.action.CreateContentAction"
+				method="doCreateSector">
+				
+			<interceptor-ref name="store">
+		        <param name="operationMode">STORE</param>
+		    </interceptor-ref>
+			<interceptor-ref name="fileUploadStack" />
+				
+			<result name="input">/jsp/adding_content.jsp</result>
+			<result name="success" type="redirectAction">
+				<param name="actionName">create_content</param>
+			</result>
+		</action>
+		
+		<!--  -->
+		<action name="create_route"
+				class="org.openclassroom.projet.webapp.action.CreateContentAction"
+				method="doCreateRoute">	
+				
+			<interceptor-ref name="store">
+		        <param name="operationMode">STORE</param>
+		    </interceptor-ref>
+		    <interceptor-ref name="defaultStack" />
+				
+			<result name="input">/jsp/adding_content.jsp</result>
+			<result name="success" type="redirectAction">
+				<param name="actionName">create_content</param>
+			</result>
+		</action>
+		
 	</package>
 	
 	<package name="ajax" extends="default, json-default">

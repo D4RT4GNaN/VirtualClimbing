@@ -32,22 +32,5 @@ public class ManagerFactoryImpl implements ManagerFactory {
 	public UserManager getUserManager() {
 		return userManager;
 	}
-
-	/*
-	@Override
-	public void setActionManager(ActionManager pActionManager) {
-		actionManager = pActionManager;
-	}
-
-	@Override
-	public void setTopoManager(TopoManager pTopoManager) {
-		topoManager = pTopoManager;
-	}
-
-	@Override
-	public void setUserManager(UserManager pUserManager) {
-		userManager = pUserManager;
-	}	
-	*/
 	
 }

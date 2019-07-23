@@ -1,11 +1,13 @@
 package org.openclassroom.projet.model.bean.topo;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 public class Site {
 
 	// ==================== Attributes ====================
     @NotNull
+    @Size(min=1, max=100)
     private String name;
     private String imageUrl;
     
@@ -16,18 +18,23 @@ public class Site {
     private float longitude;
     
     @NotNull
+    @Size(min=1, max=500)
     private String location;
     
     @NotNull
+    @Size(min=1, max=500)
     private String access;
     
     @NotNull
+    @Size(min=1, max=200)
     private String rockType;
     
     @NotNull
+    @Size(min=1, max=200)
     private String profil;
     
     @NotNull
+    @Size(min=1, max=100)
     private String anchorage;
     
     @NotNull
@@ -37,9 +44,11 @@ public class Site {
     private int minAltitude;
     
     @NotNull
+    @Size(min=1, max=50)
     private String orientation;
     
     @NotNull 
+    @Size(min=1, max=1000)
     private String note;    
     
 

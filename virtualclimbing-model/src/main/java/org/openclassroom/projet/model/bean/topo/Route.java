@@ -1,18 +1,22 @@
 package org.openclassroom.projet.model.bean.topo;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 public class Route {
 
 	// ==================== Attributes ====================
     @NotNull
+    @Size(min=1, max=100)
     private String name;
     
     @NotNull
+    @Size(min=1, max=10)
     private String grade;
     
     @NotNull
-    private int height;
+    private Integer height;
+    
     private String note;
     
     @NotNull
@@ -36,7 +40,7 @@ public class Route {
      * @param pNote -
      * @param pSector -
      */
-    public Route(String pName, String pGrade, int pHeight, String pNote, Sector pSector) {
+    public Route(String pName, String pGrade, Integer pHeight, String pNote, Sector pSector) {
         name = pName;
         grade = pGrade;
         height = pHeight;
@@ -58,7 +62,7 @@ public class Route {
     public void setGrade(String pGrade) {
     	grade = pGrade;
     }
-    public int getHeight() {
+    public Integer getHeight() {
         return height;
     }
     public void setHeight(int pHeight) {

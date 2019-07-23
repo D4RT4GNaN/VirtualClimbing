@@ -273,7 +273,8 @@ q {
 .form-sector form {
     background-color: rgba(230, 230, 230, 0.9);
     margin: 0 10vh;
-    padding: 1vh;
+    padding: 1em;
+    border-radius: 5px;
 }
 
 .form-background {
@@ -286,6 +287,10 @@ q {
 .scrollable-div {
 	height: 300px;
 	overflow-y: scroll;
+	background-color: white;
+	padding: 1em;
+	border: lightgray solid 1px;
+	border-radius: 5px;
 }
  
 /**

@@ -22,7 +22,7 @@
                 <a class="nav-link" href="#">Réservations</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/virtualclimbing-webapp/add">Partager</a>
+                <a class="nav-link" href="/virtualclimbing-webapp/create_content">Partager</a>
             </li>
         </ul>
         <div class="container-fluid">

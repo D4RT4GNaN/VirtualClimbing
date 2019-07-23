@@ -1,5 +1,6 @@
 package org.openclassroom.projet.webapp.action;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.openclassroom.projet.model.bean.topo.Route;
@@ -81,8 +82,15 @@ public class OverviewAction extends AbstractAction {
 		public String doDetailTopo() {
 			topo = getManagerFactory().getTopoManager().getTopo(name);
 			listSite = getManagerFactory().getTopoManager().getListSiteForTopo(topo);
-			listSector = getManagerFactory().getTopoManager().getListSectorForSite(listSite.get(0));
-			listRoute = getManagerFactory().getTopoManager().getListRouteForSector(listSector.get(0));
+			if (!listSite.isEmpty()) {
+				listSector = getManagerFactory().getTopoManager().getListSectorForSite(listSite.get(0));
+				if (!listSector.isEmpty()) {
+					listRoute = getManagerFactory().getTopoManager().getListRouteForSector(listSector.get(0));
+				}
+			} else {
+				listSector = new ArrayList<>();
+			}
+			
 			return ActionSupport.SUCCESS;
 		}
 		
@@ -91,8 +99,10 @@ public class OverviewAction extends AbstractAction {
 			try {
 				site = getManagerFactory().getTopoManager().getSite(name);
 				listSector = getManagerFactory().getTopoManager().getListSectorForSite(site);
-				sector = listSector.get(0);
-				listRoute = getManagerFactory().getTopoManager().getListRouteForSector(listSector.get(0));
+				if (!listSector.isEmpty()) {
+					sector = listSector.get(0);
+					listRoute = getManagerFactory().getTopoManager().getListRouteForSector(sector);
+				}
 			} catch (NotFoundException e) {
 				e.printStackTrace();
 			}
@@ -119,6 +129,23 @@ public class OverviewAction extends AbstractAction {
 			try {
 				route = getManagerFactory().getTopoManager().getRoute(name);
 				sector = getManagerFactory().getTopoManager().getSectorForRoute(route);
+				site = getManagerFactory().getTopoManager().getSiteForSector(sector);
+				listSector = getManagerFactory().getTopoManager().getListSectorForSite(site);
+				listRoute = getManagerFactory().getTopoManager().getListRouteForSector(sector);
+			} catch (NotFoundException e) {
+				e.printStackTrace();
+			}
+			
+			return hasErrors() ? ActionSupport.ERROR : ActionSupport.SUCCESS;
+		}
+		
+		/***/
+		public String doDetailComment() {
+			try {
+				topo = getManagerFactory().getTopoManager().getTopo(name);
+				listSite = getManagerFactory().getTopoManager().getListSiteForTopo(topo);
+				String vSectorName = sector.getName();
+				sector = getManagerFactory().getTopoManager().getSector(vSectorName);
 				site = getManagerFactory().getTopoManager().getSiteForSector(sector);
 				listSector = getManagerFactory().getTopoManager().getListSectorForSite(site);
 				listRoute = getManagerFactory().getTopoManager().getListRouteForSector(sector);

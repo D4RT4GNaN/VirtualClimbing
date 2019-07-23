@@ -2,12 +2,16 @@ package org.openclassroom.projet.business.contract.manager;
 
 import java.util.List;
 
+import javax.inject.Named;
+
 import org.openclassroom.projet.model.bean.topo.Route;
 import org.openclassroom.projet.model.bean.topo.Sector;
 import org.openclassroom.projet.model.bean.topo.Site;
 import org.openclassroom.projet.model.bean.topo.Topo;
 import org.openclassroom.projet.model.bean.topo.TopoSite;
+import org.openclassroom.projet.model.exception.FunctionalException;
 import org.openclassroom.projet.model.exception.NotFoundException;
+import org.openclassroom.projet.model.exception.TechnicalException;
 
 public interface TopoManager {
 
@@ -29,10 +33,15 @@ public interface TopoManager {
 	List<Topo> searchTopo(String pKeyword);
 	
 	/**
+	 * Get the list of all private {@link Topo}
+	 */
+	List<Topo> searchPrivateTopo();
+	
+	/**
 	 * Add a new {@link Topo}
 	 * @param pTopo -
 	 */
-	void addTopo(Topo pTopo);
+	void addTopo(Topo pTopo) throws TechnicalException, FunctionalException;
 	
 	
 	
@@ -56,7 +65,7 @@ public interface TopoManager {
 	 * Add a new link between a {@link Topo} and a {@link Site}
 	 * @param pTopoSite -
 	 */
-	void addTopoSite(TopoSite pTopoSite);
+	void addTopoSite(TopoSite pTopoSite) throws TechnicalException, FunctionalException;
 	
 	
 	
@@ -78,6 +87,9 @@ public interface TopoManager {
 	 */
 	Site getSiteForSector(Sector pSector) throws NotFoundException;
 	
+	/***/
+	List<Site> getAllSite();
+	
 	/**
 	 * Search and return the list of {@link Site} containing the keyword, if its not empty.
 	 * Otherwise, this return the complete list of {@link Site}
@@ -88,8 +100,9 @@ public interface TopoManager {
 	/**
 	 * Add a new {@link Site}
 	 * @param pSite -
+	 * @throws TechnicalException, FunctionalException
 	 */
-	void addSite(Site pSite);
+	void addSite(Site pSite) throws TechnicalException, FunctionalException;
 	
 	
 	
@@ -111,6 +124,9 @@ public interface TopoManager {
 	 */
 	Sector getSectorForRoute(Route pRoute) throws NotFoundException;
 	
+	/***/
+	List<Sector> getAllSector();
+	
 	/**
 	 * Search and return the list of {@link Sector} containing the keyword, if its not empty.
 	 * Otherwise, this return the list of all {@link Sector}
@@ -127,8 +143,9 @@ public interface TopoManager {
 	/**
 	 * Add a new {@link Sector}
 	 * @param pSector -
+	 * @throws TechnicalException, FunctionalException
 	 */
-	void addSector(Sector pSector);
+	void addSector(Sector pSector) throws TechnicalException, FunctionalException;
 	
 	
 	
@@ -160,6 +177,6 @@ public interface TopoManager {
 	 * Add a new {@link Route}
 	 * @param pRoute -
 	 */
-	void addRoute(Route pRoute);
+	void addRoute(Route pRoute) throws TechnicalException, FunctionalException;
 	
 }
