@@ -13,22 +13,40 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="/virtualclimbing-webapp/index">Accueil</a>
+                <s:a class="nav-link" action="index">Accueil</s:a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/virtualclimbing-webapp/search">Topos</a>
+                <s:a class="nav-link" action="search">Topos</s:a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Réservations</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/virtualclimbing-webapp/create_content">Partager</a>
-            </li>
+            <s:if test="#session.user">
+	            <li class="nav-item">
+	                <s:a class="nav-link" href="#">Réservations</s:a>
+	            </li>
+	            <li class="nav-item">
+	                <s:a class="nav-link" action="create_content">Partager</s:a>
+	            </li>
+            </s:if>
         </ul>
         <div class="container-fluid">
             <div class="d-flex justify-content-end">
                 <div id="login">
-                    <a data-toggle="modal" href="#loginPopUp">Connexion</a>
+                	<s:if test="#session.user">
+	                	<div class="dropdown dmenu">
+	                		<a class="dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+			             		<span class="fas fa-user-circle"></span>
+			             		<s:property value="#session.user.pseudo"/>
+				           	</a>
+				           	<div class="dropdown-menu dropdown-menu-right bg-dark">
+	              				<s:a class="dropdown-item" action="detail_user">Mon compte</s:a>
+	              				<a class="dropdown-item" href="all_booking">Mes réservations</a>
+	              				<div class="dropdown-divider"></div>
+	              				<s:a class="dropdown-item" action="logout">Déconnexion</s:a>
+	            			</div>
+	            		</div>
+                	</s:if>
+                	<s:else>
+                    	<s:a href="/virtualclimbing-webapp/connect">Connexion</s:a>
+                    </s:else>
                 </div>
         
                 <s:form action="search" class="searchbar">

@@ -16,6 +16,7 @@ public class ManagerFactoryImpl implements ManagerFactory {
 	@Inject
 	private TopoManager topoManager;
 	
+	@Inject
 	private UserManager userManager;
 	
 	@Override

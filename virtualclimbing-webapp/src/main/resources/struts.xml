@@ -6,6 +6,19 @@
 		
 <struts>
 	<package name="default" extends="struts-default">
+		<interceptors>
+			<interceptor-stack name="fileUploadStack">
+				<interceptor-ref name="fileUpload">
+				<param name="maximumSize">2097152</param>
+
+				<param name="allowedTypes">
+					image/png,image/gif,image/jpeg,image/pjpeg
+				</param>
+			</interceptor-ref>
+			<interceptor-ref name="defaultStack" />
+			</interceptor-stack>
+		</interceptors>
+		
 		<!-- Default Action -->
 		<default-action-ref name="index" />
 		
@@ -46,7 +59,7 @@
 			<result name="success">/jsp/detail/detail_site.jsp</result>
 		</action>
 		
-		<!--  -->
+		<!-- Creating Content Action -->
 		<action name="create_content"
 				class="org.openclassroom.projet.webapp.action.CreateContentAction"
 				method="doCreateContent">
@@ -59,7 +72,6 @@
 			<result>/jsp/adding_content.jsp</result>
 		</action>
 		
-		<!--  -->
 		<action name="create_topo"
 				class="org.openclassroom.projet.webapp.action.CreateContentAction"
 				method="doCreateTopo">
@@ -75,7 +87,6 @@
 			</result>
 		</action>
 		
-		<!--  -->
 		<action name="create_site"
 				class="org.openclassroom.projet.webapp.action.CreateContentAction"
 				method="doCreateSite">
@@ -91,7 +102,6 @@
 			</result>
 		</action>
 		
-		<!--  -->
 		<action name="create_sector"
 				class="org.openclassroom.projet.webapp.action.CreateContentAction"
 				method="doCreateSector">
@@ -107,7 +117,6 @@
 			</result>
 		</action>
 		
-		<!--  -->
 		<action name="create_route"
 				class="org.openclassroom.projet.webapp.action.CreateContentAction"
 				method="doCreateRoute">	
@@ -121,6 +130,39 @@
 			<result name="success" type="redirectAction">
 				<param name="actionName">create_content</param>
 			</result>
+		</action>
+		
+		<!-- Users Action -->
+		<action name="connect">
+			<result>/jsp/login/login.jsp</result>
+		</action>
+		
+		<action name="register">
+			<result>/jsp/login/signin.jsp</result>
+		</action>
+		
+		<action name="signin" 
+					   class="org.openclassroom.projet.webapp.action.UserManagmentAction" 
+					   method="doSignin">
+			<result name="input">/jsp/login/signin.jsp</result>
+			<result name="success" type="redirectAction">connect</result>
+		</action>
+		
+		<action name="login"
+					   class="org.openclassroom.projet.webapp.action.UserManagmentAction"
+					   method="doLogin">
+			<result name="input">/jsp/login/login.jsp</result>
+			<result name="success" type="redirectAction">index</result>
+		</action>
+		
+		<action name="logout"
+					   class="org.openclassroom.projet.webapp.action.UserManagmentAction"
+					   method="doLogout">
+			<result type="redirectAction">index</result>
+		</action>
+		
+		<action name="detail_user">
+			<result>/jsp/user/detail_user.jsp</result>
 		</action>
 		
 	</package>

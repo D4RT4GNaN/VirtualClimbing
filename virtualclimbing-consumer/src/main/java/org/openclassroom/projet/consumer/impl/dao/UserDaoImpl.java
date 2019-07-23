@@ -8,9 +8,13 @@ import javax.inject.Named;
 import org.openclassroom.projet.consumer.contract.dao.UserDao;
 import org.openclassroom.projet.consumer.impl.rowmapper.UserRM;
 import org.openclassroom.projet.model.bean.user.User;
+import org.openclassroom.projet.model.exception.FunctionalException;
+import org.springframework.dao.DuplicateKeyException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 /**
@@ -20,13 +24,19 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 public class UserDaoImpl extends AbstractDao implements UserDao {
 
 	@Override
-	public User getUser(String pPseudo) {
+	public User getUser(String pPseudo) throws FunctionalException {
 		String vRequest = "SELECT * FROM identified_user"
 				+ " WHERE pseudo=?";
 		RowMapper<User> vRowMapper = new UserRM();
 		
 		JdbcTemplate vJdbcTemplate = new JdbcTemplate(getDataSource());
-		User vUser = vJdbcTemplate.queryForObject(vRequest, vRowMapper, pPseudo);
+		User vUser = new User();
+		
+		try {
+			vUser = vJdbcTemplate.queryForObject(vRequest, vRowMapper, pPseudo);
+		} catch (EmptyResultDataAccessException pEx) {
+			throw new FunctionalException("L'utilisateur " + pPseudo + " n'existe pas !");
+		}
 		
 		return vUser;
 	}
@@ -43,7 +53,7 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
 	}
 
 	@Override
-	public void addUser(User pUser) {
+	public void addUser(User pUser) throws FunctionalException {
 		String vRequest = "INSERT INTO identified_user (pseudo, first_name, last_name, password, registration_date) "
 				+ "VALUES (:pseudo, :firstName, :lastName, :password, :registrationDate)";
 
@@ -53,6 +63,24 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
 		vParams.registerSqlType("lastName", Types.VARCHAR);
 		vParams.registerSqlType("password", Types.VARCHAR);
 		vParams.registerSqlType("registrationDate", Types.DATE);
+		
+		NamedParameterJdbcTemplate vNamedParameterJdbcTemplate = new NamedParameterJdbcTemplate(getDataSource());
+		try {
+			vNamedParameterJdbcTemplate.update(vRequest, vParams);
+		} catch (DuplicateKeyException pEx) {
+			throw new FunctionalException("L'utilisateur " + pUser.getPseudo() + " existe déjà !");
+		}
+	}
+	
+	@Override
+	public void changePassword(User pUser) {
+		String vRequest = "UPDATE identified_user"
+									+ " SET password=:password"
+									+ " WHERE pseudo=:pseudo";
+		
+		MapSqlParameterSource vParams = new MapSqlParameterSource();
+		vParams.addValue("pseudo", pUser.getPseudo(), Types.VARCHAR);
+		vParams.addValue("password", pUser.getPassword(), Types.VARCHAR);
 		
 		NamedParameterJdbcTemplate vNamedParameterJdbcTemplate = new NamedParameterJdbcTemplate(getDataSource());
 		vNamedParameterJdbcTemplate.update(vRequest, vParams);
