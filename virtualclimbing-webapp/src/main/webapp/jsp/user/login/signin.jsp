@@ -4,9 +4,9 @@
 
 <!DOCTYPE html>
 <html>
-	<%@ include file="/jsp/_include/head.jsp" %>
+	<%@ include file="/jsp/_include/structure/head.jsp" %>
 	<body>
-		<%@ include file="/jsp/_include/header.jsp" %>
+		<%@ include file="/jsp/_include/structure/header.jsp" %>
 		
 		<div class="wrapper fadeInDown">
 		  <div id="formContent">
@@ -42,6 +42,6 @@
 		
 		  </div>
 		</div>
-		<%@ include file="/jsp/_include/footer.jsp" %>
+		<%@ include file="/jsp/_include/structure/footer.jsp" %>
 	</body>
 </html> 

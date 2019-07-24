@@ -105,5 +105,10 @@ public class Topo {
             .append("}");
         return vStB.toString();
     }
+    
+    public Boolean isEmpty() {
+    	Boolean isEmpty = name == null || name == "";
+    	return isEmpty;
+    }
 	
 }

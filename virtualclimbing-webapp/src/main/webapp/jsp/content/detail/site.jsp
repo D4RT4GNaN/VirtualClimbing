@@ -4,9 +4,9 @@
     
 <!DOCTYPE html>
 <html>
-	<%@ include file="/jsp/_include/head.jsp" %>
+	<%@ include file="/jsp/_include/structure/head.jsp" %>
 	<body>
-		<%@ include file="/jsp/_include/header.jsp" %>
+		<%@ include file="/jsp/_include/structure/header.jsp" %>
 		
 		<div id="main_wrapper" class="container-fluid">
             
@@ -103,18 +103,43 @@
                 </div>
             </section>
             
+            <section id="comments" class="container">
+                <header class= "border-bottom">
+                	<h2 class="d-flex justify-content-end">Commentaire</h2>
+                </header>
+                <div id="route-table">
+	            	<table class="table table-striped">
+	            		<tbody id="bodyComment">
+	            			<s:iterator value="listComment">
+		            			<tr class="row">
+		            				<td class="align-middle text-center col-sm-2">
+		            					<p class="font-weight-bold fas fa-user-circle"><s:property value="user.pseudo" /></p>
+		            				</td>
+		            				<td class="col-sm-10">
+		            					<p class="font-weight-bold"><s:property value="title" /></p>
+		            					<p><s:property value="description" /></p>
+		            				</td>
+		            			</tr>
+	            			</s:iterator>
+	            		</tbody>
+	            	</table>
+            	</div>
+            </section>
+            
+            <%@ include file="/jsp/_include/comment/send.jsp" %>
         </div>
         
-		<%@ include file="/jsp/_include/footer.jsp" %>
+		<%@ include file="/jsp/_include/structure/footer.jsp" %>
 		<script>
 			
-			var strLat = "<s:property value="site.getLatitude()" />".replace(",", ".");
-			var strLon = "<s:property value="site.getLongitude()" />".replace(",", ".");
+			var strLat = "<s:property value="listSite.get(0).getLatitude()" />".replace(",", ".");
+			var strLon = "<s:property value="listSite.get(0).getLongitude()" />".replace(",", ".");
 			
 			var urlDetailSite = "<s:url action="ajax_getDetailSite"/>";
 			var urlListSector = "<s:url action="ajax_getListSector"/>";
 			var urlDetailSector = "<s:url action="ajax_getDetailSector"/>";
 			var urlListRoute = "<s:url action="ajax_getListRoute"/>";
+			var urlListComment = "<s:url action="ajax_getListComment"/>";
 		
 		</script>
 		<script type="text/javascript" src="javascript/ajax_overview.js"></script>

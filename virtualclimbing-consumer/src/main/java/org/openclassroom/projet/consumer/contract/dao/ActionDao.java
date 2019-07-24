@@ -38,22 +38,10 @@ public interface ActionDao {
 	// ===================================
 	
 	/**
-	 * Return the list of {@link Comment} for a {@link Topo} in database
-	 * @param pTopo -
-	 */
-	List<Comment> getListCommentTopo(Topo pTopo);
-	
-	/**
-	 * Return the list of {@link Comment} for a {@link Site} in database
-	 * @param pSite -
-	 */
-	List<Comment> getListCommentSite(Site pSite);
-	
-	/**
 	 * Return the list of {@link Comment} for a {@link Sector} in database
 	 * @param pSector -
 	 */
-	List<Comment> getListCommentSector(Sector pSector);
+	List<Comment> getListComment(Sector pSector);
 	
 	/**
 	 * Add the {@link Comment} in database

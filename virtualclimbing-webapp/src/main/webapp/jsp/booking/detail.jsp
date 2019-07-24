@@ -4,9 +4,9 @@
 
 <!DOCTYPE html>
 <html>
-	<%@ include file="/jsp/_include/head.jsp" %>
+	<%@ include file="/jsp/_include/structure/head.jsp" %>
 	<body id="search-body">
-		<%@ include file="/jsp/_include/header.jsp" %>
+		<%@ include file="/jsp/_include/structure/header.jsp" %>
 		
 		<div id="main_wrapper" class="container-fluid d-flex main-wrapper-center">
 			<div class="booking-div-booking">
@@ -41,6 +41,6 @@
 	    	</div>
         </div>
         
-		<%@ include file="/jsp/_include/footer.jsp" %>
+		<%@ include file="/jsp/_include/structure/footer.jsp" %>
 	</body>
 </html>

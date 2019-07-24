@@ -4,19 +4,18 @@
     
 <!DOCTYPE html>
 <html>
-	<%@ include file="/jsp/_include/head.jsp" %>
+	<%@ include file="/jsp/_include/structure/head.jsp" %>
 	<body>
-		<%@ include file="/jsp/_include/header.jsp" %>
+		<%@ include file="/jsp/_include/structure/header.jsp" %>
 		
 		<div id="main_wrapper" class="container-fluid">
             
-            <s:if test="topo.name != null">
-	            <section id="main_banner" style="background-image: url(<s:property value="topo.imageUrl" />);">
-	                <div id="banner_title">
-	                    <h1><s:property value="topo.name" /></h1>
-	                </div>
-	            </section>
-            </s:if>
+            <section id="main_banner" style="background-image: url(<s:property value="topo.imageUrl" />);">
+                <div id="banner_title">
+                    <h1><s:property value="topo.name" /></h1>
+                </div>
+            </section>
+            
             <section id="site" class="container mt-3">
                	<header class="border-bottom row">
 	                <s:form class="col-sm-6">
@@ -25,12 +24,8 @@
 					</s:form>
                 	<h2 class="d-flex justify-content-end col-sm-6">Site</h2>
                 </header>
+                
                 <article class="row">
-                	<s:if test="topo.name == null">
-	                    <div id="banner_site" class="col-md-12">
-	                        <img class="img-thumbnail" src="<s:property value="listSite.get(0).getImageUrl()" />" alt="Bannière du site colima'100" />
-	                    </div>
-                    </s:if>
                     <div id="leafmapid" class="col-md-6 rounded"></div>
                     <div id="information" class="col-md-6 align-self-center">
                         <table class="table table-stripped table-sm">
@@ -74,6 +69,7 @@
                     </div>
                 </article>
             </section>
+            
             <section id="sector" class="container">
                 <header class= "border-bottom row my-2">
                 	<s:form class="col-sm-6">
@@ -86,6 +82,7 @@
                     <img class="border border-dark" src="<s:property value="listSector.get(0).getImageUrl()" />" alt="Ensemble des voie du secteur" />
                 </div>
             </section>
+            
             <section id="route" class="container">
                 <header class= "border-bottom">
                 	<h2 class="d-flex justify-content-end">Voie</h2>
@@ -116,9 +113,33 @@
                 </div>
             </section>
             
+            <section id="comments" class="container">
+                <header class= "border-bottom">
+                	<h2 class="d-flex justify-content-end">Commentaire</h2>
+                </header>
+                <div id="route-table">
+	            	<table class="table table-striped">
+	            		<tbody id="bodyComment">
+	            			<s:iterator value="listComment">
+		            			<tr class="row">
+		            				<td class="align-middle text-center col-sm-2">
+		            					<p class="font-weight-bold fas fa-user-circle"><s:property value="user.pseudo" /></p>
+		            				</td>
+		            				<td class="col-sm-10">
+		            					<p class="font-weight-bold"><s:property value="title" /></p>
+		            					<p><s:property value="description" /></p>
+		            				</td>
+		            			</tr>
+	            			</s:iterator>
+	            		</tbody>
+	            	</table>
+            	</div>
+            </section>
+            
+            <%@ include file="/jsp/_include/comment/send.jsp" %>
         </div>
         
-		<%@ include file="/jsp/_include/footer.jsp" %>
+		<%@ include file="/jsp/_include/structure/footer.jsp" %>
 		<script>
 			
 			var strLat = "<s:property value="listSite.get(0).getLatitude()" />".replace(",", ".");
@@ -128,6 +149,7 @@
 			var urlListSector = "<s:url action="ajax_getListSector"/>";
 			var urlDetailSector = "<s:url action="ajax_getDetailSector"/>";
 			var urlListRoute = "<s:url action="ajax_getListRoute"/>";
+			var urlListComment = "<s:url action="ajax_getListComment"/>";
 		
 		</script>
 		<script type="text/javascript" src="javascript/ajax_overview.js"></script>

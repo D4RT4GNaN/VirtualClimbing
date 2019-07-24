@@ -3,6 +3,7 @@ package org.openclassroom.projet.webapp.action;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.openclassroom.projet.model.bean.action.Comment;
 import org.openclassroom.projet.model.bean.topo.Route;
 import org.openclassroom.projet.model.bean.topo.Sector;
 import org.openclassroom.projet.model.bean.topo.Site;
@@ -28,6 +29,7 @@ public class OverviewAction extends AbstractAction {
 		List<Site> listSite;
 		List<Sector> listSector;
 		List<Route> listRoute;
+		List<Comment> listComment;
 		
 		// ----- Struts elements
 		
@@ -71,6 +73,9 @@ public class OverviewAction extends AbstractAction {
 		public List<Route> getListRoute() {
 			return listRoute;
 		}
+		public List<Comment> getListComment() {
+			return listComment;
+		}
 		
 		
 		
@@ -86,9 +91,11 @@ public class OverviewAction extends AbstractAction {
 				listSector = getManagerFactory().getTopoManager().getListSectorForSite(listSite.get(0));
 				if (!listSector.isEmpty()) {
 					listRoute = getManagerFactory().getTopoManager().getListRouteForSector(listSector.get(0));
+					listComment = getManagerFactory().getActionManager().getListComment(listSector.get(0));
 				}
 			} else {
 				listSector = new ArrayList<>();
+				listComment = new ArrayList<>();
 			}
 			
 			return ActionSupport.SUCCESS;
@@ -102,6 +109,7 @@ public class OverviewAction extends AbstractAction {
 				if (!listSector.isEmpty()) {
 					sector = listSector.get(0);
 					listRoute = getManagerFactory().getTopoManager().getListRouteForSector(sector);
+					listComment = getManagerFactory().getActionManager().getListComment(sector);
 				}
 			} catch (NotFoundException e) {
 				e.printStackTrace();
@@ -117,6 +125,7 @@ public class OverviewAction extends AbstractAction {
 				site = getManagerFactory().getTopoManager().getSiteForSector(sector);
 				listSector = getManagerFactory().getTopoManager().getListSectorForSite(site);
 				listRoute = getManagerFactory().getTopoManager().getListRouteForSector(sector);
+				listComment = getManagerFactory().getActionManager().getListComment(sector);
 			} catch (NotFoundException e) {
 				e.printStackTrace();
 			}
@@ -132,23 +141,7 @@ public class OverviewAction extends AbstractAction {
 				site = getManagerFactory().getTopoManager().getSiteForSector(sector);
 				listSector = getManagerFactory().getTopoManager().getListSectorForSite(site);
 				listRoute = getManagerFactory().getTopoManager().getListRouteForSector(sector);
-			} catch (NotFoundException e) {
-				e.printStackTrace();
-			}
-			
-			return hasErrors() ? ActionSupport.ERROR : ActionSupport.SUCCESS;
-		}
-		
-		/***/
-		public String doDetailComment() {
-			try {
-				topo = getManagerFactory().getTopoManager().getTopo(name);
-				listSite = getManagerFactory().getTopoManager().getListSiteForTopo(topo);
-				String vSectorName = sector.getName();
-				sector = getManagerFactory().getTopoManager().getSector(vSectorName);
-				site = getManagerFactory().getTopoManager().getSiteForSector(sector);
-				listSector = getManagerFactory().getTopoManager().getListSectorForSite(site);
-				listRoute = getManagerFactory().getTopoManager().getListRouteForSector(sector);
+				listComment = getManagerFactory().getActionManager().getListComment(sector);
 			} catch (NotFoundException e) {
 				e.printStackTrace();
 			}
@@ -173,6 +166,7 @@ public class OverviewAction extends AbstractAction {
 	            addActionError("Le secteur doit être précisé !");
 	        } else {
 	            listRoute = getManagerFactory().getTopoManager().getListRouteForSector(sector);
+	            listComment = getManagerFactory().getActionManager().getListComment(sector);
 	        }
 
 	        return hasErrors() ? ActionSupport.ERROR : ActionSupport.SUCCESS;

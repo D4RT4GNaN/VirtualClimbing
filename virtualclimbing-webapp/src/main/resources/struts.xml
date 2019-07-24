@@ -59,7 +59,7 @@
 			<result name="success">/jsp/content/detail/site.jsp</result>
 		</action>
 		
-		<!-- Creating Content Action -->
+		<!-- Creating Content Actions -->
 		<action name="create_content"
 				class="org.openclassroom.projet.webapp.action.CreateContentAction"
 				method="doCreateContent">
@@ -132,7 +132,7 @@
 			</result>
 		</action>
 		
-		<!-- Users Action -->
+		<!-- User Actions -->
 		<action name="connect">
 			<result>/jsp/user/login/login.jsp</result>
 		</action>
@@ -175,7 +175,6 @@
 		</action>
 		
 		<!-- Booking Actions -->
-		<!--  -->
 		<action name="all_booking"
 				class="org.openclassroom.projet.webapp.action.BookingAction"
 				method="doGetListBooking">
@@ -194,9 +193,46 @@
             <result name="input">/jsp/booking/search.jsp</result>
             <result name="success" type="redirectAction">detail_user</result>
         </action>
+        
+        <!-- Comment Actions -->
+        <action name="send_comment_topo"
+                class="org.openclassroom.projet.webapp.action.CommentAction"
+                method="doSendComment">                
+            <result name="input">/jsp/content/detail/topo.jsp</result>
+            <result name="success" type="redirectAction">
+				<param name="actionName">detail_topo_comment</param>
+				<param name="name">${topo.name}</param>
+				<param name="sector.name">${comment.sector.name}</param>
+				<param name="anchor">comments</param>
+			</result>
+        </action>
+        
+        <action name="send_comment_site"
+                class="org.openclassroom.projet.webapp.action.CommentAction"
+                method="doSendComment">                
+            <result name="input">/jsp/content/detail/site.jsp</result>
+            <result name="success" type="redirectAction">
+				<param name="actionName">detail_site_comment</param>
+				<param name="sector.name">${comment.sector.name}</param>
+				<param name="anchor">comments</param>
+			</result>
+        </action>
+        
+        <action name="detail_topo_comment"
+                class="org.openclassroom.projet.webapp.action.CommentAction"
+                method="doDetailComment">                
+            <result>/jsp/content/detail/topo.jsp</result>
+        </action>
+        
+        <action name="detail_site_comment"
+                class="org.openclassroom.projet.webapp.action.CommentAction"
+                method="doDetailComment">                
+            <result>/jsp/content/detail/site.jsp</result>
+        </action>
 		
 	</package>
 	
+	<!-- AJAX Package -->
 	<package name="ajax" extends="default, json-default">
 
         <global-results>
@@ -207,7 +243,6 @@
             </result>
         </global-results>
 
-        <!--  -->
         <action name="ajax_getDetailSite"
                 class="org.openclassroom.projet.webapp.action.OverviewAction"
                 method="doAjaxOnSelectSite">
@@ -216,7 +251,6 @@
             </result>
         </action>
         
-        <!--  -->
         <action name="ajax_getListSector"
                 class="org.openclassroom.projet.webapp.action.OverviewAction"
                 method="doAjaxOnSelectSite">
@@ -225,7 +259,6 @@
             </result>
         </action>
         
-        <!--  -->
         <action name="ajax_getDetailSector"
                 class="org.openclassroom.projet.webapp.action.OverviewAction"
                 method="doAjaxOnSelectSector">
@@ -234,12 +267,19 @@
             </result>
         </action>
         
-        <!--  -->
         <action name="ajax_getListRoute"
                 class="org.openclassroom.projet.webapp.action.OverviewAction"
                 method="doAjaxOnSelectSector">
             <result name="success" type="json">
             	<param name="root">listRoute</param>
+            </result>
+        </action>
+        
+        <action name="ajax_getListComment"
+                class="org.openclassroom.projet.webapp.action.OverviewAction"
+                method="doAjaxOnSelectSector">
+            <result name="success" type="json">
+            	<param name="root">listComment</param>
             </result>
         </action>
 

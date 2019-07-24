@@ -1,27 +1,26 @@
 package org.openclassroom.projet.model.bean.action;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.openclassroom.projet.model.bean.topo.Sector;
-import org.openclassroom.projet.model.bean.topo.Site;
-import org.openclassroom.projet.model.bean.topo.Topo;
 import org.openclassroom.projet.model.bean.user.User;
 
 public class Comment {
 
 	// ==================== Attributes ====================    
     @NotNull
+    @Size(min=1)
     private String title;
     
     @NotNull
+    @Size(min=1)
     private String description;
     
     @NotNull
     private User user;
     
     @NotNull
-    private Topo topo;
-    private Site site;
     private Sector sector;
 
 
@@ -43,12 +42,10 @@ public class Comment {
      * @param pSite -
      * @param pSector -
      */
-    public Comment(String pTitle, String pDescription, User pUser, Topo pTopo, Site pSite, Sector pSector) {
+    public Comment(String pTitle, String pDescription, User pUser, Sector pSector) {
         title = pTitle;
         description = pDescription;
         user = pUser;
-        topo = pTopo;
-        site = pSite;
         sector = pSector;
     }
 
@@ -71,18 +68,6 @@ public class Comment {
     }
     public void setUser(User pUser) {
     	user = pUser;
-    }
-    public Topo getTopo() {
-        return topo;
-    }
-    public void setTopo(Topo pTopo) {
-    	topo = pTopo;
-    }
-    public Site getSite() {
-        return site;
-    }
-    public void setSite(Site pSite) {
-    	site = pSite;
     }
     public Sector getSector() {
         return sector;

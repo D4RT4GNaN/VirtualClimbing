@@ -4,9 +4,9 @@
 
 <!DOCTYPE html>
 <html>
-	<%@ include file="/jsp/_include/head.jsp" %>
+	<%@ include file="/jsp/_include/structure/head.jsp" %>
 	<body id="search-body">
-		<%@ include file="/jsp/_include/header.jsp" %>
+		<%@ include file="/jsp/_include/structure/header.jsp" %>
 		
 		<div id="main_wrapper" class="container-fluid">
 			<div class="row">
@@ -201,9 +201,9 @@
 			</div>   
         </div>
         
-        <%@ include file="/jsp/_include/modalSelect.jsp" %>
-        <%@ include file="/jsp/_include/modalSelectSector.jsp" %>
-		<%@ include file="/jsp/_include/footer.jsp" %>
+        <%@ include file="/jsp/_include/modal/site.jsp" %>
+        <%@ include file="/jsp/_include/modal/sector.jsp" %>
+		<%@ include file="/jsp/_include/structure/footer.jsp" %>
 		<script>
 		
 			$("input[type=file]").change(function (e){

@@ -129,6 +129,7 @@ function onSelectSectorChange() {
 			})
 			
 			doAjaxGetDetailSector();
+			updateCommentOnSectorChange();
 			
 		}
 	)
@@ -155,7 +156,56 @@ function doAjaxGetDetailSector() {
 			
 			var $imageSector = jQuery("#banner_sector");
 			$imageSector.empty();
-			$imageSector.append(img);		
+			$imageSector.append(img);	
+			
+			var $nameSector = jQuery("#nameSector");
+			$nameSector.empty();
+			$nameSector.attr("value",data.name);
+			
+		}
+	)
+	.fail(function (data) {
+		alert("Une erreur s'est produite.")
+	});
+}
+
+function updateCommentOnSectorChange() {
+	var url = urlListComment;
+	
+	var params = {
+        sector: jQuery("#selectSector").val()
+    };
+	
+	jQuery.post(
+		url,
+		params,
+		function (data) {
+			var $tbody = jQuery("#bodyComment");
+			$tbody.empty();
+			
+			jQuery.each(data, function(key, val) {
+				$tbody.append(
+					jQuery("<tr>")
+						.append(
+							jQuery("<td>")
+								.append(
+									jQuery("<p>")
+										.text(val.user.pseudo)
+										.attr("class","fas fa-user-circle")
+								)
+								.attr("class","font-weight-bold align-middle text-center col-sm-2"),
+							jQuery("<td>")
+								.append(
+									jQuery("<p>")
+										.attr("class","font-weight-bold")
+										.text(val.title),
+									jQuery("<p>").text(val.description)
+								)
+								.attr("class","col-sm-10")
+						)
+						.attr("class","row")
+				);
+			})
 		}
 	)
 	.fail(function (data) {

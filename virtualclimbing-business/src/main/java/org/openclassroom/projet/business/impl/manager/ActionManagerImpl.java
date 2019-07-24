@@ -10,6 +10,8 @@ import javax.validation.ConstraintViolationException;
 
 import org.openclassroom.projet.business.contract.manager.ActionManager;
 import org.openclassroom.projet.model.bean.action.Booking;
+import org.openclassroom.projet.model.bean.action.Comment;
+import org.openclassroom.projet.model.bean.topo.Sector;
 import org.openclassroom.projet.model.bean.user.User;
 import org.openclassroom.projet.model.exception.FunctionalException;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -22,6 +24,10 @@ public class ActionManagerImpl extends AbstractManager implements ActionManager 
 	@Inject
 	@Named("txManagerProjet")
 	private PlatformTransactionManager platformTransactionManager;
+	
+	// ===================================
+	//               Booking
+	// ===================================
 	
 	@Override
 	public void addBooking(Booking pBooking) throws FunctionalException {
@@ -54,6 +60,43 @@ public class ActionManagerImpl extends AbstractManager implements ActionManager 
 	public List<Booking> getListBooking(User pUser) {
 		List<Booking> vListBooking = getDaoFactory().getActionDao().listBooking(pUser);
 		return vListBooking;
+	}
+	
+	// ===================================
+	//               Comment
+	// ===================================
+	
+	@Override
+	public List<Comment> getListComment(Sector pSector) {
+		List<Comment> vListComment = getDaoFactory().getActionDao().getListComment(pSector);
+		return vListComment;
+	}
+	
+	@Override
+	public void addComment(Comment pComment) throws FunctionalException {
+		if (pComment == null) {
+            throw new FunctionalException("Un commentaire ne peut pas être null !");
+        }
+
+        Set<ConstraintViolation<Comment>> vViolations = getConstraintValidator().validate(pComment);
+        if (!vViolations.isEmpty()) {
+            throw new FunctionalException("L'objet Comment est invalide",
+                                          new ConstraintViolationException(vViolations));
+        } 
+		
+        TransactionStatus vTransactionStatus
+        = platformTransactionManager.getTransaction(new DefaultTransactionDefinition());
+	    try {
+	    	getDaoFactory().getActionDao().addComment(pComment);
+	
+	        TransactionStatus vTScommit = vTransactionStatus;
+	        vTransactionStatus = null;
+	        platformTransactionManager.commit(vTScommit);
+		} finally {
+	        if (vTransactionStatus != null) {
+	            platformTransactionManager.rollback(vTransactionStatus);
+	        }
+	    }
 	}
 
 }

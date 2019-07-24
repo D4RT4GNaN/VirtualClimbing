@@ -4,9 +4,9 @@
     
 <!DOCTYPE html>
 <html>
-	<%@ include file="/jsp/_include/head.jsp" %>
+	<%@ include file="/jsp/_include/structure/head.jsp" %>
 	<body class="container-fluid">
-		<%@ include file="/jsp/_include/header.jsp" %>
+		<%@ include file="/jsp/_include/structure/header.jsp" %>
 		
 		<div id="main_wrapper" class="main-wrapper-vertical-center main-wrapper-spacearound row">
             
@@ -76,6 +76,6 @@
             
         </div>
         
-		<%@ include file="/jsp/_include/footer.jsp" %>
+		<%@ include file="/jsp/_include/structure/footer.jsp" %>
 	</body>
 </html>

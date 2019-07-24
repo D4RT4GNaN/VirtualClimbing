@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<%@ include file="/jsp/_include/head.jsp" %>
+		<%@ include file="/jsp/_include/structure/head.jsp" %>
 	  	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 	  	<link rel="stylesheet" href="/resources/demos/style.css">
   		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -16,7 +16,7 @@
 		</script>
 	</head>
 	<body id="search-body">
-		<%@ include file="/jsp/_include/header.jsp" %>
+		<%@ include file="/jsp/_include/structure/header.jsp" %>
 		
 		<div id="main_wrapper" class="container-fluid">
 				
@@ -58,6 +58,6 @@
 
         </div>
         
-		<%@ include file="/jsp/_include/footer.jsp" %>
+		<%@ include file="/jsp/_include/structure/footer.jsp" %>
 	</body>
 </html>

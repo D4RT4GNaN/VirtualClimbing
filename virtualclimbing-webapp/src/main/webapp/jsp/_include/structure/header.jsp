@@ -16,7 +16,10 @@
                 <s:a class="nav-link" action="index">Accueil</s:a>
             </li>
             <li class="nav-item">
-                <s:a class="nav-link" action="search">Topos</s:a>
+                <s:a class="nav-link" action="search">
+                	<s:param name="keyword" value="" />
+                	Topos
+                </s:a>
             </li>
             <s:if test="#session.user">
 	            <li class="nav-item">

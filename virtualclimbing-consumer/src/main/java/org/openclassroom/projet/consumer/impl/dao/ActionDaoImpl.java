@@ -63,31 +63,7 @@ public class ActionDaoImpl extends AbstractDao implements ActionDao {
 	// ===================================
 	
 	@Override
-	public List<Comment> getListCommentTopo(Topo pTopo) {
-		String vRequest = "SELECT * FROM comment"
-				+ " WHERE name_topo=?";		
-		RowMapper<Comment> vRowMapper = new CommentRM();
-		
-		JdbcTemplate vJdbcTemplate = new JdbcTemplate(getDataSource());
-		List<Comment> vListComment = vJdbcTemplate.query(vRequest, vRowMapper, pTopo.getName());
-		
-		return vListComment;
-	}
-
-	@Override
-	public List<Comment> getListCommentSite(Site pSite) {
-		String vRequest = "SELECT * FROM comment"
-				+ " WHERE name_site=?";		
-		RowMapper<Comment> vRowMapper = new CommentRM();
-		
-		JdbcTemplate vJdbcTemplate = new JdbcTemplate(getDataSource());
-		List<Comment> vListComment = vJdbcTemplate.query(vRequest, vRowMapper, pSite.getName());
-		
-		return vListComment;
-	}
-
-	@Override
-	public List<Comment> getListCommentSector(Sector pSector) {
+	public List<Comment> getListComment(Sector pSector) {
 		String vRequest = "SELECT * FROM comment"
 				+ " WHERE name_sector=?";		
 		RowMapper<Comment> vRowMapper = new CommentRM();
@@ -100,16 +76,14 @@ public class ActionDaoImpl extends AbstractDao implements ActionDao {
 
 	@Override
 	public void addComment(Comment pComment) {
-		String vRequest = "INSERT INTO comment "
-						+ "VALUES (:title, :description, :pseudo_user, :name_topo, :name_site, :name_sector)";
+		String vRequest = "INSERT INTO comment (title,description,pseudo_user,name_sector) "
+						+ "VALUES (:title,:description,:pseudoUser,:nameSector)";
 
 		MapSqlParameterSource vParams = new MapSqlParameterSource();
 		vParams.addValue("title", pComment.getTitle(), Types.VARCHAR);
 		vParams.addValue("description", pComment.getDescription(), Types.VARCHAR);
-		vParams.addValue("pseudo_user", pComment.getUser().getPseudo(), Types.VARCHAR);
-		vParams.addValue("name_topo", pComment.getTopo().getName(), Types.VARCHAR);
-		vParams.addValue("name_site", pComment.getSite().getName(), Types.VARCHAR);
-		vParams.addValue("name_sector", pComment.getSector().getName(), Types.VARCHAR);
+		vParams.addValue("pseudoUser", pComment.getUser().getPseudo(), Types.VARCHAR);
+		vParams.addValue("nameSector", pComment.getSector().getName(), Types.VARCHAR);
 		
 		NamedParameterJdbcTemplate vNamedParameterJdbcTemplate = new NamedParameterJdbcTemplate(getDataSource());
 		vNamedParameterJdbcTemplate.update(vRequest, vParams);
