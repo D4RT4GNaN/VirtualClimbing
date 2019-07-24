@@ -20,7 +20,7 @@
             </li>
             <s:if test="#session.user">
 	            <li class="nav-item">
-	                <s:a class="nav-link" href="#">Réservations</s:a>
+	                <s:a class="nav-link" action="private_topo_list">Réservations</s:a>
 	            </li>
 	            <li class="nav-item">
 	                <s:a class="nav-link" action="create_content">Partager</s:a>

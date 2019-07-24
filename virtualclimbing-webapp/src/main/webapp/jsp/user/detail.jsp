@@ -37,6 +37,41 @@
             </div>
             <div class="user-div col-sm-5">
             	<h3>Réservations</h3>
+            	<div class="booking-div p-0">
+            		<s:if test="listBooking.isEmpty()">
+            			<p class="text-center align-middle font-weight-bold font-italic pt-3">Aucune réservation en mémoire</p>
+            		</s:if>
+            		<s:else>
+            			<table class="table table-striped m-0">
+            				<thead>
+            					<tr>
+							    	<th scope="col">Nom</th>
+							      	<th scope="col">Fin</th>
+							      	<th scope="col">Accès</th>
+							    </tr>
+            				</thead>
+		            		<tbody id="nameList">
+		              			<s:iterator value="listBooking" begin="listBooking.size()-1" end="endIteration" step="-1">
+									<tr>
+										<td><s:property value="topo.name" /></td>
+										<td><s:property value="endDate" /></td>
+										<td>
+											<s:if test="isAfter()">
+												<s:a action="detail_topo" class="btn btn-outline-secondary">
+													<s:param name="name" value="topo.name" />
+													Voir
+												</s:a>
+											</s:if>
+											<s:else>
+												<s:a class="btn btn-outline-secondary disabled">Voir</s:a>
+											</s:else>
+										</td>
+									</tr>
+								</s:iterator>
+							</tbody>
+		            	</table>
+            		</s:else>
+            	</div>
             </div>
             
         </div>

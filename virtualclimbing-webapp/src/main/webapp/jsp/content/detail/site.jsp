@@ -7,7 +7,6 @@
 	<%@ include file="/jsp/_include/head.jsp" %>
 	<body>
 		<%@ include file="/jsp/_include/header.jsp" %>
-		<%@ include file="/jsp/_include/login.jsp" %>
 		
 		<div id="main_wrapper" class="container-fluid">
             

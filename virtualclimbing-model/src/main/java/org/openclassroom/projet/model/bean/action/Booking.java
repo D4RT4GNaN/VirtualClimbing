@@ -1,7 +1,10 @@
 package org.openclassroom.projet.model.bean.action;
 
 import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
+import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
 
 import org.openclassroom.projet.model.bean.topo.Topo;
@@ -14,6 +17,7 @@ public class Booking {
     private Date startDate;
     
     @NotNull
+    @Future
     private Date endDate;
     
     @NotNull
@@ -82,6 +86,25 @@ public class Booking {
             .append("pseudo=").append("")
             .append("}");
         return vStB.toString();
+    }
+    
+    public Boolean isAfter() {
+    	Boolean isAfter = endDate.after(new java.util.Date());
+    	return isAfter;
+    }
+    
+    public Date dateFromString(String pDate) {
+    	java.util.Date vDate = null;
+    	
+    	try {
+			vDate = new SimpleDateFormat("MM/dd/yyyy").parse(pDate);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+    	
+    	Date sqlDate = new Date(vDate.getTime());
+    	
+    	return sqlDate;
     }
 	
 }

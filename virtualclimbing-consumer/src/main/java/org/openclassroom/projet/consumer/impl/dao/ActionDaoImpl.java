@@ -31,19 +31,14 @@ public class ActionDaoImpl extends AbstractDao implements ActionDao {
 	
 	@Override
 	public void rentTopo(Booking pBooking) {
-		String vRequest = "INSERT INTO booking"
-						+ " VALUES ("
-						+ " :start_date,"
-						+ " :end_date,"
-						+ " :name_topo,"
-						+ " :pseudo_user"
-						+ ")";
+		String vRequest = "INSERT INTO booking (start_date, end_date, name_topo, pseudo_user)"
+						+ " VALUES (:startDate, :endDate, :nameTopo, :pseudoUser)";
 		
 		MapSqlParameterSource vParams = new MapSqlParameterSource();
-		vParams.addValue("start_date", pBooking.getStartDate(), Types.DATE);
-		vParams.addValue("end_date", pBooking.getEndDate(), Types.DATE);
-		vParams.addValue("name_topo", pBooking.getTopo().getName(), Types.VARCHAR);
-		vParams.addValue("pseudo_user", pBooking.getUser().getPseudo(), Types.VARCHAR);
+		vParams.addValue("startDate", pBooking.getStartDate(), Types.DATE);
+		vParams.addValue("endDate", pBooking.getEndDate(), Types.DATE);
+		vParams.addValue("nameTopo", pBooking.getTopo().getName(), Types.VARCHAR);
+		vParams.addValue("pseudoUser", pBooking.getUser().getPseudo(), Types.VARCHAR);
 		
 		NamedParameterJdbcTemplate vNamedParameterJdbcTemplate = new NamedParameterJdbcTemplate(getDataSource());
 		vNamedParameterJdbcTemplate.update(vRequest, vParams);

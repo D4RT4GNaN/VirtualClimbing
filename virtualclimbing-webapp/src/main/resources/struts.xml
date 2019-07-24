@@ -31,32 +31,32 @@
 		<action name="search"
 				class="org.openclassroom.projet.webapp.action.SearchAction"
 				method="doResearch">
-			<result>/jsp/search.jsp</result>
+			<result>/jsp/content/search.jsp</result>
 		</action>
 		
 		<!-- Detail Actions -->
 		<action name="detail_topo"
 				class="org.openclassroom.projet.webapp.action.OverviewAction"
 				method="doDetailTopo">
-			<result name="success">/jsp/detail/detail_topo.jsp</result>		
+			<result name="success">/jsp/content/detail/topo.jsp</result>		
 		</action>
 		
 		<action name="detail_site"
 				class="org.openclassroom.projet.webapp.action.OverviewAction"
 				method="doDetailSite">
-			<result name="success">/jsp/detail/detail_site.jsp</result>
+			<result name="success">/jsp/content/detail/site.jsp</result>
 		</action>
 		
 		<action name="detail_sector"
 				class="org.openclassroom.projet.webapp.action.OverviewAction"
 				method="doDetailSector">
-			<result name="success">/jsp/detail/detail_site.jsp</result>
+			<result name="success">/jsp/content/detail/site.jsp</result>
 		</action>
 		
 		<action name="detail_route"
 				class="org.openclassroom.projet.webapp.action.OverviewAction"
 				method="doDetailRoute">
-			<result name="success">/jsp/detail/detail_site.jsp</result>
+			<result name="success">/jsp/content/detail/site.jsp</result>
 		</action>
 		
 		<!-- Creating Content Action -->
@@ -69,7 +69,7 @@
 		    </interceptor-ref>
 		    <interceptor-ref name="defaultStack" />
 				
-			<result>/jsp/adding_content.jsp</result>
+			<result>/jsp/content/new.jsp</result>
 		</action>
 		
 		<action name="create_topo"
@@ -81,7 +81,7 @@
 		    </interceptor-ref>
 			<interceptor-ref name="fileUploadStack" />
 			
-			<result name="input">/jsp/adding_content.jsp</result>
+			<result name="input">/jsp/content/new.jsp</result>
 			<result name="success" type="redirectAction">
 				<param name="actionName">create_content</param>
 			</result>
@@ -96,7 +96,7 @@
 		    </interceptor-ref>
 			<interceptor-ref name="fileUploadStack" />
 			
-			<result name="input">/jsp/adding_content.jsp</result>
+			<result name="input">/jsp/content/new.jsp</result>
 			<result name="success" type="redirectAction">
 				<param name="actionName">create_content</param>
 			</result>
@@ -111,7 +111,7 @@
 		    </interceptor-ref>
 			<interceptor-ref name="fileUploadStack" />
 				
-			<result name="input">/jsp/adding_content.jsp</result>
+			<result name="input">/jsp/content/new.jsp</result>
 			<result name="success" type="redirectAction">
 				<param name="actionName">create_content</param>
 			</result>
@@ -126,7 +126,7 @@
 		    </interceptor-ref>
 		    <interceptor-ref name="defaultStack" />
 				
-			<result name="input">/jsp/adding_content.jsp</result>
+			<result name="input">/jsp/content/new.jsp</result>
 			<result name="success" type="redirectAction">
 				<param name="actionName">create_content</param>
 			</result>
@@ -134,17 +134,17 @@
 		
 		<!-- Users Action -->
 		<action name="connect">
-			<result>/jsp/login/login.jsp</result>
+			<result>/jsp/user/login/login.jsp</result>
 		</action>
 		
 		<action name="register">
-			<result>/jsp/login/signin.jsp</result>
+			<result>/jsp/user/login/signin.jsp</result>
 		</action>
 		
 		<action name="signin" 
 					   class="org.openclassroom.projet.webapp.action.UserManagmentAction" 
 					   method="doSignin">
-			<result name="input">/jsp/login/signin.jsp</result>
+			<result name="input">/jsp/user/login/signin.jsp</result>
 			<result name="success" type="redirectAction">connect</result>
 		</action>
 		
@@ -161,9 +161,39 @@
 			<result type="redirectAction">index</result>
 		</action>
 		
-		<action name="detail_user">
-			<result>/jsp/user/detail_user.jsp</result>
+		<action name="detail_user"
+				class="org.openclassroom.projet.webapp.action.BookingAction"
+				method="doGetListBooking">
+			<result>/jsp/user/detail.jsp</result>
 		</action>
+		
+		<action name="change_password" 
+				class="org.openclassroom.projet.webapp.action.UserManagmentAction" 
+				method="doChangePassword">
+	   		<result name="input">/jsp/user/detail.jsp</result>
+	   		<result name="success" type="redirectAction">detail_user</result>
+		</action>
+		
+		<!-- Booking Actions -->
+		<!--  -->
+		<action name="all_booking"
+				class="org.openclassroom.projet.webapp.action.BookingAction"
+				method="doGetListBooking">
+			<result>/jsp/booking/detail.jsp</result>
+		</action>
+		
+		<action name="private_topo_list" 
+			   	class="org.openclassroom.projet.webapp.action.BookingAction" 
+			   	method="doGetListPrivateTopo">
+			<result>/jsp/booking/search.jsp</result>
+		</action>
+		
+        <action name="rent_topo"
+                class="org.openclassroom.projet.webapp.action.BookingAction"
+                method="doAddBooking">                
+            <result name="input">/jsp/booking/search.jsp</result>
+            <result name="success" type="redirectAction">detail_user</result>
+        </action>
 		
 	</package>
 	

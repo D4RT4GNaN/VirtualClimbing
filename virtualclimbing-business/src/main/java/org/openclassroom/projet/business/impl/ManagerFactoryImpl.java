@@ -11,6 +11,7 @@ import org.openclassroom.projet.business.contract.manager.UserManager;
 @Named("managerFactory")
 public class ManagerFactoryImpl implements ManagerFactory {
 
+	@Inject
 	private ActionManager actionManager;
 	
 	@Inject
