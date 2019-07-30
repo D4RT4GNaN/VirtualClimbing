@@ -5,43 +5,54 @@
 <!DOCTYPE html>
 <html>
 	<%@ include file="/jsp/_include/structure/head.jsp" %>
+	
 	<body>
 		<%@ include file="/jsp/_include/structure/header.jsp" %>
 		
 		<div class="wrapper fadeInDown">
 		  <div id="formContent">
-		    <!-- Tabs Titles -->
-		
-		    <!-- Icon -->
+		    <!-- Header -->
 		    <div class="fadeIn first">
-		      	<h3 class="modal-title">S'inscrire</h3>
+		      	<h3 class="modal-title">
+		      		<s:text name="user.signin.header" />
+		      	</h3>
+		      	
 		      	<s:actionerror />
 		    </div>
 		
 		    <!-- Login Form -->
 		    <form id="login-form" action="signin">
-		    	<div class="form-group">
-            		<s:textfield class="form-control" placeholder="Pseudo" name="user.pseudo" />
-            	</div>
-            	<div class="form-group">
-            		<s:textfield class="form-control" placeholder="Prénom" name="user.firstName" />
-            	</div>
-            	<div class="form-group">
-              		<s:textfield class="form-control" placeholder="Nom" name="user.lastName" />
-              	</div>
-              	<div class="form-group">
-              		<s:password class="form-control" placeholder="Mot de passe" name="user.password" />
-            	</div>
-		      	<s:submit class="btn btn-secondary fadeIn fourth" value="S'inscrire" />
+           		<s:textfield class="form-group form-control" name="user.pseudo" 
+           					 placeholder="%{getText('user.pseudo.placeholder')}" 
+           		/>
+				
+           		<s:textfield class="form-group form-control" name="user.firstName" 
+           					 placeholder="%{getText('user.signin.firstName.placeholder')}" 
+           		/>
+            	
+           		<s:textfield class="form-group form-control" name="user.lastName" 
+           					 placeholder="%{getText('user.signin.lastName.placeholder')}" 
+           		/>
+              	
+           		<s:password class="form-group form-control" name="user.password" 
+           					placeholder="%{getText('user.password.placeholder')}" 
+           		/>
+				
+		      	<s:submit class="btn btn-secondary fadeIn fourth" value="%{getText('user.signin.submit')}" />
 		    </form>
 		
 		    <!-- Remind Passowrd -->
 		    <div id="formFooter">
-          		<p> Vous avez déjà un compte ? <s:a href="/virtualclimbing-webapp/connect">Se connecter</s:a></p>
+          		<p>  
+          			<s:text name="user.signin.message.login" />
+          			<s:a action="connect">
+          				<s:text name="user.signin.button.login" />
+          			</s:a>
+          		</p>
 		    </div>
-		
 		  </div>
 		</div>
+		
 		<%@ include file="/jsp/_include/structure/footer.jsp" %>
 	</body>
 </html> 

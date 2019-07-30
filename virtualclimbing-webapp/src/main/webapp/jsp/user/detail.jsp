@@ -5,65 +5,91 @@
 <!DOCTYPE html>
 <html>
 	<%@ include file="/jsp/_include/structure/head.jsp" %>
+	
 	<body class="container-fluid">
 		<%@ include file="/jsp/_include/structure/header.jsp" %>
 		
 		<div id="main_wrapper" class="main-wrapper-vertical-center main-wrapper-spacearound row">
-            
             <div class="user-div col-sm-5">
             	<h3 class="d-flex justify-content-between">
             		<s:property value="#session.user.pseudo" />
-            		<i class="fas fa-edit"></i>
             	</h3>
+            	
             	<s:actionmessage />
             	<s:actionerror />
-            	<form action="">
-            		<s:textfield class="underline-input form-group" value="%{#session.user.firstName}" readOnly="true" />
-            		<s:textfield class="underline-input form-group" value="%{#session.user.lastName}" readOnly="true" />
-            		<div class="text-center" hidden>
-                        <s:submit class="btn btn-outline-secondary" value="Envoyez" />
-                    </div>	
-            	</form>
+            	
+           		<s:textfield class="underline-input form-group" value="%{#session.user.firstName}" readOnly="true" />
+           		<s:textfield class="underline-input form-group" value="%{#session.user.lastName}" readOnly="true" />
+
             	<form action="change_password">
             		<fieldset>
-            			<legend>Changer de mot de passe</legend>
-	            		<s:password name="user.password" class="form-group form-control" placeholder="Mot de passe" />
-	            		<s:password name="confirmPassword" class="form-group form-control" placeholder="Confirme Mot de passe" />
+            			<legend>
+            				<s:text name="user.detail.password.legend" />
+            			</legend>
+            			
+	            		<s:password name="user.password" class="form-group form-control" 
+	            					placeholder="%{getText('user.password.placeholder')}" 
+	            		/>
+	            		
+	            		<s:password name="confirmPassword" class="form-group form-control" 
+	            					placeholder="%{getText('user.detail.password.confirmPassword.placeholder')}" 
+	            		/>
+	            		
 	            		<div class="text-center">
-                            <s:submit class="btn btn-outline-secondary" value="Envoyez" />
+                            <s:submit class="btn btn-outline-secondary" value="%{getText('user.detail.password.submit')}" />
                         </div>		
             		</fieldset>
             	</form>
             </div>
+            
             <div class="user-div col-sm-5">
-            	<h3>Réservations</h3>
+            	<h3>
+            		<s:text name="user.detail.booking.header" />
+            	</h3>
+            	
             	<div class="booking-div p-0">
             		<s:if test="listBooking.isEmpty()">
-            			<p class="text-center align-middle font-weight-bold font-italic pt-3">Aucune réservation en mémoire</p>
+            			<p class="text-center align-middle font-weight-bold font-italic pt-3">
+            				<s:text name="user.detail.booking.noBooking" />
+            			</p>
             		</s:if>
             		<s:else>
             			<table class="table table-striped m-0">
             				<thead>
             					<tr>
-							    	<th scope="col">Nom</th>
-							      	<th scope="col">Fin</th>
-							      	<th scope="col">Accès</th>
+							    	<th scope="col">
+							    		<s:text name="booking.detail.thead.name" />
+							    	</th>
+							      	<th scope="col">
+							      		<s:text name="booking.detail.thead.end" />
+							      	</th>
+							      	<th scope="col">
+							      		<s:text name="booking.detail.thead.access" />
+							      	</th>
 							    </tr>
             				</thead>
 		            		<tbody id="nameList">
 		              			<s:iterator value="listBooking" begin="listBooking.size()-1" end="endIteration" step="-1">
 									<tr>
-										<td><s:property value="topo.name" /></td>
-										<td><s:property value="endDate" /></td>
+										<td>
+											<s:property value="topo.name" />
+										</td>
+										
+										<td>
+											<s:property value="endDate" />
+										</td>
+										
 										<td>
 											<s:if test="isAfter()">
 												<s:a action="detail_topo" class="btn btn-outline-secondary">
 													<s:param name="name" value="topo.name" />
-													Voir
+													<s:text name="booking.detail.access.link" />
 												</s:a>
 											</s:if>
 											<s:else>
-												<s:a class="btn btn-outline-secondary disabled">Voir</s:a>
+												<s:a class="btn btn-outline-secondary disabled">
+													<s:text name="booking.detail.access.link" />
+												</s:a>
 											</s:else>
 										</td>
 									</tr>
@@ -73,7 +99,6 @@
             		</s:else>
             	</div>
             </div>
-            
         </div>
         
 		<%@ include file="/jsp/_include/structure/footer.jsp" %>

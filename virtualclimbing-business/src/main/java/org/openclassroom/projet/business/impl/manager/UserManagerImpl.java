@@ -33,19 +33,19 @@ public class UserManagerImpl extends AbstractManager implements UserManager {
 		if (vUser.getPassword().equals(pPassword)) {
 			return vUser;
 		} else {
-			throw new FunctionalException("Mot de passe incorrect !");
+			throw new FunctionalException(resourceBundle.getString("manager.user.error.incorrectPassword"));
 		}
 	}
 	
 	@Override
 	public void addUser(User pUser) throws FunctionalException {
 		if (pUser == null) {
-            throw new FunctionalException("Un utilisateur ne peut pas être null !");
+            throw new FunctionalException(resourceBundle.getString("manager.user.error.null"));
         }
 
         Set<ConstraintViolation<User>> vViolations = getConstraintValidator().validate(pUser);
         if (!vViolations.isEmpty()) {
-            throw new FunctionalException("L'objet User est invalide",
+            throw new FunctionalException(resourceBundle.getString("manager.user.error.validation"),
                                           new ConstraintViolationException(vViolations));
         } 
 		
@@ -67,16 +67,16 @@ public class UserManagerImpl extends AbstractManager implements UserManager {
 	@Override
 	public void changePassword(User pUser, String pConfirmPassword) throws FunctionalException {
 		if (pUser == null)
-            throw new FunctionalException("Un utilisateur ne peut pas être null !");
+            throw new FunctionalException(resourceBundle.getString("manager.user.error.null"));
 		
 		if (pUser.getPseudo() == null || pUser.getPseudo().equals(""))
-			throw new FunctionalException("Un utilisateur doit être connecté");
+			throw new FunctionalException(resourceBundle.getString("manager.user.error.mustConnected"));
 		
 		if (pUser.getPassword() == null || pUser.getPassword().equals(""))
-			throw new FunctionalException("Un mot de passe doit être renseigné");
+			throw new FunctionalException(resourceBundle.getString("manager.user.error.emptyPassword"));
 		
 		if (!pUser.getPassword().equals(pConfirmPassword))
-			throw new FunctionalException("Le mot de passe et la confirmation doivent être identique");
+			throw new FunctionalException(resourceBundle.getString("manager.user.error.badConfirmPassword"));
 		
         TransactionStatus vTransactionStatus
         = platformTransactionManager.getTransaction(new DefaultTransactionDefinition());

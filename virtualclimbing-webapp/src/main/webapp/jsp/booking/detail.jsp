@@ -13,9 +13,15 @@
 				<table class="table table-striped m-0">
 	   				<thead>
 	   					<tr>
-				    		<th scope="col">Nom</th>
-					      	<th scope="col">Fin</th>
-					      	<th scope="col">Accès</th>
+				    		<th scope="col">
+				    			<s:text name="booking.detail.thead.name" />
+				    		</th>
+					      	<th scope="col">
+					      		<s:text name="booking.detail.thead.end" />
+					      	</th>
+					      	<th scope="col">
+					      		<s:text name="booking.detail.thead.access" />
+					      	</th>
 					    </tr>
 	   				</thead>
 	           		<tbody id="nameList">
@@ -27,11 +33,14 @@
 									<s:if test="isAfter()">
 										<s:a action="detail_topo" class="btn btn-outline-secondary">
 											<s:param name="name" value="topo.name" />
-											Voir
+											<s:text name="booking.detail.access.link" />
 										</s:a>
 									</s:if>
+									
 									<s:else>
-										<s:a class="btn btn-outline-secondary disabled">Voir</s:a>
+										<s:a class="btn btn-outline-secondary disabled">
+											<s:text name="booking.detail.access.link" />
+										</s:a>
 									</s:else>
 								</td>
 							</tr>

@@ -7,6 +7,7 @@ import org.openclassroom.projet.model.bean.topo.Sector;
 import org.openclassroom.projet.model.bean.topo.Site;
 import org.openclassroom.projet.model.bean.topo.Topo;
 import org.openclassroom.projet.model.bean.topo.TopoSite;
+import org.openclassroom.projet.model.exception.FunctionalException;
 
 /**
  * DAO Interface of package
@@ -43,8 +44,9 @@ public interface TopoDao {
 	/**
 	 * Add {@link Topo} in database
 	 * @param pTopo -
+	 * @throws FunctionalException
 	 */
-	void addTopo(Topo pTopo);
+	void addTopo(Topo pTopo) throws FunctionalException;
 	
 	
 	
@@ -68,8 +70,9 @@ public interface TopoDao {
 	 * Add a new link between {@link Topo} and {@link Site} in database
 	 * @param pTopo -
 	 * @param pSite -
+	 * @throws FunctionalException
 	 */
-	void addTopoSite(TopoSite pTopoSite);
+	void addTopoSite(TopoSite pTopoSite) throws FunctionalException;
 	
 	
 	
@@ -97,8 +100,9 @@ public interface TopoDao {
 	/**
 	 * Adding a {@link Site} in database
 	 * @param pSite -
+	 * @throws FunctionalException
 	 */
-	void addSite(Site pSite);
+	void addSite(Site pSite) throws FunctionalException;
 	
 	
 	
@@ -132,8 +136,9 @@ public interface TopoDao {
 	/**
 	 * Adding a {@link Sector} in database
 	 * @param pSector -
+	 * @throws FunctionalException
 	 */
-	void addSector(Sector pSector);
+	void addSector(Sector pSector) throws FunctionalException;
 	
 	
 	
@@ -167,7 +172,8 @@ public interface TopoDao {
 	/**
 	 * Adding a {@link Route} in database
 	 * @param pRoute -
+	 * @throws FunctionalException
 	 */
-	void addRoute(Route pRoute);
+	void addRoute(Route pRoute) throws FunctionalException;
 	
 }

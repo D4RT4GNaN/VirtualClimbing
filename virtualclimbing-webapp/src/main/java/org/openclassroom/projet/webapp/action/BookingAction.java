@@ -102,14 +102,14 @@ public class BookingAction extends AbstractAction implements SessionAware {
                     getManagerFactory().getActionManager().addBooking(booking);
                     
                     vResult = ActionSupport.SUCCESS;
-                    this.addActionMessage("Réservation ajouté avec succès");
+                    this.addActionMessage(getText("action.booking.success"));
 
                 } catch (FunctionalException pEx) {
                     this.addActionError(pEx.getMessage());
                 }
             }
         } else {
-        	this.addActionError("Entrer une date de fin de réservation !");
+        	this.addActionError(getText("action.booking.invalideDate"));
         }
 		
 		if (vResult.equals(ActionSupport.INPUT)) {

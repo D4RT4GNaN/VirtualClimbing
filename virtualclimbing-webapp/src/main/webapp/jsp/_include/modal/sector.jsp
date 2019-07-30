@@ -1,13 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="s" uri="/struts-tags" %>
 
 <div class="modal fade" id="modalSelectSector" tabindex="-1" role="dialog" aria-labelledby="modalSelectTitle" aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered" role="document">
 		<div class="modal-content">
-		
 			<!-- header -->
 	        <div class="modal-header">
-	        	<h3 class="modal-title">Sélectionner un élément</h3>
+	        	<h3 class="modal-title">
+	        		<s:text name="modal.sector.title" />
+	        	</h3>
+	        	
 	        	<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 	        		<span aria-hidden="true">&times;</span>
 	        	</button>
@@ -32,9 +35,11 @@
         	
         	<!-- footer -->
         	<div class="modal-footer">
-          		<s:textfield name="research" id="filter" placeholder="Chercher ..." class="form-control" onkeyup="filterFunction()" />
+          		<s:textfield name="research" id="filter" class="form-control" 
+          					 placeholder="%{getText('modal.search.placeholder')}" 
+          					 onkeyup="filterFunction()" 
+          		/>
         	</div>
-        	
 		</div>
 	</div>
 </div> 

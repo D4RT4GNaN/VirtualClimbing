@@ -35,7 +35,7 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
 		try {
 			vUser = vJdbcTemplate.queryForObject(vRequest, vRowMapper, pPseudo);
 		} catch (EmptyResultDataAccessException pEx) {
-			throw new FunctionalException("L'utilisateur " + pPseudo + " n'existe pas !");
+			throw new FunctionalException(getText("dao.user.error.emptyResult", pPseudo));
 		}
 		
 		return vUser;
@@ -55,7 +55,7 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
 	@Override
 	public void addUser(User pUser) throws FunctionalException {
 		String vRequest = "INSERT INTO identified_user (pseudo, first_name, last_name, password, registration_date) "
-				+ "VALUES (:pseudo, :firstName, :lastName, :password, :registrationDate)";
+						+ "VALUES (:pseudo, :firstName, :lastName, :password, :registrationDate)";
 
 		BeanPropertySqlParameterSource vParams = new BeanPropertySqlParameterSource(pUser);
 		vParams.registerSqlType("pseudo", Types.VARCHAR);
@@ -68,15 +68,15 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
 		try {
 			vNamedParameterJdbcTemplate.update(vRequest, vParams);
 		} catch (DuplicateKeyException pEx) {
-			throw new FunctionalException("L'utilisateur " + pUser.getPseudo() + " existe déjà !");
+			throw new FunctionalException(getText("dao.user.error.duplicateKey", pUser.getPseudo()));
 		}
 	}
 	
 	@Override
 	public void changePassword(User pUser) {
 		String vRequest = "UPDATE identified_user"
-									+ " SET password=:password"
-									+ " WHERE pseudo=:pseudo";
+						+ " SET password=:password"
+						+ " WHERE pseudo=:pseudo";
 		
 		MapSqlParameterSource vParams = new MapSqlParameterSource();
 		vParams.addValue("pseudo", pUser.getPseudo(), Types.VARCHAR);

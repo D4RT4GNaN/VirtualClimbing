@@ -3,61 +3,91 @@
 <%@ taglib prefix="s" uri="/struts-tags" %>
     
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-    <a class="navbar-brand text-center" href="index">
-        <img id="logo" alt="logo de Virtual Climbing" src="images/icon_virtual_climbing.png" />
-    </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <s:a class="navbar-brand text-center" action="index">
+        <img id="logo" alt="Virtual Climbing" src="images/icon_virtual_climbing.png" />
+    </s:a>
+    
+    <button class="navbar-toggler" type="button" 
+    		data-toggle="collapse" data-target="#navbarSupportedContent" 
+    		aria-controls="navbarSupportedContent" aria-expanded="false" 
+    		aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <s:a class="nav-link" action="index">Accueil</s:a>
+                <s:a class="nav-link" action="index">
+                	<s:text name="nav.index" />
+                </s:a>
             </li>
+            
             <li class="nav-item">
                 <s:a class="nav-link" action="search">
                 	<s:param name="keyword" value="" />
-                	Topos
+                	<s:text name="nav.beanList" />
                 </s:a>
             </li>
+            
             <s:if test="#session.user">
 	            <li class="nav-item">
-	                <s:a class="nav-link" action="private_topo_list">Réservations</s:a>
+	                <s:a class="nav-link" action="private_topo_list">
+	                	<s:text name="nav.booking" />
+	                </s:a>
 	            </li>
+	            
 	            <li class="nav-item">
-	                <s:a class="nav-link" action="create_content">Partager</s:a>
+	                <s:a class="nav-link" action="create_content">
+	                	<s:text name="nav.share" />
+	                </s:a>
 	            </li>
             </s:if>
         </ul>
+        
         <div class="container-fluid">
             <div class="d-flex justify-content-end">
                 <div id="login">
                 	<s:if test="#session.user">
 	                	<div class="dropdown dmenu">
-	                		<a class="dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+	                		<a class="dropdown-toggle" id="navbardrop" data-toggle="dropdown">
 			             		<span class="fas fa-user-circle"></span>
 			             		<s:property value="#session.user.pseudo"/>
 				           	</a>
+				           	
 				           	<div class="dropdown-menu dropdown-menu-right bg-dark">
-	              				<s:a class="dropdown-item" action="detail_user">Mon compte</s:a>
-	              				<a class="dropdown-item" href="all_booking">Mes réservations</a>
+	              				<s:a class="dropdown-item" action="detail_user">
+	              					<s:text name="nav.user.account" />
+	              				</s:a>
+	              				
+	              				<s:a class="dropdown-item" action="all_booking">
+	              					<s:text name="nav.user.booking" />
+	              				</s:a>
+	              				
 	              				<div class="dropdown-divider"></div>
-	              				<s:a class="dropdown-item" action="logout">Déconnexion</s:a>
+	              				
+	              				<s:a class="dropdown-item" action="logout">
+	              					<s:text name="nav.user.logout" />
+	              				</s:a>
 	            			</div>
 	            		</div>
                 	</s:if>
                 	<s:else>
-                    	<s:a href="/virtualclimbing-webapp/connect">Connexion</s:a>
+                    	<s:a action="connect">
+                    		<s:text name="nav.user.login" />
+                    	</s:a>
                     </s:else>
                 </div>
         
-                <s:form action="search" class="searchbar">
-                    <input type="text" class="search_input" name="keyword" placeholder="Recherche..." />
-                    <a onclick="this.parentNode.submit(); return false;" class="search_icon">
+                <form action="search" class="searchbar">
+                    <s:textfield class="search_input" 
+                    			 name="keyword" 
+                    			 placeholder="%{getText('nav.search.placeholder')}" 
+                    />
+                    
+                    <s:a onclick="this.parentNode.submit(); return false;" class="search_icon">
                         <span class="fas fa-search"></span>
-                    </a>
-                </s:form>
+                    </s:a>
+                </form>
             </div>
         </div>
     </div>

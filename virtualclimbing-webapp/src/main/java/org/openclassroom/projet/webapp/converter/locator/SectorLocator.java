@@ -13,7 +13,7 @@ import org.openclassroom.projet.model.exception.NotFoundException;
 import com.opensymphony.xwork2.conversion.TypeConversionException;
 
 /***/
-public class SectorLocator extends StrutsTypeConverter {
+public class SectorLocator extends AbstractLocator {
 
 	@Inject
 	private ManagerFactory managerFactory;
@@ -31,7 +31,7 @@ public class SectorLocator extends StrutsTypeConverter {
                         ? null
                         :  managerFactory.getTopoManager().getSector(vValue);
                 } catch (NotFoundException pEx) {
-                    throw new TypeConversionException("Secteur introuvable", pEx);
+                    throw new TypeConversionException(resourceBundle.getString("locator.sector.notFound"), pEx);
                 }
             } else {
                 vReturn = performFallbackConversion(pContext, pValues, pToClass);

@@ -109,7 +109,6 @@ public class CommentAction extends AbstractAction implements SessionAware {
 			listSite = getManagerFactory().getTopoManager().getListSiteForTopo(topo);
 		}
 		String vSectorName = sector.getName();
-		System.out.println(name);
 		this.fillContent(vSectorName);
 		
 		return hasErrors() ? ActionSupport.ERROR : ActionSupport.SUCCESS;
@@ -129,7 +128,7 @@ public class CommentAction extends AbstractAction implements SessionAware {
                     getManagerFactory().getActionManager().addComment(comment);
                     
                     vResult = ActionSupport.SUCCESS;
-                    this.addActionMessage("Site ajouté avec succès");
+                    this.addActionMessage(getText("action.comment.success"));
 
                 } catch (FunctionalException pEx) {
                     this.addActionError(pEx.getMessage());

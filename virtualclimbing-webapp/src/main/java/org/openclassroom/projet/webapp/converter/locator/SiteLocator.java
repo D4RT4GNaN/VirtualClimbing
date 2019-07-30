@@ -15,7 +15,7 @@ import com.opensymphony.xwork2.conversion.TypeConversionException;
 
 
 /***/
-public class SiteLocator extends StrutsTypeConverter {
+public class SiteLocator extends AbstractLocator {
 	
 	@Inject
 	private ManagerFactory managerFactory;
@@ -33,7 +33,7 @@ public class SiteLocator extends StrutsTypeConverter {
                         ? null
                         :  managerFactory.getTopoManager().getSite(vValue);
                 } catch (NotFoundException pEx) {
-                    throw new TypeConversionException("Site introuvable", pEx);
+                    throw new TypeConversionException(resourceBundle.getString("locator.site.notFound"), pEx);
                 }
             } else {
                 vRetour = performFallbackConversion(pContext, pValues, pToClass);

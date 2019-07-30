@@ -16,6 +16,8 @@ import org.openclassroom.projet.model.bean.topo.Sector;
 import org.openclassroom.projet.model.bean.topo.Site;
 import org.openclassroom.projet.model.bean.topo.Topo;
 import org.openclassroom.projet.model.bean.topo.TopoSite;
+import org.openclassroom.projet.model.exception.FunctionalException;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
@@ -78,8 +80,7 @@ public class TopoDaoImpl extends AbstractDao implements TopoDao {
 	}
 	
 	@Override
-	public void addTopo(Topo pTopo) {
-		System.out.println("test");
+	public void addTopo(Topo pTopo) throws FunctionalException {
 		String vRequest = "INSERT INTO topo (name, official_web_site, description, pseudo, image_url, private) "
 						+ "VALUES (:name, :officialWebSite, :description, :pseudo, :imageUrl, :private)";
 		
@@ -92,7 +93,11 @@ public class TopoDaoImpl extends AbstractDao implements TopoDao {
 		vParams.addValue("private", pTopo.getPrivateTopo(), Types.BOOLEAN);
 		
 		NamedParameterJdbcTemplate vNamedParameterJdbcTemplate = new NamedParameterJdbcTemplate(getDataSource());
-		vNamedParameterJdbcTemplate.update(vRequest, vParams);
+		try {
+			vNamedParameterJdbcTemplate.update(vRequest, vParams);
+		} catch (DuplicateKeyException pEx) {
+			throw new FunctionalException(getText("dao.topo.error.duplicateKey", pTopo.getName()));
+		}
 	}
 	
 	
@@ -124,7 +129,7 @@ public class TopoDaoImpl extends AbstractDao implements TopoDao {
 	}
 	
 	@Override
-	public void addTopoSite(TopoSite pTopoSite) {
+	public void addTopoSite(TopoSite pTopoSite) throws FunctionalException {
 		String vRequest = "INSERT INTO topo_site (name_topo, name_site) "
 				+ "VALUES (:nameTopo, :nameSite)";
 
@@ -133,7 +138,12 @@ public class TopoDaoImpl extends AbstractDao implements TopoDao {
 		vParams.addValue("nameSite", pTopoSite.getSite().getName(), Types.VARCHAR);
 		
 		NamedParameterJdbcTemplate vNamedParameterJdbcTemplate = new NamedParameterJdbcTemplate(getDataSource());
-		vNamedParameterJdbcTemplate.update(vRequest, vParams);
+		try {
+			vNamedParameterJdbcTemplate.update(vRequest, vParams);
+		} catch (DuplicateKeyException pEx) {
+			throw new FunctionalException(
+					getText("dao.toposite.error.duplicateKey", pTopoSite.getTopo().getName(), pTopoSite.getSite().getName()));
+		}
 	}
 	
 	
@@ -177,7 +187,7 @@ public class TopoDaoImpl extends AbstractDao implements TopoDao {
 	}
 	
 	@Override
-	public void addSite(Site pSite) {
+	public void addSite(Site pSite) throws FunctionalException {
 		String vRequest = "INSERT INTO public.site (name, image_url, latitude, longitude, location, access, rock_type, profil, anchorage, max_height, min_altitude, orientation, note) "
 		 			+ "VALUES (:name, :imageUrl, :latitude, :longitude, :location, :access, :rockType, :profil, :anchorage, :maxHeight, :minAltitude, :orientation, :note)";
 		
@@ -197,7 +207,11 @@ public class TopoDaoImpl extends AbstractDao implements TopoDao {
 		vParams.registerSqlType("note", Types.VARCHAR);
 		
 		NamedParameterJdbcTemplate vNamedParameterJdbcTemplate = new NamedParameterJdbcTemplate(getDataSource());
-		vNamedParameterJdbcTemplate.update(vRequest, vParams);
+		try {
+			vNamedParameterJdbcTemplate.update(vRequest, vParams);
+		} catch (DuplicateKeyException pEx) {
+			throw new FunctionalException(getText("dao.site.error.duplicateKey", pSite.getName()));
+		}
 	}
 
 
@@ -253,7 +267,7 @@ public class TopoDaoImpl extends AbstractDao implements TopoDao {
 	}
 
 	@Override
-	public void addSector(Sector pSector) {
+	public void addSector(Sector pSector) throws FunctionalException {
 		String vRequest = "INSERT INTO sector (name, name_site, image_url) "
 				+ "VALUES (:name, :nameSite, :imageUrl)";
 
@@ -263,7 +277,11 @@ public class TopoDaoImpl extends AbstractDao implements TopoDao {
 		vParams.addValue("imageUrl", pSector.getImageUrl(), Types.VARCHAR);
 		
 		NamedParameterJdbcTemplate vNamedParameterJdbcTemplate = new NamedParameterJdbcTemplate(getDataSource());
-		vNamedParameterJdbcTemplate.update(vRequest, vParams);
+		try {
+			vNamedParameterJdbcTemplate.update(vRequest, vParams);
+		} catch (DuplicateKeyException pEx) {
+			throw new FunctionalException(getText("dao.sector.error.duplicateKey", pSector.getName()));
+		}
 	}
 	
 	
@@ -319,7 +337,7 @@ public class TopoDaoImpl extends AbstractDao implements TopoDao {
 	}
 
 	@Override
-	public void addRoute(Route pRoute) {
+	public void addRoute(Route pRoute) throws FunctionalException {
 		String vRequest = "INSERT INTO route (name, grade, height, note, name_sector) "
 				+ "VALUES (:name, :grade, :height, :note, :nameSector)";
 
@@ -331,7 +349,11 @@ public class TopoDaoImpl extends AbstractDao implements TopoDao {
 		vParams.addValue("nameSector", pRoute.getSector().getName(), Types.VARCHAR);
 		
 		NamedParameterJdbcTemplate vNamedParameterJdbcTemplate = new NamedParameterJdbcTemplate(getDataSource());
-		vNamedParameterJdbcTemplate.update(vRequest, vParams);
+		try {
+			vNamedParameterJdbcTemplate.update(vRequest, vParams);
+		} catch (DuplicateKeyException pEx) {
+			throw new FunctionalException(getText("dao.route.error.duplicateKey", pRoute.getName()));
+		}
 	}
 
 }

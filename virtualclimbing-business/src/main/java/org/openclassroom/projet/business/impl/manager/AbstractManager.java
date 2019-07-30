@@ -1,5 +1,8 @@
 package org.openclassroom.projet.business.impl.manager;
 
+import java.util.Locale;
+import java.util.ResourceBundle;
+
 import javax.inject.Inject;
 import javax.validation.Configuration;
 import javax.validation.Validation;
@@ -9,6 +12,8 @@ import javax.validation.ValidatorFactory;
 import org.openclassroom.projet.consumer.contract.DaoFactory;
 
 public abstract class AbstractManager {
+	
+	Locale locale = Locale.FRENCH;
 	
 	@Inject
 	private DaoFactory daoFactory;
@@ -32,5 +37,7 @@ public abstract class AbstractManager {
         Validator vValidator = vFactory.getValidator();
         return vValidator;
     }
+    
+    ResourceBundle resourceBundle = ResourceBundle.getBundle("businessMessage", locale);
 
 }

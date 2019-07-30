@@ -58,12 +58,12 @@ public class TopoManagerImpl extends AbstractManager implements TopoManager {
 	@Override
 	public void addTopo(Topo pTopo) throws FunctionalException {
 		if (pTopo == null) {
-            throw new FunctionalException("Un topo ne peut pas être null !");
+            throw new FunctionalException(resourceBundle.getString("manager.topo.error.null"));
         }
 
         Set<ConstraintViolation<Topo>> vViolations = getConstraintValidator().validate(pTopo);
         if (!vViolations.isEmpty()) {
-            throw new FunctionalException("L'objet Topo est invalide",
+            throw new FunctionalException(resourceBundle.getString("manager.topo.error.validation"),
                                           new ConstraintViolationException(vViolations));
         } 
 		
@@ -118,12 +118,12 @@ public class TopoManagerImpl extends AbstractManager implements TopoManager {
 	@Override
 	public void addTopoSite(TopoSite pTopoSite) throws FunctionalException {
 		if (pTopoSite == null) {
-            throw new FunctionalException("Le lien entre un topo et un site ne peut pas être null !");
+            throw new FunctionalException(resourceBundle.getString("manager.toposite.error.null"));
         }
 
         Set<ConstraintViolation<TopoSite>> vViolations = getConstraintValidator().validate(pTopoSite);
         if (!vViolations.isEmpty()) {
-            throw new FunctionalException("L'objet TopoSite est invalide",
+            throw new FunctionalException(resourceBundle.getString("manager.toposite.error.validation"),
                                           new ConstraintViolationException(vViolations));
         } 
 		
@@ -180,12 +180,12 @@ public class TopoManagerImpl extends AbstractManager implements TopoManager {
 	@Override
 	public void addSite(Site pSite) throws FunctionalException {
 		if (pSite == null) {
-            throw new FunctionalException("Un site ne peut pas être null !");
+            throw new FunctionalException(resourceBundle.getString("manager.site.error.null"));
         }
 
         Set<ConstraintViolation<Site>> vViolations = getConstraintValidator().validate(pSite);
         if (!vViolations.isEmpty()) {
-            throw new FunctionalException("L'objet Site est invalide",
+            throw new FunctionalException(resourceBundle.getString("manager.site.error.validation"),
                                           new ConstraintViolationException(vViolations));
         } 
 		
@@ -248,12 +248,12 @@ public class TopoManagerImpl extends AbstractManager implements TopoManager {
 	@Override
 	public void addSector(Sector pSector) throws FunctionalException {
 		if (pSector == null) {
-            throw new FunctionalException("Un secteur ne peut pas être null !");
+            throw new FunctionalException(resourceBundle.getString("manager.sector.error.null"));
         }
 
         Set<ConstraintViolation<Sector>> vViolations = getConstraintValidator().validate(pSector);
         if (!vViolations.isEmpty() || pSector.getSite().getName().isEmpty()) {
-            throw new FunctionalException("L'objet Secteur est invalide",
+            throw new FunctionalException(resourceBundle.getString("manager.sector.error.validation"),
                                           new ConstraintViolationException(vViolations));
         } 
 		
@@ -303,12 +303,12 @@ public class TopoManagerImpl extends AbstractManager implements TopoManager {
 	@Override
 	public void addRoute(Route pRoute) throws FunctionalException {
 		if (pRoute == null) {
-            throw new FunctionalException("Une voie ne peut pas être null !");
+            throw new FunctionalException(resourceBundle.getString("manager.route.error.null"));
         }
 
         Set<ConstraintViolation<Route>> vViolations = getConstraintValidator().validate(pRoute);
         if (!vViolations.isEmpty() || pRoute.getSector().getName().isEmpty()) {
-            throw new FunctionalException("L'objet Voie est invalide",
+            throw new FunctionalException(resourceBundle.getString("manager.route.error.validation"),
                                           new ConstraintViolationException(vViolations));
         } 
 		

@@ -93,7 +93,7 @@ public class UserManagmentAction extends AbstractAction implements SessionAware,
                     getManagerFactory().getUserManager().addUser(user);
                     
                     vResult = ActionSupport.SUCCESS;
-                    this.addActionMessage("Utilisateur ajouté avec succès");
+                    this.addActionMessage(getText("action.user.signin.success"));
 
                 } catch (FunctionalException pEx) {
                     this.addActionError(pEx.getMessage());
@@ -118,7 +118,7 @@ public class UserManagmentAction extends AbstractAction implements SessionAware,
                     getManagerFactory().getUserManager().changePassword(user, confirmPassword);
                     
                     vResult = ActionSupport.SUCCESS;
-                    this.addActionMessage("Mot de passe changé avec succès");
+                    this.addActionMessage(getText("action.user.changePassword.success"));
 
                 } catch (FunctionalException pEx) {
                     this.addActionError(pEx.getMessage());

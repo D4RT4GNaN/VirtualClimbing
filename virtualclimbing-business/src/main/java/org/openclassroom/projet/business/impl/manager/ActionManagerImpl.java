@@ -32,12 +32,12 @@ public class ActionManagerImpl extends AbstractManager implements ActionManager 
 	@Override
 	public void addBooking(Booking pBooking) throws FunctionalException {
 		if (pBooking == null) {
-            throw new FunctionalException("Une réservation ne peut pas être null !");
+            throw new FunctionalException(resourceBundle.getString("manager.booking.error.null"));
         }
 
         Set<ConstraintViolation<Booking>> vViolations = getConstraintValidator().validate(pBooking);
         if (!vViolations.isEmpty()) {
-            throw new FunctionalException("L'objet Booking est invalide",
+            throw new FunctionalException(resourceBundle.getString("manager.booking.error.validation"),
                                           new ConstraintViolationException(vViolations));
         } 
 		
@@ -75,12 +75,12 @@ public class ActionManagerImpl extends AbstractManager implements ActionManager 
 	@Override
 	public void addComment(Comment pComment) throws FunctionalException {
 		if (pComment == null) {
-            throw new FunctionalException("Un commentaire ne peut pas être null !");
+            throw new FunctionalException(resourceBundle.getString("manager.comment.error.null"));
         }
 
         Set<ConstraintViolation<Comment>> vViolations = getConstraintValidator().validate(pComment);
         if (!vViolations.isEmpty()) {
-            throw new FunctionalException("L'objet Comment est invalide",
+            throw new FunctionalException(resourceBundle.getString("manager.comment.error.validation"),
                                           new ConstraintViolationException(vViolations));
         } 
 		

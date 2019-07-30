@@ -152,7 +152,7 @@ public class OverviewAction extends AbstractAction {
 		/***/
 		public String doAjaxOnSelectSite() {
 			if (site == null) {
-	            addActionError("Le site doit être précisé !");
+	            addActionError("action.detail.ajax.error.site.null");
 	        } else {
 	            listSector = getManagerFactory().getTopoManager().getListSectorForSite(site);
 	        }
@@ -163,7 +163,7 @@ public class OverviewAction extends AbstractAction {
 		/***/
 		public String doAjaxOnSelectSector() {
 			if (sector == null) {
-	            addActionError("Le secteur doit être précisé !");
+	            addActionError(getText("action.detail.ajax.error.sector.null"));
 	        } else {
 	            listRoute = getManagerFactory().getTopoManager().getListRouteForSector(sector);
 	            listComment = getManagerFactory().getActionManager().getListComment(sector);

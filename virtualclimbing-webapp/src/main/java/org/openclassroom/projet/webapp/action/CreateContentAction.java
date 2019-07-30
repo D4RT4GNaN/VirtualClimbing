@@ -124,7 +124,7 @@ public class CreateContentAction extends AbstractAction {
                     }
                     
                     vResult = ActionSupport.SUCCESS;
-                    this.addActionMessage("Topo ajouté avec succès");
+                    this.addActionMessage(getText("action.create.topo.success"));
 
                 } catch (NotFoundException pEx) {
                 	this.addActionError(pEx.getMessage());
@@ -158,7 +158,7 @@ public class CreateContentAction extends AbstractAction {
                     getManagerFactory().getTopoManager().addSite(site);
                     
                     vResult = ActionSupport.SUCCESS;
-                    this.addActionMessage("Site ajouté avec succès");
+                    this.addActionMessage(getText("action.create.site.success"));
 
                 } catch (FunctionalException pEx) {
                     this.addActionError(pEx.getMessage());
@@ -190,7 +190,7 @@ public class CreateContentAction extends AbstractAction {
                     getManagerFactory().getTopoManager().addSector(sector);
                     
                     vResult = ActionSupport.SUCCESS;
-                    this.addActionMessage("Secteur ajouté avec succès");
+                    this.addActionMessage(getText("action.create.sector.success"));
 
                 } catch (FunctionalException pEx) {
                     this.addActionError(pEx.getMessage());
@@ -220,7 +220,7 @@ public class CreateContentAction extends AbstractAction {
                     getManagerFactory().getTopoManager().addRoute(this.route);
                     
                     vResult = ActionSupport.SUCCESS;
-                    this.addActionMessage("Voie ajouté avec succès");
+                    this.addActionMessage(getText("action.create.route.success"));
 
                 } catch (FunctionalException pEx) {
                     this.addActionError(pEx.getMessage());
@@ -241,7 +241,6 @@ public class CreateContentAction extends AbstractAction {
 	
 	private String addNewFile() {
 		String imageUrl;
-		System.out.println(file);
 		
 		if (file == null) {
 			imageUrl = "images/781x250.svg";

@@ -5,40 +5,54 @@
 <!DOCTYPE html>
 <html>
 	<%@ include file="/jsp/_include/structure/head.jsp" %>
+	
 	<body>
 		<%@ include file="/jsp/_include/structure/header.jsp" %>
+		
 		<div class="wrapper fadeInDown">
-		  <div id="formContent">
-		    <!-- Tabs Titles -->
+	  		<div id="formContent">
+		    	<!-- Header -->
+			    <div class="fadeIn first">
+			      	<h3 class="modal-title">
+			      		<s:text name="user.login.header" />
+			      	</h3>
+			      	
+			      	<s:actionerror />
+			    </div>
 		
-		    <!-- Icon -->
-		    <div class="fadeIn first">
-		      	<h3 class="modal-title">Se connecter</h3>
-		      	<s:actionerror />
-		    </div>
+			    <!-- Login Form -->
+			    <form id="login-form" action="login">
+			    	<div class="form-group">
+			    		<s:textfield class="fadeIn second form-control" name="user.pseudo" 
+			    					 placeholder="%{getText('user.pseudo.placeholder')}" 
+			    		/>
+			    	</div>
+			    	
+			    	<div class="form-group">
+			      		<s:password class="fadeIn third form-control" name="user.password" 
+			      					placeholder="%{getText('user.password.placeholder')}" 
+			      		/>
+			      	</div>
+			      	
+			      	<s:submit class="btn btn-secondary fadeIn fourth" value="%{getText('user.login.submit')}" />
+			    </form>
 		
-		    <!-- Login Form -->
-		    <form id="login-form" action="login">
-		    	<div class="form-group">
-		    		<s:textfield class="fadeIn second form-control" name="user.pseudo" placeholder="Pseudo" />
-		    	</div>
-		    	<div class="form-group">
-		      		<s:textfield class="fadeIn third form-control" name="user.password" placeholder="Mot de passe" />
-		      	</div>
-		      	<s:submit class="btn btn-secondary fadeIn fourth" value="Connexion" />
-		    </form>
-		
-		    <!-- Remind Passowrd -->
-		    <div id="formFooter">
-		      	<s:a class="underlineHover" href="#">Mot de passe oublié?</s:a>
-		      	<p> 
-		      		Vous n'avez pas encore de compte ? 
-		      		<s:a class="underlineHover" href="/virtualclimbing-webapp/register">S'inscrire</s:a>
-		      	</p>
-		    </div>
-		
-		  </div>
+			    <!-- Remind Password / Signin -->
+			    <div id="formFooter">
+			      	<s:a class="underlineHover" href="#">
+			      		<s:text name="user.login.button.forgottenPassword" />
+			      	</s:a>
+			      	
+			      	<p> 
+			      		<s:text name="user.login.message.signin" />
+			      		<s:a class="underlineHover" action="register">
+			      			<s:text name="user.login.button.signin" />
+			      		</s:a>
+			      	</p>
+			    </div>
+	  		</div>
 		</div>
+		
 		<%@ include file="/jsp/_include/structure/footer.jsp" %>
 	</body>
 </html> 
