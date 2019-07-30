@@ -5,27 +5,70 @@
 		"http://struts.apache.org/dtds/struts-2.5.dtd">
 		
 <struts>
-	<package name="default" extends="struts-default">
+	<package name="base" abstract="true" extends="struts-default">
+		
+		<!-- Interceptors -->
 		<interceptors>
-			<interceptor-stack name="fileUploadStack">
+			<!-- Interceptor Custom -->
+			<interceptor name="auth" class="org.openclassroom.projet.webapp.interceptor.AuthInterceptor" />
+		
+			<!-- Interceptors Stack -->
+            <interceptor-stack name="fileUploadStack">
 				<interceptor-ref name="fileUpload">
 					<param name="maximumSize">2097152</param>
-
 					<param name="allowedTypes">
 						image/png,image/gif,image/jpeg,image/pjpeg
 					</param>
 				</interceptor-ref>
-				<interceptor-ref name="defaultStack" />
+				<interceptor-ref name="storeStack" />
 			</interceptor-stack>
-		</interceptors>
+            
+            
+            <interceptor-stack name="storeStack">
+                <interceptor-ref name="store">
+			        <param name="operationMode">STORE</param>
+			    </interceptor-ref>
+			    <interceptor-ref name="defaultStack" />
+            </interceptor-stack>
+            
+            
+            <interceptor-stack name="retrieveStack">
+                <interceptor-ref name="store">
+			        <param name="operationMode">RETRIEVE</param>
+			    </interceptor-ref>
+			    <interceptor-ref name="defaultStack" />
+            </interceptor-stack>
+            
+            
+            <interceptor-stack name="authenticatedStack">
+                <interceptor-ref name="auth" />
+                <interceptor-ref name="defaultStack" />
+            </interceptor-stack>
+        </interceptors>
+        
+        
+        <!-- Global Result -->
+		<global-results>
+			<result name="error">/jsp/error.jsp</result>
+			<result name="error-forbidden" type="httpheader">
+				<param name="error">403</param>
+			</result>
+		</global-results>
+	</package>
+
+
+
+	<package name="public" extends="base">
 		
 		<!-- Default Action -->
 		<default-action-ref name="index" />
+		
 		
 		<!-- "index" Action -->
 		<action name="index">
 			<result>/jsp/index.jsp</result>
 		</action>
+		
 		
 		<!-- Search Action -->
 		<action name="search"
@@ -33,6 +76,7 @@
 				method="doResearch">
 			<result>/jsp/content/search.jsp</result>
 		</action>
+		
 		
 		<!-- Detail Actions -->
 		<action name="detail_topo"
@@ -59,15 +103,92 @@
 			<result name="success">/jsp/content/detail/site.jsp</result>
 		</action>
 		
+		
+		<!-- User Actions -->
+		<action name="connect">
+			<result>/jsp/user/login/login.jsp</result>
+		</action>
+		
+		<action name="register">
+			<result>/jsp/user/login/signin.jsp</result>
+		</action>
+		
+		<action name="signin" 
+			    class="org.openclassroom.projet.webapp.action.UserManagmentAction" 
+			    method="doSignin">
+			    
+		    <interceptor-ref name="storeStack" />
+			    
+			<result name="input">/jsp/user/login/signin.jsp</result>
+			<result name="success" type="redirectAction">connect</result>
+		</action>
+		
+		<action name="login"
+			    class="org.openclassroom.projet.webapp.action.UserManagmentAction"
+			    method="doLogin">
+			    
+		    <interceptor-ref name="retrieveStack" />
+			    
+			<result name="input">/jsp/user/login/login.jsp</result>
+			<result name="success" type="redirectAction">index</result>
+		</action>
+		
+        
+        <!-- Comment Actions -->      
+        <action name="detail_topo_comment"
+                class="org.openclassroom.projet.webapp.action.CommentAction"
+                method="doDetailComment">                
+            <result>/jsp/content/detail/topo.jsp</result>
+        </action>
+        
+        <action name="detail_site_comment"
+                class="org.openclassroom.projet.webapp.action.CommentAction"
+                method="doDetailComment">                
+            <result>/jsp/content/detail/site.jsp</result>
+        </action>
+	</package>
+	
+	
+	
+	<!-- Private Package -->
+	<package name="private" extends="base">		
+
+        <default-interceptor-ref name="authenticatedStack" />
+        
+        
+        <!-- User Actions -->
+        <action name="logout"
+			    class="org.openclassroom.projet.webapp.action.UserManagmentAction"
+			    method="doLogout">
+			<result type="redirectAction">index</result>
+		</action>
+		
+		<action name="detail_user"
+				class="org.openclassroom.projet.webapp.action.BookingAction"
+				method="doGetListBooking">
+				
+			<interceptor-ref name="retrieveStack" />
+			
+			<result>/jsp/user/detail.jsp</result>
+		</action>
+		
+		<action name="change_password" 
+				class="org.openclassroom.projet.webapp.action.UserManagmentAction" 
+				method="doChangePassword">
+				
+			<interceptor-ref name="storeStack" />
+				
+	   		<result name="input">/jsp/user/detail.jsp</result>
+	   		<result name="success" type="redirectAction">detail_user</result>
+		</action>
+		
+		
 		<!-- Creating Content Actions -->
 		<action name="create_content"
 				class="org.openclassroom.projet.webapp.action.CreateContentAction"
 				method="doCreateContent">
 				
-			<interceptor-ref name="store">
-		        <param name="operationMode">RETRIEVE</param>
-		    </interceptor-ref>
-		    <interceptor-ref name="defaultStack" />
+			<interceptor-ref name="retrieveStack" />
 				
 			<result>/jsp/content/new.jsp</result>
 		</action>
@@ -76,10 +197,7 @@
 				class="org.openclassroom.projet.webapp.action.CreateContentAction"
 				method="doCreateTopo">
 			
-			<interceptor-ref name="store">
-		        <param name="operationMode">STORE</param>
-		    </interceptor-ref>
-			
+			<interceptor-ref name="storeStack" />			
 			
 			<result name="input">/jsp/content/new.jsp</result>
 			<result name="success" type="redirectAction">
@@ -91,9 +209,6 @@
 				class="org.openclassroom.projet.webapp.action.CreateContentAction"
 				method="doCreateSite">
 			
-			<interceptor-ref name="store">
-		        <param name="operationMode">STORE</param>
-		    </interceptor-ref>
 			<interceptor-ref name="fileUploadStack" />
 			
 			<result name="input">/jsp/content/new.jsp</result>
@@ -106,9 +221,6 @@
 				class="org.openclassroom.projet.webapp.action.CreateContentAction"
 				method="doCreateSector">
 				
-			<interceptor-ref name="store">
-		        <param name="operationMode">STORE</param>
-		    </interceptor-ref>
 			<interceptor-ref name="fileUploadStack" />
 				
 			<result name="input">/jsp/content/new.jsp</result>
@@ -121,60 +233,16 @@
 				class="org.openclassroom.projet.webapp.action.CreateContentAction"
 				method="doCreateRoute">	
 				
-			<interceptor-ref name="store">
-		        <param name="operationMode">STORE</param>
-		    </interceptor-ref>
-		    <interceptor-ref name="defaultStack" />
+			<interceptor-ref name="storeStack" />
 				
 			<result name="input">/jsp/content/new.jsp</result>
 			<result name="success" type="redirectAction">
 				<param name="actionName">create_content</param>
 			</result>
 		</action>
-		
-		<!-- User Actions -->
-		<action name="connect">
-			<result>/jsp/user/login/login.jsp</result>
-		</action>
-		
-		<action name="register">
-			<result>/jsp/user/login/signin.jsp</result>
-		</action>
-		
-		<action name="signin" 
-					   class="org.openclassroom.projet.webapp.action.UserManagmentAction" 
-					   method="doSignin">
-			<result name="input">/jsp/user/login/signin.jsp</result>
-			<result name="success" type="redirectAction">connect</result>
-		</action>
-		
-		<action name="login"
-					   class="org.openclassroom.projet.webapp.action.UserManagmentAction"
-					   method="doLogin">
-			<result name="input">/jsp/user/login/login.jsp</result>
-			<result name="success" type="redirectAction">index</result>
-		</action>
-		
-		<action name="logout"
-					   class="org.openclassroom.projet.webapp.action.UserManagmentAction"
-					   method="doLogout">
-			<result type="redirectAction">index</result>
-		</action>
-		
-		<action name="detail_user"
-				class="org.openclassroom.projet.webapp.action.BookingAction"
-				method="doGetListBooking">
-			<result>/jsp/user/detail.jsp</result>
-		</action>
-		
-		<action name="change_password" 
-				class="org.openclassroom.projet.webapp.action.UserManagmentAction" 
-				method="doChangePassword">
-	   		<result name="input">/jsp/user/detail.jsp</result>
-	   		<result name="success" type="redirectAction">detail_user</result>
-		</action>
-		
-		<!-- Booking Actions -->
+        
+        
+        <!-- Booking Actions -->
 		<action name="all_booking"
 				class="org.openclassroom.projet.webapp.action.BookingAction"
 				method="doGetListBooking">
@@ -189,12 +257,16 @@
 		
         <action name="rent_topo"
                 class="org.openclassroom.projet.webapp.action.BookingAction"
-                method="doAddBooking">                
+                method="doAddBooking">
+                
+            <interceptor-ref name="storeStack" />
+                     
             <result name="input">/jsp/booking/search.jsp</result>
             <result name="success" type="redirectAction">detail_user</result>
         </action>
         
-        <!-- Comment Actions -->
+        
+         <!-- Comment Actions -->
         <action name="send_comment_topo"
                 class="org.openclassroom.projet.webapp.action.CommentAction"
                 method="doSendComment">                
@@ -217,23 +289,12 @@
 				<param name="anchor">comments</param>
 			</result>
         </action>
-        
-        <action name="detail_topo_comment"
-                class="org.openclassroom.projet.webapp.action.CommentAction"
-                method="doDetailComment">                
-            <result>/jsp/content/detail/topo.jsp</result>
-        </action>
-        
-        <action name="detail_site_comment"
-                class="org.openclassroom.projet.webapp.action.CommentAction"
-                method="doDetailComment">                
-            <result>/jsp/content/detail/site.jsp</result>
-        </action>
-		
 	</package>
 	
+	
+	
 	<!-- AJAX Package -->
-	<package name="ajax" extends="default, json-default">
+	<package name="ajax" extends="base, json-default">
 
         <global-results>
             <result name="error" type="json">
