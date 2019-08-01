@@ -13,18 +13,7 @@
 			<interceptor name="auth" class="org.openclassroom.projet.webapp.interceptor.AuthInterceptor" />
 		
 			<!-- Interceptors Stack -->
-            <interceptor-stack name="fileUploadStack">
-				<interceptor-ref name="fileUpload">
-					<param name="maximumSize">2097152</param>
-					<param name="allowedTypes">
-						image/png,image/gif,image/jpeg,image/pjpeg
-					</param>
-				</interceptor-ref>
-				<interceptor-ref name="storeStack" />
-			</interceptor-stack>
-            
-            
-            <interceptor-stack name="storeStack">
+			<interceptor-stack name="storeStack">
                 <interceptor-ref name="store">
 			        <param name="operationMode">STORE</param>
 			    </interceptor-ref>
@@ -38,6 +27,17 @@
 			    </interceptor-ref>
 			    <interceptor-ref name="defaultStack" />
             </interceptor-stack>
+            
+            
+            <interceptor-stack name="fileUploadStack">
+				<interceptor-ref name="fileUpload">
+					<param name="maximumSize">2097152</param>
+					<param name="allowedTypes">
+						image/png,image/gif,image/jpeg,image/pjpeg
+					</param>
+				</interceptor-ref>
+				<interceptor-ref name="storeStack" />
+			</interceptor-stack>
             
             
             <interceptor-stack name="authenticatedStack">

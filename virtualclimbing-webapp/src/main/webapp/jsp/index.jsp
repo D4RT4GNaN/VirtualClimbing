@@ -27,18 +27,34 @@
                         	<s:text name="index.share.title" />
                         </h2>
                         <ul class="list-inline">
-                            <li class="list-inline-item">
-                            	<a class="link" href="#" >
-                            		<s:text name="index.share.link.share" />
-                            		<span class="fas fa-angle-right"></span>
-                            	</a>
-                            </li>
-                            <li class="list-inline-item">
-	                            <a class="link" href="#" >
-	                            	<s:text name="index.share.link.booking" /> 
-	                            	<span class="fas fa-angle-right"></span>
-	                            </a>
-                            </li>
+                        	<s:if test="#user.session">
+	                            <li class="list-inline-item">
+	                            	<s:a class="link" action="create_topo" >
+	                            		<s:text name="index.share.link.share" />
+	                            		<span class="fas fa-angle-right"></span>
+	                            	</s:a>
+	                            </li>
+	                            <li class="list-inline-item">
+		                            <s:a class="link" action="private_topo_list" >
+		                            	<s:text name="index.share.link.booking" /> 
+		                            	<span class="fas fa-angle-right"></span>
+		                            </s:a>
+	                            </li>
+                            </s:if>
+                            <s:else>
+                            	<li class="list-inline-item">
+	                            	<s:a class="link" action="login" >
+	                            		<s:text name="index.share.link.share" />
+	                            		<span class="fas fa-angle-right"></span>
+	                            	</s:a>
+	                            </li>
+	                            <li class="list-inline-item">
+		                            <s:a class="link" action="login" >
+		                            	<s:text name="index.share.link.booking" /> 
+		                            	<span class="fas fa-angle-right"></span>
+		                            </s:a>
+	                            </li>
+                            </s:else>
                         </ul>
                     </article>
                 </div>
@@ -56,10 +72,11 @@
 	               - 
 	               <s:text name="index.proverb.author" />
                 </h2>
-               	<a class="link" href="#">
+               	<s:a class="link" action="search">
+               		<s:param name="keyword" value="" />
                		<s:text name="index.proverb.link" /> 
                		<span class="fas fa-angle-right"></span>
-               	</a>
+               	</s:a>
             </section>
             
             <section class="index-section">

@@ -6,7 +6,7 @@
 <html>
 	<%@ include file="/jsp/_include/structure/head.jsp" %>
 	
-	<body>
+	<body class="background-login">
 		<%@ include file="/jsp/_include/structure/header.jsp" %>
 		
 		<div class="wrapper fadeInDown">
@@ -45,7 +45,7 @@
 		    <div id="formFooter">
           		<p>  
           			<s:text name="user.signin.message.login" />
-          			<s:a action="connect">
+          			<s:a action="connect" class="underlineHover">
           				<s:text name="user.signin.button.login" />
           			</s:a>
           		</p>

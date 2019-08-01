@@ -5,45 +5,44 @@
 <!DOCTYPE html>
 <html>
 	<%@ include file="/jsp/_include/structure/head.jsp" %>
-	
-	<body id="search-body">
+
+	<body class="bg-dark">
 		<%@ include file="/jsp/_include/structure/header.jsp" %>
 		
-		<div id="main_wrapper" class="container-fluid">
-			<div class="row">
-				<nav class="col-lg-2">
-					<div class="nav flex-column nav-pills nav-sidebar position-fixed bg-dark" id="v-pills-tab" 
-						 role="tablist" aria-orientation="vertical">
-						<a class="nav-link active" id="v-pills-topo-tab" data-toggle="pill" 
-						   href="#v-pills-topo" role="tab" aria-controls="v-pills-topo" 
-						   aria-selected="true">
-							<s:text name="content.pills.topo" />
-						</a>
+		<div class="container-fluid h-100">
+			<div class="row h-100">
+				<nav class="col-md-2 col-sm-12 bg-dark sidebar">
+					<ul class="nav nav-pills nav-stacked pr-1">
+						<li>
+							<s:a class="nav-link active" data-toggle="tab" href="#v-pills-topo">
+								<s:text name="content.pills.topo" />
+							</s:a>
+						</li>
 						
-						<a class="nav-link" id="v-pills-site-tab" data-toggle="pill" 
-						   href="#v-pills-site" role="tab" aria-controls="v-pills-site" 
-						   aria-selected="false">
-							<s:text name="content.pills.site" />
-						</a>
+						<li>
+							<s:a class="nav-link" data-toggle="tab" href="#v-pills-site">
+								<s:text name="content.pills.site" />
+							</s:a>
+						</li>
 						
-						<a class="nav-link" id="v-pills-sector-tab" data-toggle="pill" 
-						   href="#v-pills-sector" role="tab" aria-controls="v-pills-sector" 
-						   aria-selected="false">
-							<s:text name="content.pills.sector" />
-						</a>
+						<li>
+							<s:a class="nav-link" data-toggle="tab" href="#v-pills-sector">
+								<s:text name="content.pills.sector" />
+							</s:a>
+						</li>
 						
-						<a class="nav-link" id="v-pills-route-tab" data-toggle="pill" 
-						   href="#v-pills-route" role="tab" aria-controls="v-pills-route" 
-						   aria-selected="false">
-							<s:text name="content.pills.route" />
-						</a>
-					</div>
+						<li>
+							<s:a class="nav-link" data-toggle="tab" href="#v-pills-route">
+								<s:text name="content.pills.route" />
+							</s:a>
+						</li>
+					</ul>
 				</nav>
-				
-				<div class="col-lg-10 tab-content" id="v-pills-tabContent">
-					<section class="form-sector tab-pane fade show active" id="v-pills-topo" 
-							 role="tabpanel" aria-labelledby="v-pills-topo-tab">
-						<form action="create_topo" method="post" enctype="multipart/form-data">
+			
+			
+				<div class="col-md-10 ml-sm-auto px-0 pb-0 tab-content main">
+					<section class="tab-pane fade show active" id="v-pills-topo">
+						<form class="py-2 px-3 px-md-4" action="create_topo" method="post" enctype="multipart/form-data">
 							<fieldset>
 								<legend>
 									<s:text name="content.new.topo.legend" />
@@ -79,12 +78,12 @@
 									</div>
 							  	</div>
 							  	
-							  	<s:checkbox class="form-group" name="topo.privateTopo" 
+							  	<s:checkbox id="topo-private" class="form-group" name="topo.privateTopo" 
 							  				label="%{getText('content.new.topo.privateCheckbox.label')}" 
 							  	/>
 							  	
 								<div class="form-group">
-									<label>
+									<label class="label">
 										<s:text name="content.new.toposite.title" />*:
 									</label>
 									<div class="scrollable-div">
@@ -93,15 +92,14 @@
 								</div>
 								
 								<div class="text-center">
-		                            <s:submit class="btn btn-outline-secondary" value="%{getText('content.new.submit')}" />
+		                            <s:submit class="btn btn-outline-light" value="%{getText('content.new.submit')}" />
 		                        </div>								
 							</fieldset>
 						</form>
 					</section>
 					
-					<section class="form-sector tab-pane fade" id="v-pills-site" 
-							 role="tabpanel" aria-labelledby="v-pills-site-tab">
-						<form action="create_site" method="post" enctype="multipart/form-data">
+					<section class="tab-pane fade" id="v-pills-site">
+						<form class="py-2 px-3 px-md-5" action="create_site" method="post" enctype="multipart/form-data">
 		                    <fieldset>
 		                        <legend>
 		                        	<s:text name="content.new.site.legend" />
@@ -116,7 +114,7 @@
 		                        />
 							  	
 							  	<div class="form-group">
-									<label for="upload">
+									<label for="upload" class="label">
 										<s:text name="content.new.banner.title" />:
 									</label>
 									<div class="custom-file">
@@ -128,10 +126,10 @@
 							  	</div>
 		                        
 		                        <div class="form-group">
-		                            <s:label>
+		                            <label class="label">
 		                            	<s:text name="content.new.site.coordinate.label" />*:
-		                            </s:label>
-		                            <div class="form-inline my-2">
+		                            </label>
+		                            <div class="form-inline">
 		                            	<s:textfield name="site.latitude" class="form-control col-sm-6" 
 		                            				 placeholder="%{getText('content.new.site.latitude.placeholder')}" 
 		                            	/>
@@ -188,15 +186,14 @@
 		                        />
 		                        
 		                        <div class="text-center">
-		                            <s:submit class="btn btn-outline-secondary" value="%{getText('content.new.submit')}" />
+		                            <s:submit class="btn btn-outline-light" value="%{getText('content.new.submit')}" />
 		                        </div>
 		                    </fieldset>
 		                </form>
-		            </section>
-
-					<section class="form-sector tab-pane fade" id="v-pills-sector" 
-							 role="tabpanel" aria-labelledby="v-pills-sector-tab">
-						 <form action="create_sector" method="post" enctype="multipart/form-data">
+					</section>
+					
+					<section class="tab-pane fade h-90" id="v-pills-sector">
+						<form class="py-2 px-3 px-md-4 h-100" action="create_sector" method="post" enctype="multipart/form-data">
 		                    <fieldset>
 		                        <legend>
 		                        	<s:text name="content.new.sector.legend" />
@@ -211,7 +208,7 @@
 		                        />
 		                        
 		                        <div class="form-group">
-									<label for="banner">
+									<label for="banner" class="label">
 										<s:text name="content.new.sector.banner.label" />:
 									</label>
 									<div class="custom-file">
@@ -219,7 +216,7 @@
 									    <label class="custom-file-label" for="banner">
 									    	<s:text name="content.new.banner.placeholder" />
 									    </label>
-									    <small id="sectorHelp" class="form-text text-muted">
+									    <small id="sectorHelp" class="form-text text-light">
 									    	<s:text name="content.new.sector.banner.help" />
 									    </small>
 								  	</div>
@@ -232,22 +229,21 @@
 									/>
 									
 									<div class="input-group-append">
-										<s:a data-toggle="modal" class="btn btn-outline-secondary" href="#modalSelect">
+										<s:a data-toggle="modal" class="btn btn-outline-light" href="#modalSelect">
 											<s:text name="content.new.buttonModal" />
 										</s:a>
 									</div>
 								</div>
 		                        
 		                        <div class="text-center">
-		                            <s:submit class="btn btn-outline-secondary" value="%{getText('content.new.submit')}" />
+		                            <s:submit class="btn btn-outline-light" value="%{getText('content.new.submit')}" />
 		                        </div>
 		                    </fieldset>
 		                </form>
 					</section>
-
-		            <section class="form-sector tab-pane fade" id="v-pills-route" 
-		            		 role="tabpanel" aria-labelledby="v-pills-route-tab">
-						<form action="create_route">
+		            
+		            <section class="tab-pane fade h-90" id="v-pills-route">
+						<form class="py-2 px-3 px-md-4 h-100" action="create_route">
 		                    <fieldset>
 		                        <legend>
 		                        	<s:text name="content.new.route.legend" />
@@ -261,9 +257,9 @@
 		                        			 label="%{getText('content.new.route.title.label')}" requiredLabel="true" 
 		                        />
 		                        
-		                        <s:label>
+		                        <label class="label">
 		                        	<s:text name="content.new.route.selectSector.label" />*:
-		                        </s:label>	 
+		                        </label>	 
 		                        <div class="input-group mt-2 mb-3">
 									<s:textfield id="sectorForRoute" name="route.sector.name" class="form-control modalSector" 
 												 placeholder="%{getText('content.new.route.selectSector.placeholder')}" 
@@ -271,7 +267,7 @@
 									/>
 									
 									<div class="input-group-append">
-										<s:a data-toggle="modal" class="btn btn-outline-secondary modalSector" href="#modalSelectSector">
+										<s:a data-toggle="modal" class="btn btn-outline-light modalSector" href="#modalSelectSector">
 											<s:text name="content.new.buttonModal" />
 										</s:a>
 									</div>
@@ -293,18 +289,21 @@
 		                        />	
 		                        	
 		                        <div class="form-group text-center my-2">
-		                            <s:submit class="btn btn-outline-secondary" value="%{getText('content.new.submit')}" />
+		                            <s:submit class="btn btn-outline-light" value="%{getText('content.new.submit')}" />
 		                        </div>
 		                    </fieldset>
 		                </form>
 					</section>
+					
+					<div class="footer-light">
+						<%@ include file="/jsp/_include/structure/footer.jsp" %>
+					</div>
 				</div>
-			</div>   
-        </div>
+			</div>
+		</div>
         
         <%@ include file="/jsp/_include/modal/site.jsp" %>
         <%@ include file="/jsp/_include/modal/sector.jsp" %>
-		<%@ include file="/jsp/_include/structure/footer.jsp" %>
 		
 		<script>	
 			$("input[type=file]").change(function (e){

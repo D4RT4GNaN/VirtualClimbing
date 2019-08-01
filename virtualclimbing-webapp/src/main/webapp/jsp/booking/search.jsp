@@ -21,30 +21,30 @@
 	<body id="search-body">
 		<%@ include file="/jsp/_include/structure/header.jsp" %>
 		
-		<div id="main_wrapper" class="container-fluid">	
+		<div>	
 			<s:if test="!listTopo.isEmpty()">
-				<section class="search-section">
-					<div class="search-div">
-						<div class="row text-center search-page">
-							<s:iterator value="listTopo">
-								<div class="col-lg-3 col-md-6 mb-4">
-									<div class="card h-100">
-										<!-- Card Header -->
-										<img class="card-img-top" src="images/781x250.svg" alt="Private Topo" />
-										
-										<!-- Card Body -->
-										<div class="card-body">
-											<h2 class="card-title">
-												<s:property value="name" />
-											</h2>
-											
-											<p class="card-text">
-												<s:property value="description" />
-											</p>
-										</div>
-										
-										<!-- Card Footer -->
-										<form action="rent_topo" class="card-footer">
+				<section class="container-fluid classtest">
+					<div class="row text-center">
+						<s:iterator value="listTopo">
+							<div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 mb-4">
+								<div class="card text-center">
+									<!-- Card Header -->
+									<div class="card-header">
+										<h2 class="card-title">
+											<s:property value="name" />
+										</h2>
+									</div>
+									
+									<!-- Card Body -->
+									<div class="card-body">
+										<p class="card-text card-overflow">
+											<s:property value="description" />
+										</p>
+									</div>
+									
+									<!-- Card Footer -->
+									<div class="card-footer">
+										<form action="rent_topo">
 											<s:actionmessage />
 											<s:actionerror />
 											
@@ -59,8 +59,8 @@
 										</form>
 									</div>
 								</div>
-							</s:iterator>
-						</div>
+							</div>
+						</s:iterator>
 					</div>
 				</section>
 			</s:if>

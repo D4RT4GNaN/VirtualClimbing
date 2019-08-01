@@ -8,6 +8,6 @@ import org.apache.struts2.util.StrutsTypeConverter;
 public abstract class AbstractLocator extends StrutsTypeConverter {
 
 	Locale locale = Locale.FRENCH;
-	ResourceBundle resourceBundle = ResourceBundle.getBundle("message", locale);
+	ResourceBundle resourceBundle = ResourceBundle.getBundle("messages", locale);
 	
 }

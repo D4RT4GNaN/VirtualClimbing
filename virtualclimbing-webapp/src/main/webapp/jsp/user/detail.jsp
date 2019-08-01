@@ -10,18 +10,20 @@
 		<%@ include file="/jsp/_include/structure/header.jsp" %>
 		
 		<div id="main_wrapper" class="main-wrapper-vertical-center main-wrapper-spacearound row">
-            <div class="user-div col-sm-5">
-            	<h3 class="d-flex justify-content-between">
-            		<s:property value="#session.user.pseudo" />
-            	</h3>
-            	
-            	<s:actionmessage />
-            	<s:actionerror />
-            	
-           		<s:textfield class="underline-input form-group" value="%{#session.user.firstName}" readOnly="true" />
-           		<s:textfield class="underline-input form-group" value="%{#session.user.lastName}" readOnly="true" />
+            <div class="user-div col-md-5">
+            	<div class="m-0 p-0">
+	            	<h3 class="d-flex justify-content-between">
+	            		<s:property value="#session.user.pseudo" />
+	            	</h3>
+	            	
+	            	<s:actionmessage />
+	            	<s:actionerror />
+	            	
+	           		<s:textfield class="underline-input form-group" value="%{#session.user.firstName}" readOnly="true" />
+	           		<s:textfield class="underline-input form-group" value="%{#session.user.lastName}" readOnly="true" />
+	           	</div>
 
-            	<form action="change_password">
+            	<form class="password-form" action="change_password">
             		<fieldset>
             			<legend>
             				<s:text name="user.detail.password.legend" />
@@ -42,7 +44,7 @@
             	</form>
             </div>
             
-            <div class="user-div col-sm-5">
+            <div class="user-div col-md-5">
             	<h3>
             		<s:text name="user.detail.booking.header" />
             	</h3>
@@ -54,7 +56,7 @@
             			</p>
             		</s:if>
             		<s:else>
-            			<table class="table table-striped m-0">
+            			<table class="table table-striped table-responsive-sm th-lg m-0">
             				<thead>
             					<tr>
 							    	<th scope="col">

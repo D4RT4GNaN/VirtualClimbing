@@ -121,7 +121,7 @@
                 </header> 
                 
                 <div id="banner_sector" class="d-flex justify-content-center">
-                    <img class="border border-dark" 
+                    <img class="border border-dark img-fluid" 
                     	 src="${sector.getImageUrl()}" 
                     	 alt="Ensemble des voie du secteur" 
                     />
@@ -136,7 +136,7 @@
                 </header>
                 
                 <div id="route-table">
-	                <table class="table table-striped text-center">
+	                <table class="table table-striped table-responsive w-100 text-center">
 	                    <thead class="thead-dark">
 	                        <tr>
 	                            <th>
@@ -173,7 +173,7 @@
             
             <section id="comments" class="container">
                 <header class= "border-bottom">
-                	<h2 class="d-flex justify-content-end">
+                	<h2 class="d-flex justify-content-center justify-content-sm-end">
                 		<s:text name="content.detail.comment" />
                 	</h2>
                 </header>

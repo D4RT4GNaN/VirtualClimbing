@@ -3,7 +3,7 @@
 <%@ taglib prefix="s" uri="/struts-tags" %>
     
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-    <s:a class="navbar-brand text-center" action="index">
+    <s:a class="navbar-brand text-center logo-link" action="index">
         <img id="logo" alt="Virtual Climbing" src="images/icon_virtual_climbing.png" />
     </s:a>
     
@@ -44,51 +44,57 @@
             </s:if>
         </ul>
         
-        <div class="container-fluid">
-            <div class="d-flex justify-content-end">
-                <div id="login">
-                	<s:if test="#session.user">
-	                	<div class="dropdown dmenu">
-	                		<a class="dropdown-toggle" id="navbardrop" data-toggle="dropdown">
-			             		<span class="fas fa-user-circle"></span>
-			             		<s:property value="#session.user.pseudo"/>
-				           	</a>
+       	<div id="login">
+           	<s:if test="#session.user">
+            	<ul class="user-button">
+                	<li>
+	                	<a class="dropdown-toggle" id="navbardrop" >
+			            	<span class="fas fa-user-circle"></span>
+			             	<s:property value="#session.user.pseudo"/>
+				        </a>
 				           	
-				           	<div class="dropdown-menu dropdown-menu-right bg-dark">
-	              				<s:a class="dropdown-item" action="detail_user">
-	              					<s:text name="nav.user.account" />
-	              				</s:a>
-	              				
-	              				<s:a class="dropdown-item" action="all_booking">
-	              					<s:text name="nav.user.booking" />
-	              				</s:a>
-	              				
+				        <ul class="user-menu bg-dark">
+	              			<li>
+		              			<s:a class="dropdown-item" action="detail_user">
+		              				<s:text name="nav.user.account" />
+		              			</s:a>
+		              		</li>
+	              			
+	              			<li>
+		              			<s:a class="dropdown-item" action="all_booking">
+		              				<s:text name="nav.user.booking" />
+		              			</s:a>     			
+	              			</li>
+	              			
+	              			<li>
 	              				<div class="dropdown-divider"></div>
+	              			</li>
 	              				
-	              				<s:a class="dropdown-item" action="logout">
-	              					<s:text name="nav.user.logout" />
-	              				</s:a>
-	            			</div>
-	            		</div>
-                	</s:if>
-                	<s:else>
-                    	<s:a action="connect">
-                    		<s:text name="nav.user.login" />
-                    	</s:a>
-                    </s:else>
-                </div>
-        
-                <form action="search" class="searchbar">
-                    <s:textfield class="search_input" 
-                    			 name="keyword" 
-                    			 placeholder="%{getText('nav.search.placeholder')}" 
-                    />
-                    
-                    <s:a onclick="this.parentNode.submit(); return false;" class="search_icon">
-                        <span class="fas fa-search"></span>
-                    </s:a>
-                </form>
-            </div>
+	              			<li>
+		              			<s:a class="dropdown-item" action="logout">
+		              				<s:text name="nav.user.logout" />
+		              			</s:a>
+	              			</li>
+	            		</ul>
+	            	</li>
+           		</ul>
+            </s:if>
+            <s:else>
+                <s:a action="connect">
+                	<s:text name="nav.user.login" />
+            	</s:a>
+        	</s:else>
         </div>
+       
+     	<form action="search" class="searchbar">
+       		<s:textfield class="search_input" 
+          			 	 name="keyword" 
+          			 	 placeholder="%{getText('nav.search.placeholder')}" 
+          	/>
+       		
+       		<s:a onclick="this.parentNode.submit(); return false;" class="search_icon">
+          		<span class="fas fa-search"></span>
+      		</s:a>
+  		</form>
     </div>
 </nav>

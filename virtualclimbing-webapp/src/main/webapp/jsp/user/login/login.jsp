@@ -6,7 +6,7 @@
 <html>
 	<%@ include file="/jsp/_include/structure/head.jsp" %>
 	
-	<body>
+	<body class="background-login">
 		<%@ include file="/jsp/_include/structure/header.jsp" %>
 		
 		<div class="wrapper fadeInDown">

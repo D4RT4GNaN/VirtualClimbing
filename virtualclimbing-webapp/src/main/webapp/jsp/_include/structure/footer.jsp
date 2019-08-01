@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 
 <!-- Footer -->
-<footer class="page-footer font-small blue">
+<footer class="page-footer font-small">
   	<!-- Copyright -->
   	<div class="footer-copyright text-center py-3">
   		<p> Copyright © 2019 Virtual Climbing. All rights reserved </p>
