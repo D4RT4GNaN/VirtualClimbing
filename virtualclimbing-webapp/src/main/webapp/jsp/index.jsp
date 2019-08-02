@@ -27,7 +27,7 @@
                         	<s:text name="index.share.title" />
                         </h2>
                         <ul class="list-inline">
-                        	<s:if test="#user.session">
+                        	<s:if test="#session.user">
 	                            <li class="list-inline-item">
 	                            	<s:a class="link" action="create_topo" >
 	                            		<s:text name="index.share.link.share" />

@@ -16,8 +16,6 @@
 			      	<h3 class="modal-title">
 			      		<s:text name="user.login.header" />
 			      	</h3>
-			      	
-			      	<s:actionerror />
 			    </div>
 		
 			    <!-- Login Form -->

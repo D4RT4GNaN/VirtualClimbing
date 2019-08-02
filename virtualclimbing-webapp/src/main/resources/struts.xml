@@ -31,7 +31,7 @@
             
             <interceptor-stack name="fileUploadStack">
 				<interceptor-ref name="fileUpload">
-					<param name="maximumSize">2097152</param>
+					<param name="maximumSize">1073741824</param>
 					<param name="allowedTypes">
 						image/png,image/gif,image/jpeg,image/pjpeg
 					</param>

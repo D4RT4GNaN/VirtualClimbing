@@ -13,19 +13,19 @@
   		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   		<script>
   			$( function() {
-    			$( "#datepicker" ).datepicker();
+  				$( "input[id^=endDate]" ).datepicker();
 	  		} );
 		</script>
 	</head>
 	
-	<body id="search-body">
+	<body>
 		<%@ include file="/jsp/_include/structure/header.jsp" %>
 		
 		<div>	
 			<s:if test="!listTopo.isEmpty()">
-				<section class="container-fluid classtest">
-					<div class="row text-center">
-						<s:iterator value="listTopo">
+				<section class="container-fluid main">
+					<div class="row text-center pt-2">
+						<s:iterator value="listTopo" status="stats">
 							<div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 mb-4">
 								<div class="card text-center">
 									<!-- Card Header -->
@@ -44,15 +44,12 @@
 									
 									<!-- Card Footer -->
 									<div class="card-footer">
-										<form action="rent_topo">
-											<s:actionmessage />
-											<s:actionerror />
-											
+										<form action="rent_topo">											
 											<s:hidden name="booking.topo.name" value="%{name}" />
 											<p>
 												<s:text name="booking.search.expirationDate" />
 												: 
-												<s:textfield name="endDate" id="datepicker" class="form-control" />
+												<s:textfield id="endDate%{#stats.index}" name="endDate" class="form-control datepicker" />
 											</p>
 											
 											<s:submit class="btn btn-outline-secondary" value="%{getText('booking.search.submit')}" />

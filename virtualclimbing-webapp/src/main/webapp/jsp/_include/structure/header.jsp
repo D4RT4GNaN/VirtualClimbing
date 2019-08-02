@@ -97,4 +97,7 @@
       		</s:a>
   		</form>
     </div>
+    
+    <s:actionerror />
+    <s:actionmessage />
 </nav>

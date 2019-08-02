@@ -16,9 +16,6 @@
 	            		<s:property value="#session.user.pseudo" />
 	            	</h3>
 	            	
-	            	<s:actionmessage />
-	            	<s:actionerror />
-	            	
 	           		<s:textfield class="underline-input form-group" value="%{#session.user.firstName}" readOnly="true" />
 	           		<s:textfield class="underline-input form-group" value="%{#session.user.lastName}" readOnly="true" />
 	           	</div>

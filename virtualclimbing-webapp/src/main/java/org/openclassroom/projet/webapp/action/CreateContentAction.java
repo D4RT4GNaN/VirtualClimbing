@@ -206,6 +206,7 @@ public class CreateContentAction extends AbstractAction {
 			listSector = getManagerFactory().getTopoManager().getAllSector();
 		}
 		
+		System.out.println(vResult);
 		return vResult;
 	}
 	

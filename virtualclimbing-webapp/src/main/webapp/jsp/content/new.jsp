@@ -48,9 +48,6 @@
 									<s:text name="content.new.topo.legend" />
 								</legend>
 								
-								<s:actionmessage />
-								<s:actionerror />
-								
 								<s:textfield name="topo.name" class="form-control mb-2" 
 											 placeholder="%{getText('content.new.topo.title.placeholder')}"
 											 label="%{getText('content.new.topo.title.label')}" requiredLabel="true" 
@@ -105,9 +102,6 @@
 		                        	<s:text name="content.new.site.legend" />
 		                        </legend>
 		                        
-		                        <s:actionmessage />
-								<s:actionerror />
-		                        
 		                        <s:textfield name="site.name" class="form-group form-control" 
 		                        			 placeholder="%{getText('content.new.site.title.placeholder')}"
 		                        			 label="%{getText('content.new.site.title.label')}" requiredLabel="true" 
@@ -130,11 +124,11 @@
 		                            	<s:text name="content.new.site.coordinate.label" />*:
 		                            </label>
 		                            <div class="form-inline">
-		                            	<s:textfield name="site.latitude" class="form-control col-sm-6" 
+		                            	<s:textfield name="site.latitude" class="form-control col-sm-5" 
 		                            				 placeholder="%{getText('content.new.site.latitude.placeholder')}" 
 		                            	/>
 		                                
-		                                <s:textfield name="site.longitude" class="form-control col-sm-6" 
+		                                <s:textfield name="site.longitude" class="form-control col-sm-5 offset-sm-2" 
 		                                			 placeholder="%{getText('content.new.site.longitude.placeholder')}"
 		                                />
 		                            </div>
@@ -182,7 +176,7 @@
 		                        
 		                        <s:textarea name="site.note" class="form-group form-control" 
 		                        			placeholder="%{getText('content.new.site.note.placeholder')}"
-		                        			label="%{getText('content.new.site.note.label')}" 
+		                        			label="%{getText('content.new.site.note.label')}" requiredLabel="true" 
 		                        />
 		                        
 		                        <div class="text-center">
@@ -198,9 +192,6 @@
 		                        <legend>
 		                        	<s:text name="content.new.sector.legend" />
 		                        </legend>
-		                        
-		                        <s:actionmessage />
-								<s:actionerror />
 		                        
 		                        <s:textfield name="sector.name" class="form-group form-control"
 		                        			 placeholder="%{getText('content.new.sector.title.placeholder')}"
@@ -248,9 +239,6 @@
 		                        <legend>
 		                        	<s:text name="content.new.route.legend" />
 		                        </legend>
-		                        
-		                        <s:actionmessage />
-								<s:actionerror />
 		                        
 		                        <s:textfield name="route.name" class="form-group form-control" 
 		                        			 placeholder="%{getText('content.new.route.title.placeholder')}" 
