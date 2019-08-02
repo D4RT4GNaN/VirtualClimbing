@@ -21,9 +21,9 @@
 	<body>
 		<%@ include file="/jsp/_include/structure/header.jsp" %>
 		
-		<div>	
+		<div class="h-100 main">	
 			<s:if test="!listTopo.isEmpty()">
-				<section class="container-fluid main">
+				<section class="container-fluid h-100">
 					<div class="row text-center pt-2">
 						<s:iterator value="listTopo" status="stats">
 							<div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 mb-4">
@@ -37,7 +37,7 @@
 									
 									<!-- Card Body -->
 									<div class="card-body">
-										<p class="card-text card-overflow">
+										<p class="card-text card-overflow card-booking">
 											<s:property value="description" />
 										</p>
 									</div>
@@ -69,8 +69,8 @@
 					</h1>
 				</div>
 			</s:else>
+			
+			<%@ include file="/jsp/_include/structure/footer.jsp" %>
         </div>
-        
-		<%@ include file="/jsp/_include/structure/footer.jsp" %>
 	</body>
 </html>

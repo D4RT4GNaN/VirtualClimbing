@@ -677,6 +677,10 @@ q {
 	font-size: 20pt;
 }
 
+.card-booking {
+	max-height: 150px;
+}
+
 .background-login {
 	background-size: cover;
   	background-repeat: no-repeat;
