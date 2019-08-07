@@ -25,6 +25,9 @@ public class Topo {
     
     @NotNull
     private Boolean privateTopo;
+    
+    @NotNull
+    private int numberSite;
 
 
     
@@ -45,14 +48,16 @@ public class Topo {
      * @param pUser -
      * @param pImageUrl -
      * @param pPrivateTopo -
+     * @param pNumberSite -
      */
-    public Topo(String pName, String pOfficialWebSite, String pDescription, User pUser, String pImageUrl, Boolean pPrivateTopo) {
+    public Topo(String pName, String pOfficialWebSite, String pDescription, User pUser, String pImageUrl, Boolean pPrivateTopo, int pNumberSite) {
         name = pName;
         officialWebSite = pOfficialWebSite;
         description = pDescription;
         user = pUser;
         imageUrl = pImageUrl;
         privateTopo = pPrivateTopo;
+        numberSite = pNumberSite;
     }
 
 
@@ -92,6 +97,12 @@ public class Topo {
 	}
 	public void setPrivateTopo(Boolean privateTopo) {
 		this.privateTopo = privateTopo;
+	}
+	public int getNumberSite() {
+		return numberSite;
+	}
+	public void setNumberSite(int numberSite) {
+		this.numberSite = numberSite;
 	}
 
 	

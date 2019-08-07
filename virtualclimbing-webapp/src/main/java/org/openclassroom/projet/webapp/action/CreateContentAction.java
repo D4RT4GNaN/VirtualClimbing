@@ -3,9 +3,11 @@ package org.openclassroom.projet.webapp.action;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.struts2.ServletActionContext;
+import org.apache.struts2.interceptor.SessionAware;
 import org.openclassroom.projet.model.bean.topo.Route;
 import org.openclassroom.projet.model.bean.topo.Sector;
 import org.openclassroom.projet.model.bean.topo.Site;
@@ -21,7 +23,7 @@ import com.opensymphony.xwork2.ActionSupport;
 /**
  * 
  */
-public class CreateContentAction extends AbstractAction {
+public class CreateContentAction extends AbstractAction implements SessionAware {
 
 	// ==================== Attributes ====================
 	// ----- Input parameter
@@ -39,7 +41,7 @@ public class CreateContentAction extends AbstractAction {
 	private List<String> checkboxSite;
 	
 	// ----- Struts elements
-	
+	private Map<String, Object> session;
 	
 	
 	
@@ -89,7 +91,10 @@ public class CreateContentAction extends AbstractAction {
 	public void setCheckboxSite(List<String> pCheckboxSite) {
 		checkboxSite = pCheckboxSite;
 	}
-	
+	@Override
+    public void setSession(Map<String, Object> pSession) {
+        this.session = pSession;
+    }
 	
 	
 	
@@ -109,9 +114,10 @@ public class CreateContentAction extends AbstractAction {
 			String imageUrl = addNewFile();
 			topo.setImageUrl(imageUrl);
 			
-			User vUser = new User();
-			vUser.setPseudo("User1");
+			User vUser = (User) session.get("user");
 			topo.setUser(vUser);
+			
+			topo.setNumberSite(checkboxSite.size());
 			
             if (!this.hasErrors()) {
                 try {
@@ -152,6 +158,8 @@ public class CreateContentAction extends AbstractAction {
 		if (site != null) {
 			String imageUrl = addNewFile();
 			site.setImageUrl(imageUrl);
+			
+			site.setNumberSector(0);
 			
             if (!this.hasErrors()) {
                 try {

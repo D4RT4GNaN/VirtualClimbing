@@ -51,6 +51,9 @@ public class Site {
     @Size(min=1, max=1000)
     private String note;    
     
+    @NotNull
+    private int numberSector;
+    
 
 
     // ==================== Constructors ====================
@@ -77,9 +80,10 @@ public class Site {
      * @param pMinAltitude -
      * @param pOrientation -
      * @param pNote -
+     * @param pNumberSector -
      */
     public Site(String pName, String pImageUrl, float pLatitude, float pLongitude, String pLocation, String pAccess, String pRockType, 
-    			String pProfil, String pAnchorage, int pMaxHeight, int pMinAltitude, String pOrientation, String pNote) {
+    			String pProfil, String pAnchorage, int pMaxHeight, int pMinAltitude, String pOrientation, String pNote, int pNumberSector) {
         name = pName;
         imageUrl = pImageUrl;
         latitude = pLatitude;
@@ -93,6 +97,7 @@ public class Site {
         minAltitude = pMinAltitude;
         orientation = pOrientation;
         note = pNote;
+        numberSector = pNumberSector;
     }
 
 
@@ -174,7 +179,13 @@ public class Site {
     }
     public void setNote(String pNote) {
     	note = pNote;
-    }    
+    }
+    public int getNumberSector() {
+    	return numberSector;
+    }
+    public void setNumberSector(int pNumberSector) {
+    	numberSector = pNumberSector;
+    }
     
 
 

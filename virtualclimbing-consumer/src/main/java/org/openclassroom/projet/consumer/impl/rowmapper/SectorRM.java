@@ -22,6 +22,7 @@ public class SectorRM implements RowMapper<Sector> {
 		vSector.setSite(vSite);
 		
 		vSector.setImageUrl(rs.getString("image_url"));
+		vSector.setNumberRoute(rs.getInt("number_Route"));
 		
 		return vSector;
 	}

@@ -632,6 +632,11 @@ q {
 	   -webkit-flex-direction: column;
 	   flex-direction: column;
 	}
+	.collapse.dont-collapse-md {
+	    display: block;
+	    height: auto !important;
+	    visibility: visible;
+	  }
 	.main {
 		padding-top: 71px;
 	}

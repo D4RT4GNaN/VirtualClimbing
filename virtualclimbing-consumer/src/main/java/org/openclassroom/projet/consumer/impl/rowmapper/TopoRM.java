@@ -22,6 +22,7 @@ public class TopoRM implements RowMapper<Topo> {
 		vTopo.setUser(vUser);
 		vTopo.setImageUrl(rs.getString("image_url"));
 		vTopo.setPrivateTopo(rs.getBoolean("private"));
+		vTopo.setNumberSite(rs.getInt("number_site"));
 		
 		return vTopo;
 	}

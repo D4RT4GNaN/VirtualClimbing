@@ -15,6 +15,9 @@ public class Sector {
     
     @NotNull
     private String imageUrl;
+    
+    @NotNull
+    private int numberRoute;
 
 
     // ==================== Constructors ====================
@@ -31,11 +34,13 @@ public class Sector {
      * @param pName -
      * @param pSite -
      * @param pImageUrl -
+     * @param pNumberRoute -
      */
-    public Sector(String pName, Site pSite, String pImageUrl) {
+    public Sector(String pName, Site pSite, String pImageUrl, int pNumberRoute) {
         name = pName;
         site = pSite;
-        imageUrl = pImageUrl;    
+        imageUrl = pImageUrl;  
+        numberRoute = pNumberRoute;
     }
 
 
@@ -57,6 +62,12 @@ public class Sector {
     }
     public void setImageUrl(String pImageUrl) {
     	imageUrl = pImageUrl;
+    }
+    public int getNumberRoute() {
+        return numberRoute;
+    }
+    public void setNumberRoute(int pNumberRoute) {
+    	numberRoute = pNumberRoute;
     }
 
 

@@ -104,6 +104,9 @@ public interface TopoDao {
 	 */
 	void addSite(Site pSite) throws FunctionalException;
 	
+	/***/
+	void updateNumberSector(Site pSite, int pNumberSector);
+	
 	
 	
 	// ==============================================
@@ -139,6 +142,9 @@ public interface TopoDao {
 	 * @throws FunctionalException
 	 */
 	void addSector(Sector pSector) throws FunctionalException;
+	
+	/***/
+	void updateNumberRoute(Sector pSector, int numberRoute);
 	
 	
 	

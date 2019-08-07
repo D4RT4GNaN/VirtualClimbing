@@ -10,6 +10,7 @@ import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 
 import org.openclassroom.projet.business.contract.manager.TopoManager;
+import org.openclassroom.projet.model.bean.action.Filter;
 import org.openclassroom.projet.model.bean.topo.Route;
 import org.openclassroom.projet.model.bean.topo.Sector;
 import org.openclassroom.projet.model.bean.topo.Site;
@@ -80,6 +81,34 @@ public class TopoManagerImpl extends AbstractManager implements TopoManager {
 	            platformTransactionManager.rollback(vTransactionStatus);
 	        }
 	    }
+	}
+	
+	@Override
+	public List<Topo> filterTopo(List<Topo> pListTopo, Filter pFilter) {
+		List<Topo> vListTopoFiltered = new ArrayList<>();
+		
+		for (Topo vTopo : pListTopo) {
+			int numberSector = 0;
+			int numberRoute = 0;
+			
+			List<Site> vListSite = getListSiteForTopo(vTopo);
+			for (Site vSite : vListSite) {
+				numberSector += vSite.getNumberSector();
+				
+				List<Sector> vListSector = getListSectorForSite(vSite);
+				for (Sector vSector : vListSector) {
+					numberRoute += vSector.getNumberRoute();
+				}
+			}
+
+			if (pFilter.isInSiteRange(vTopo) 
+				&& pFilter.isInSectorRange(numberSector) 
+				&& pFilter.isInRouteRange(numberRoute)) {
+				vListTopoFiltered.add(vTopo);
+			}
+		}
+		
+		return vListTopoFiltered;
 	}
 	
 	
@@ -204,6 +233,28 @@ public class TopoManagerImpl extends AbstractManager implements TopoManager {
 	    }
 	}
 	
+	@Override
+	public List<Site> filterSite(List<Site> pListSite, Filter pFilter) {
+		List<Site> vListSiteFiltered = new ArrayList<>();
+		
+		for (Site vSite : pListSite) {
+			int numberSector = vSite.getNumberSector();
+			int numberRoute = 0;
+			
+			List<Sector> vListSector = getListSectorForSite(vSite);
+			for (Sector vSector : vListSector) {
+				numberRoute += vSector.getNumberRoute();
+			}
+			
+			if (pFilter.isInSectorRange(numberSector) 
+				&& pFilter.isInRouteRange(numberRoute)) {
+				vListSiteFiltered.add(vSite);
+			}
+		}
+		
+		return vListSiteFiltered;
+	}
+	
 	
 	
 	// ==============================================
@@ -261,6 +312,10 @@ public class TopoManagerImpl extends AbstractManager implements TopoManager {
         = platformTransactionManager.getTransaction(new DefaultTransactionDefinition());
 	    try {
 	    	getDaoFactory().getTopoDao().addSector(pSector);
+	    	String vNameSite = pSector.getSite().getName();
+	    	Site vSite = getDaoFactory().getTopoDao().getSite(vNameSite);
+	    	int vNumberSector = vSite.getNumberSector() + 1;
+	    	getDaoFactory().getTopoDao().updateNumberSector(vSite, vNumberSector);
 	
 	        TransactionStatus vTScommit = vTransactionStatus;
 	        vTransactionStatus = null;
@@ -270,6 +325,21 @@ public class TopoManagerImpl extends AbstractManager implements TopoManager {
 	            platformTransactionManager.rollback(vTransactionStatus);
 	        }
 	    }
+	}
+	
+	@Override
+	public List<Sector> filterSector(List<Sector> pListSector, Filter pFilter) {
+		List<Sector> vListSectorFiltered = new ArrayList<>();
+
+		for (Sector vSector : pListSector) {
+			int numberRoute = vSector.getNumberRoute();
+			
+			if (pFilter.isInRouteRange(numberRoute)) {
+				vListSectorFiltered.add(vSector);
+			}
+		}
+		
+		return vListSectorFiltered;
 	}
 
 	
@@ -316,7 +386,11 @@ public class TopoManagerImpl extends AbstractManager implements TopoManager {
         = platformTransactionManager.getTransaction(new DefaultTransactionDefinition());
 	    try {
 	    	getDaoFactory().getTopoDao().addRoute(pRoute);
-	
+	    	String vNameSector = pRoute.getSector().getName();
+	    	Sector vSector = getDaoFactory().getTopoDao().getSector(vNameSector);
+	    	int vNumberRoute = vSector.getNumberRoute() + 1;
+	    	getDaoFactory().getTopoDao().updateNumberRoute(vSector, vNumberRoute);
+	    	
 	        TransactionStatus vTScommit = vTransactionStatus;
 	        vTransactionStatus = null;
 	        platformTransactionManager.commit(vTScommit);

@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.inject.Named;
 
+import org.openclassroom.projet.model.bean.action.Filter;
 import org.openclassroom.projet.model.bean.topo.Route;
 import org.openclassroom.projet.model.bean.topo.Sector;
 import org.openclassroom.projet.model.bean.topo.Site;
@@ -42,6 +43,9 @@ public interface TopoManager {
 	 * @param pTopo -
 	 */
 	void addTopo(Topo pTopo) throws TechnicalException, FunctionalException;
+	
+	/***/
+	List<Topo> filterTopo(List<Topo> pListTopo, Filter pFilter);
 	
 	
 	
@@ -104,6 +108,9 @@ public interface TopoManager {
 	 */
 	void addSite(Site pSite) throws TechnicalException, FunctionalException;
 	
+	/***/
+	List<Site> filterSite(List<Site> pListSite, Filter pFilter);
+	
 	
 	
 	// ==============================================
@@ -146,6 +153,9 @@ public interface TopoManager {
 	 * @throws TechnicalException, FunctionalException
 	 */
 	void addSector(Sector pSector) throws TechnicalException, FunctionalException;
+	
+	/***/
+	List<Sector> filterSector(List<Sector> pListSector, Filter pFilter);
 	
 	
 	

@@ -36,7 +36,34 @@
 								<s:text name="content.pills.route" />
 							</s:a>
 						</li>
+						<li>
+							<button class="d-md-none btn nav-link" type="button" 
+						    		data-toggle="collapse" data-target="#filter" 
+						    		aria-controls="filter" aria-expanded="false" 
+						    		aria-label="Toggle filter">
+						        <i class="fas fa-filter"></i>
+						    </button>
+						</li>
 					</ul>
+					
+					<form id="filter" action="filter" class="mt-md-5 px-2 py-2 collapse dont-collapse-md">
+						<s:hidden name="keyword" value="%{keyword}" />
+						
+						<s:select name="filter.numberOfSite" list="filter.listNumberSite" 
+								  headerKey="-1" headerValue="%{getText('content.search.filter.sitePlaceholder')}" 
+								  class="form-group form-control" 
+						/>
+						<s:select name="filter.numberOfSector" list="filter.listNumberSector" 
+								  headerKey="-1" headerValue="%{getText('content.search.filter.sectorPlaceholder')}" 
+								  class="form-group form-control" 
+						/>
+						<s:select name="filter.numberOfRoute" list="filter.listNumberRoute" 
+								  headerKey="-1" headerValue="%{getText('content.search.filter.routePlaceholder')}" 
+								  class="form-group form-control" 
+						/>
+						
+						<s:submit class="form-control btn btn-outline-light" value="%{getText('content.search.filter.submit')}" />
+					</form>
 				</nav>
 			
 			

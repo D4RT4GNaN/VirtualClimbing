@@ -25,6 +25,7 @@ public class SiteRM implements RowMapper<Site> {
 		vSite.setMinAltitude(rs.getInt("min_altitude"));
 		vSite.setOrientation(rs.getString("orientation"));
 		vSite.setNote(rs.getString("note"));
+		vSite.setNumberSector(rs.getInt("number_sector"));
 		
 		return vSite;
 	}

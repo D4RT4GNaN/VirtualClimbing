@@ -81,8 +81,8 @@ public class TopoDaoImpl extends AbstractDao implements TopoDao {
 	
 	@Override
 	public void addTopo(Topo pTopo) throws FunctionalException {
-		String vRequest = "INSERT INTO topo (name, official_web_site, description, pseudo, image_url, private) "
-						+ "VALUES (:name, :officialWebSite, :description, :pseudo, :imageUrl, :private)";
+		String vRequest = "INSERT INTO topo (name, official_web_site, description, pseudo, image_url, private, number_site) "
+						+ "VALUES (:name, :officialWebSite, :description, :pseudo, :imageUrl, :private, :numberSite)";
 		
 		MapSqlParameterSource vParams = new MapSqlParameterSource();
 		vParams.addValue("name", pTopo.getName(), Types.VARCHAR);
@@ -91,6 +91,7 @@ public class TopoDaoImpl extends AbstractDao implements TopoDao {
 		vParams.addValue("pseudo", pTopo.getUser().getPseudo(), Types.VARCHAR);
 		vParams.addValue("imageUrl", pTopo.getImageUrl(), Types.VARCHAR);
 		vParams.addValue("private", pTopo.getPrivateTopo(), Types.BOOLEAN);
+		vParams.addValue("numberSite", pTopo.getNumberSite(), Types.INTEGER);
 		
 		NamedParameterJdbcTemplate vNamedParameterJdbcTemplate = new NamedParameterJdbcTemplate(getDataSource());
 		try {
@@ -188,8 +189,8 @@ public class TopoDaoImpl extends AbstractDao implements TopoDao {
 	
 	@Override
 	public void addSite(Site pSite) throws FunctionalException {
-		String vRequest = "INSERT INTO public.site (name, image_url, latitude, longitude, location, access, rock_type, profil, anchorage, max_height, min_altitude, orientation, note) "
-		 			+ "VALUES (:name, :imageUrl, :latitude, :longitude, :location, :access, :rockType, :profil, :anchorage, :maxHeight, :minAltitude, :orientation, :note)";
+		String vRequest = "INSERT INTO public.site (name, image_url, latitude, longitude, location, access, rock_type, profil, anchorage, max_height, min_altitude, orientation, note, number_sector) "
+		 			+ "VALUES (:name, :imageUrl, :latitude, :longitude, :location, :access, :rockType, :profil, :anchorage, :maxHeight, :minAltitude, :orientation, :note, :numberSector)";
 		
 		BeanPropertySqlParameterSource vParams = new BeanPropertySqlParameterSource(pSite);
 		vParams.registerSqlType("name", Types.VARCHAR);
@@ -205,6 +206,7 @@ public class TopoDaoImpl extends AbstractDao implements TopoDao {
 		vParams.registerSqlType("minAltitude", Types.INTEGER);
 		vParams.registerSqlType("orientation", Types.VARCHAR);
 		vParams.registerSqlType("note", Types.VARCHAR);
+		vParams.registerSqlType("numberSector", Types.INTEGER);
 		
 		NamedParameterJdbcTemplate vNamedParameterJdbcTemplate = new NamedParameterJdbcTemplate(getDataSource());
 		try {
@@ -212,6 +214,18 @@ public class TopoDaoImpl extends AbstractDao implements TopoDao {
 		} catch (DuplicateKeyException pEx) {
 			throw new FunctionalException(getText("dao.site.error.duplicateKey", pSite.getName()));
 		}
+	}
+	
+	@Override
+	public void updateNumberSector(Site pSite, int pNumberSector) {
+		String vRequest = "UPADTE public.site SET number_sector=:numberSector WHERE name=:name";
+		
+		MapSqlParameterSource vParams = new MapSqlParameterSource();
+		vParams.addValue("name", pSite.getName(), Types.VARCHAR);
+		vParams.addValue("numberSector", pNumberSector, Types.INTEGER);
+		
+		NamedParameterJdbcTemplate vNamedParameterJdbcTemplate = new NamedParameterJdbcTemplate(getDataSource());
+		vNamedParameterJdbcTemplate.update(vRequest, vParams);
 	}
 
 
@@ -268,13 +282,14 @@ public class TopoDaoImpl extends AbstractDao implements TopoDao {
 
 	@Override
 	public void addSector(Sector pSector) throws FunctionalException {
-		String vRequest = "INSERT INTO sector (name, name_site, image_url) "
-				+ "VALUES (:name, :nameSite, :imageUrl)";
+		String vRequest = "INSERT INTO sector (name, name_site, image_url, number_route) "
+						+ "VALUES (:name, :nameSite, :imageUrl, :numberRoute)";
 
 		MapSqlParameterSource vParams = new MapSqlParameterSource();
 		vParams.addValue("name", pSector.getName(), Types.VARCHAR);
 		vParams.addValue("nameSite", pSector.getSite().getName(), Types.VARCHAR);
 		vParams.addValue("imageUrl", pSector.getImageUrl(), Types.VARCHAR);
+		vParams.addValue("numberRoute", pSector.getNumberRoute(), Types.INTEGER);
 		
 		NamedParameterJdbcTemplate vNamedParameterJdbcTemplate = new NamedParameterJdbcTemplate(getDataSource());
 		try {
@@ -282,6 +297,18 @@ public class TopoDaoImpl extends AbstractDao implements TopoDao {
 		} catch (DuplicateKeyException pEx) {
 			throw new FunctionalException(getText("dao.sector.error.duplicateKey", pSector.getName()));
 		}
+	}
+	
+	@Override
+	public void updateNumberRoute(Sector pSector, int numberRoute) {
+		String vRequest = "UPDATE public.sector SET number_route=:numberRoute WHERE name=:name";
+		
+		MapSqlParameterSource vParams = new MapSqlParameterSource();
+		vParams.addValue("name", pSector.getName(), Types.VARCHAR);
+		vParams.addValue("numberRoute", numberRoute, Types.INTEGER);
+		
+		NamedParameterJdbcTemplate vNamedParameterJdbcTemplate = new NamedParameterJdbcTemplate(getDataSource());
+		vNamedParameterJdbcTemplate.update(vRequest, vParams);
 	}
 	
 	

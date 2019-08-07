@@ -2,6 +2,7 @@ package org.openclassroom.projet.webapp.action;
 
 import java.util.List;
 
+import org.openclassroom.projet.model.bean.action.Filter;
 import org.openclassroom.projet.model.bean.topo.Route;
 import org.openclassroom.projet.model.bean.topo.Sector;
 import org.openclassroom.projet.model.bean.topo.Site;
@@ -20,10 +21,12 @@ public class SearchAction extends AbstractAction {
 	private String keyword; 
 	
 	// ----- Output elements
-	List<Topo> listTopo;
-	List<Site> listSite;
-	List<Sector> listSector;
-	List<Route> listRoute;
+	private List<Topo> listTopo;
+	private List<Site> listSite;
+	private List<Sector> listSector;
+	private List<Route> listRoute;
+	private Filter filter;
+	
 	
 	// ----- Struts elements
 	
@@ -49,6 +52,12 @@ public class SearchAction extends AbstractAction {
 	public List<Route> getListRoute() {
 		return listRoute;
 	}
+	public Filter getFilter() {
+		return filter;
+	}
+	public void setFilter(Filter filter) {
+		this.filter = filter;
+	}
 	
 	
 	
@@ -59,11 +68,29 @@ public class SearchAction extends AbstractAction {
 	 * @return success
 	 */
 	public String doResearch() {
+		fillListResearch();
+		filter = new Filter();
+		return ActionSupport.SUCCESS;
+	}
+	
+	/**
+	 * 
+	 */
+	public String doFilter() {
+		fillListResearch();
+		
+		listTopo = getManagerFactory().getTopoManager().filterTopo(listTopo, filter);
+		listSite = getManagerFactory().getTopoManager().filterSite(listSite, filter);
+		listSector = getManagerFactory().getTopoManager().filterSector(listSector, filter);
+		listRoute = getManagerFactory().getTopoManager().searchRoute(keyword);
+		return ActionSupport.SUCCESS;
+	}
+	
+	private void fillListResearch() {
 		listTopo = getManagerFactory().getTopoManager().searchTopo(keyword);
 		listSite = getManagerFactory().getTopoManager().searchSite(keyword);
 		listSector = getManagerFactory().getTopoManager().searchSector(keyword);
 		listRoute = getManagerFactory().getTopoManager().searchRoute(keyword);
-		return ActionSupport.SUCCESS;
 	}
 
 }

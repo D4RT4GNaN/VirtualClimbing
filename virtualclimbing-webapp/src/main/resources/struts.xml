@@ -77,6 +77,12 @@
 			<result>/jsp/content/search.jsp</result>
 		</action>
 		
+		<action name="filter"
+				class="org.openclassroom.projet.webapp.action.SearchAction"
+				method="doFilter">
+			<result>/jsp/content/search.jsp</result>
+		</action>
+		
 		
 		<!-- Detail Actions -->
 		<action name="detail_topo"
