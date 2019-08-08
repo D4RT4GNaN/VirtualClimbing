@@ -278,6 +278,7 @@ public class CreateContentAction extends AbstractAction implements SessionAware 
 		} else {
 			imageUrl = "images/" + fileName;
 			String newFile = ServletActionContext.getServletContext().getRealPath("/").concat(imageUrl);
+			System.out.println(newFile);
 			File destFile  = new File(newFile);
 	        try {
 				FileUtils.copyFile(file, destFile);

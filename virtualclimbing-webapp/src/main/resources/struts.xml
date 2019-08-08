@@ -5,8 +5,11 @@
 		"http://struts.apache.org/dtds/struts-2.5.dtd">
 		
 <struts>
+	<!-- Constant -->
+	<constant name="struts.multipart.maxSize" value="50000000" />
+	
+	<!-- Abstract Package -->
 	<package name="base" abstract="true" extends="struts-default">
-		
 		<!-- Interceptors -->
 		<interceptors>
 			<!-- Interceptor Custom -->
@@ -31,7 +34,7 @@
             
             <interceptor-stack name="fileUploadStack">
 				<interceptor-ref name="fileUpload">
-					<param name="maximumSize">1073741824</param>
+					<param name="maximumSize">50000000</param>
 					<param name="allowedTypes">
 						image/png,image/gif,image/jpeg,image/pjpeg
 					</param>
@@ -203,7 +206,7 @@
 				class="org.openclassroom.projet.webapp.action.CreateContentAction"
 				method="doCreateTopo">
 			
-			<interceptor-ref name="storeStack" />			
+			<interceptor-ref name="fileUploadStack" />			
 			
 			<result name="input">/jsp/content/new.jsp</result>
 			<result name="success" type="redirectAction">
