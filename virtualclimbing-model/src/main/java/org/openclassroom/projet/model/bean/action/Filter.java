@@ -89,22 +89,25 @@ public class Filter {
 	}
 
 
-	// ==================== Methods ====================
-    @Override
-    public String toString() {
-        final StringBuilder vStB = new StringBuilder(this.getClass().getSimpleName());
-        vStB.append(" {")
-            .append("").append("")
-            .append("}");
-        return vStB.toString();
-    }
-    
-    /***/
+	// ==================== Methods ====================    
+    /**
+     * Check if the tested {@link Topo} contains the same number of {@link Site}
+     * as selected in the {@link Filter}
+     * 
+     * @param pTopo -
+     * @return Boolean
+     */
     public Boolean isInSiteRange(Topo pTopo) {
     	return pTopo.getNumberSite() == numberOfSite || numberOfSite == -1;
     }
     
-    /***/
+    /**
+     * Check if the given number of {@link Sector} is in the range 
+     * selected in the {@link Filter}
+     * 
+     * @param pNumberSector -
+     * @return Boolean
+     */
     public Boolean isInSectorRange(int pNumberSector) {
     	switch (numberOfSector) {
     	case "1 - 5":
@@ -122,7 +125,13 @@ public class Filter {
     	}
     }
     
-    /***/
+    /**
+     * Check if the given number of {@link Route} is in the range 
+     * selected in the {@link Filter}
+     * 
+     * @param pNumberRoute -
+     * @return Boolean
+     */
     public Boolean isInRouteRange(int pNumberRoute) {
     	switch (numberOfRoute) {
     	case "1 - 9":

@@ -99,14 +99,23 @@ public class CreateContentAction extends AbstractAction implements SessionAware 
 	
 	
 	// ==================== Methods ====================		
-	/***/
+	/**
+	 * Called to load the creation page
+	 * 
+	 * @return success
+	 */
 	public String doCreateContent() {
 		listSite = getManagerFactory().getTopoManager().getAllSite();
 		listSector = getManagerFactory().getTopoManager().getAllSector();
 		return ActionSupport.SUCCESS;
 	}
 	
-	/***/
+	/**
+	 * Get information of the form to create a new {@link Topo}
+	 * And for all checkbox checked in form, it create a link between the new {@link Topo} and a checked {@link Site}
+	 * 
+	 * @return input / success / error
+	 */
 	public String doCreateTopo() {
 		String vResult = ActionSupport.INPUT;
 		
@@ -151,7 +160,11 @@ public class CreateContentAction extends AbstractAction implements SessionAware 
 		return vResult;
 	}
 	
-	/***/
+	/**
+	 * Get information of the form to create a new {@link Site}
+	 * 
+	 * @return input / success / error
+	 */
 	public String doCreateSite() {
 		String vResult = ActionSupport.INPUT;
 		
@@ -185,7 +198,11 @@ public class CreateContentAction extends AbstractAction implements SessionAware 
 		return vResult;
 	}
 
-	/***/
+	/**
+	 * Get information of the form to create a new {@link Sector}
+	 * 
+	 * @return input / success / error
+	 */
 	public String doCreateSector() {
 		String vResult = ActionSupport.INPUT;
 		
@@ -218,7 +235,11 @@ public class CreateContentAction extends AbstractAction implements SessionAware 
 		return vResult;
 	}
 	
-	/***/
+	/**
+	 * Get information of the form to create a new {@link Route}
+	 * 
+	 * @return input / success / error
+	 */
 	public String doCreateRoute() {
 		String vResult = ActionSupport.INPUT;
 		
@@ -248,6 +269,7 @@ public class CreateContentAction extends AbstractAction implements SessionAware 
 		return vResult;
 	}
 	
+	// private method
 	private String addNewFile() {
 		String imageUrl;
 		

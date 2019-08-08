@@ -102,7 +102,11 @@ public class CommentAction extends AbstractAction implements SessionAware {
 	
 	
 	// ==================== Methods ====================		
-	/***/
+	/**
+	 * Return the current page after post a {@link Comment}
+	 * 
+	 * @return success / error
+	 */
 	public String doDetailComment() {
 		if (name != null && name != "") {
 			topo = getManagerFactory().getTopoManager().getTopo(name);
@@ -114,7 +118,11 @@ public class CommentAction extends AbstractAction implements SessionAware {
 		return hasErrors() ? ActionSupport.ERROR : ActionSupport.SUCCESS;
 	}
 	
-	/***/
+	/**
+	 * Post a {@link Comment} on a page
+	 * 
+	 * @return input / success
+	 */
 	public String doSendComment() {
 		String vResult = ActionSupport.INPUT;
 		

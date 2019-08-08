@@ -72,6 +72,11 @@ public class BookingAction extends AbstractAction implements SessionAware {
 	
 	
 	// ==================== Methods ====================		
+	/**
+	 * Get the list of {@link Topo} booked by an {@link User}
+	 * 
+	 * @return success
+	 */
 	public String doGetListBooking() {
 		user = (User)session.get("user");
 		listBooking = getManagerFactory().getActionManager().getListBooking(user);
@@ -79,11 +84,21 @@ public class BookingAction extends AbstractAction implements SessionAware {
 		return ActionSupport.SUCCESS;
 	}
 	
+	/**
+	 * Get the list of private {@link Topo} that can be booked
+	 * 
+	 * @return success
+	 */
 	public String doGetListPrivateTopo() {
 		listTopo = getManagerFactory().getTopoManager().searchPrivateTopo();
 		return ActionSupport.SUCCESS;
 	}
 	
+	/**
+	 * Add {@link Booking} with information retrieve on the webapp
+	 * 
+	 * @return input / success
+	 */
 	public String doAddBooking() {
 		String vResult = ActionSupport.INPUT;
 		

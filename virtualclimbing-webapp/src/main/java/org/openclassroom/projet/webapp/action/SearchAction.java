@@ -65,6 +65,7 @@ public class SearchAction extends AbstractAction {
 	/**
 	 * Action returning the list of {@link Topo}, {@link Site}, {@link Sector} and {@link Route}
 	 * whose the name contains the keyword entered in the search bar.
+	 * 
 	 * @return success
 	 */
 	public String doResearch() {
@@ -74,7 +75,9 @@ public class SearchAction extends AbstractAction {
 	}
 	
 	/**
+	 * Reload the search page taking into account the new {@link Filter}
 	 * 
+	 * @return success
 	 */
 	public String doFilter() {
 		fillListResearch();
@@ -86,6 +89,7 @@ public class SearchAction extends AbstractAction {
 		return ActionSupport.SUCCESS;
 	}
 	
+	// private method
 	private void fillListResearch() {
 		listTopo = getManagerFactory().getTopoManager().searchTopo(keyword);
 		listSite = getManagerFactory().getTopoManager().searchSite(keyword);

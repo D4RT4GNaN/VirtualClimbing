@@ -16,31 +16,36 @@ public interface ActionManager {
 	
 	/**
 	 * Validate the input information and add the {@link Booking} for an {@link User}
+	 * 
 	 * @param pBooking -
-	 * @throws FunctionalException 
 	 */
 	void addBooking(Booking pBooking) throws FunctionalException;
 
 	/**
 	 * Return all {@link Booking} of an {@link User}
+	 * 
 	 * @param pUser -
+	 * @return List<{@link Booking}>
 	 */
 	List<Booking> getListBooking(User pUser);
 
+	
 	// ===================================
 	//               Comment
 	// ===================================
 	
 	/**
 	 * Return all {@link Comment} for a {@link Sector}
+	 * 
 	 * @param pSector -
+	 * @return List<{@link Comment}>
 	 */
 	List<Comment> getListComment(Sector pSector);
 
 	/**
 	 * Validate the {@link Comment} and add it for a {@link Sector}
+	 * 
 	 * @param pComment -
-	 * @throws FunctionalException 
 	 */
 	void addComment(Comment pComment) throws FunctionalException;
 	

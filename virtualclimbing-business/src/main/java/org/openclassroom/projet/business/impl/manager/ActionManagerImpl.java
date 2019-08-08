@@ -32,11 +32,14 @@ public class ActionManagerImpl extends AbstractManager implements ActionManager 
 	@Override
 	public void addBooking(Booking pBooking) throws FunctionalException {
 		if (pBooking == null) {
+			logger.error(resourceBundle.getString("manager.booking.logging.null"));
             throw new FunctionalException(resourceBundle.getString("manager.booking.error.null"));
         }
 
         Set<ConstraintViolation<Booking>> vViolations = getConstraintValidator().validate(pBooking);
         if (!vViolations.isEmpty()) {
+        	logger.warn(resourceBundle.getString("manager.booking.logging.validation") 
+        			+ vViolations.toString());
             throw new FunctionalException(resourceBundle.getString("manager.booking.error.validation"),
                                           new ConstraintViolationException(vViolations));
         } 
@@ -49,9 +52,14 @@ public class ActionManagerImpl extends AbstractManager implements ActionManager 
 	        TransactionStatus vTScommit = vTransactionStatus;
 	        vTransactionStatus = null;
 	        platformTransactionManager.commit(vTScommit);
+	        logger.info(getText("manager.booking.logging.newBooking", 
+	        		pBooking.getUser().getPseudo(),
+	        		pBooking.getTopo().getName())
+	        );
 		} finally {
 	        if (vTransactionStatus != null) {
 	            platformTransactionManager.rollback(vTransactionStatus);
+	            logger.error(resourceBundle.getString("manager.booking.logging.databaseError"));
 	        }
 	    }
 	}
@@ -75,11 +83,14 @@ public class ActionManagerImpl extends AbstractManager implements ActionManager 
 	@Override
 	public void addComment(Comment pComment) throws FunctionalException {
 		if (pComment == null) {
+			logger.error(resourceBundle.getString("manager.comment.logging.null"));
             throw new FunctionalException(resourceBundle.getString("manager.comment.error.null"));
         }
 
         Set<ConstraintViolation<Comment>> vViolations = getConstraintValidator().validate(pComment);
         if (!vViolations.isEmpty()) {
+        	logger.warn(resourceBundle.getString("manager.comment.logging.validation")
+        			+ vViolations.toString());
             throw new FunctionalException(resourceBundle.getString("manager.comment.error.validation"),
                                           new ConstraintViolationException(vViolations));
         } 
@@ -92,9 +103,11 @@ public class ActionManagerImpl extends AbstractManager implements ActionManager 
 	        TransactionStatus vTScommit = vTransactionStatus;
 	        vTransactionStatus = null;
 	        platformTransactionManager.commit(vTScommit);
+	        logger.info(getText("manager.comment.logging.newComment", pComment.getUser().getPseudo()));
 		} finally {
 	        if (vTransactionStatus != null) {
 	            platformTransactionManager.rollback(vTransactionStatus);
+	            logger.error(resourceBundle.getString("manager.comment.logging.databaseError"));
 	        }
 	    }
 	}

@@ -88,11 +88,23 @@ public class Booking {
         return vStB.toString();
     }
     
+    /**
+     * Test if the selected date is after the current date
+     * 
+     * @return Boolean
+     */
     public Boolean isAfter() {
     	Boolean isAfter = endDate.after(new java.util.Date());
     	return isAfter;
     }
     
+    
+    /**
+     * Convert a string with specific format into a {@link Date}
+     * 
+     * @param pDate -
+     * @return {@link Date}
+     */
     public Date dateFromString(String pDate) {
     	java.util.Date vDate = null;
     	

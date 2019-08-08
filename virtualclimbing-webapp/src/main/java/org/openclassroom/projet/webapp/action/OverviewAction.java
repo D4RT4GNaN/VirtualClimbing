@@ -82,6 +82,7 @@ public class OverviewAction extends AbstractAction {
 		// ==================== Methods ====================		
 		/**
 		 * Action returning the overview of {@link Topo}
+		 * 
 		 * @return success
 		 */
 		public String doDetailTopo() {
@@ -101,7 +102,11 @@ public class OverviewAction extends AbstractAction {
 			return ActionSupport.SUCCESS;
 		}
 		
-		/***/
+		/**
+		 * Action returning the overview of {@link Site}
+		 * 
+		 * @return success / error
+		 */
 		public String doDetailSite() {
 			try {
 				site = getManagerFactory().getTopoManager().getSite(name);
@@ -118,7 +123,11 @@ public class OverviewAction extends AbstractAction {
 			return hasErrors() ? ActionSupport.ERROR : ActionSupport.SUCCESS;
 		}
 		
-		/***/
+		/**
+		 * Action returning the overview of {@link Sector}
+		 * 
+		 * @return success / error
+		 */
 		public String doDetailSector() {
 			try {
 				sector = getManagerFactory().getTopoManager().getSector(name);
@@ -133,7 +142,11 @@ public class OverviewAction extends AbstractAction {
 			return hasErrors() ? ActionSupport.ERROR : ActionSupport.SUCCESS;
 		}
 		
-		/***/
+		/**
+		 * Action returning the overview of {@link Route}
+		 * 
+		 * @return success / error
+		 */
 		public String doDetailRoute() {
 			try {
 				route = getManagerFactory().getTopoManager().getRoute(name);
@@ -149,7 +162,11 @@ public class OverviewAction extends AbstractAction {
 			return hasErrors() ? ActionSupport.ERROR : ActionSupport.SUCCESS;
 		}
 		
-		/***/
+		/**
+		 * Action changing the overview data when a new {@link Site} was selected on select tag
+		 * 
+		 * @return success / error
+		 */
 		public String doAjaxOnSelectSite() {
 			if (site == null) {
 	            addActionError("action.detail.ajax.error.site.null");
@@ -160,7 +177,11 @@ public class OverviewAction extends AbstractAction {
 	        return hasErrors() ? ActionSupport.ERROR : ActionSupport.SUCCESS;
 		}
 
-		/***/
+		/**
+		 * Action changing the overview data when a new {@link Sector} was selected on select tag
+		 * 
+		 * @return success / error
+		 */
 		public String doAjaxOnSelectSector() {
 			if (sector == null) {
 	            addActionError(getText("action.detail.ajax.error.sector.null"));

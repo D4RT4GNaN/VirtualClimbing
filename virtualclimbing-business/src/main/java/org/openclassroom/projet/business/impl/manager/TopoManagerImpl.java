@@ -59,11 +59,14 @@ public class TopoManagerImpl extends AbstractManager implements TopoManager {
 	@Override
 	public void addTopo(Topo pTopo) throws FunctionalException {
 		if (pTopo == null) {
+			logger.error(resourceBundle.getString("manager.topo.logging.null"));
             throw new FunctionalException(resourceBundle.getString("manager.topo.error.null"));
         }
 
         Set<ConstraintViolation<Topo>> vViolations = getConstraintValidator().validate(pTopo);
         if (!vViolations.isEmpty()) {
+        	logger.warn(resourceBundle.getString("manager.topo.logging.validation") 
+        			+ vViolations.toString());
             throw new FunctionalException(resourceBundle.getString("manager.topo.error.validation"),
                                           new ConstraintViolationException(vViolations));
         } 
@@ -76,9 +79,11 @@ public class TopoManagerImpl extends AbstractManager implements TopoManager {
 	        TransactionStatus vTScommit = vTransactionStatus;
 	        vTransactionStatus = null;
 	        platformTransactionManager.commit(vTScommit);
+	        logger.info(getText("manager.topo.logging.newTopo", pTopo.getUser().getPseudo()));
 	    } finally {
 	        if (vTransactionStatus != null) {
 	            platformTransactionManager.rollback(vTransactionStatus);
+	            logger.error(resourceBundle.getString("manager.topo.logging.databaseError"));
 	        }
 	    }
 	}
@@ -147,11 +152,14 @@ public class TopoManagerImpl extends AbstractManager implements TopoManager {
 	@Override
 	public void addTopoSite(TopoSite pTopoSite) throws FunctionalException {
 		if (pTopoSite == null) {
+			logger.error(resourceBundle.getString("manager.toposite.logging.null"));
             throw new FunctionalException(resourceBundle.getString("manager.toposite.error.null"));
         }
 
         Set<ConstraintViolation<TopoSite>> vViolations = getConstraintValidator().validate(pTopoSite);
         if (!vViolations.isEmpty()) {
+        	logger.warn(resourceBundle.getString("manager.toposite.logging.validation") 
+        			+ vViolations.toString());
             throw new FunctionalException(resourceBundle.getString("manager.toposite.error.validation"),
                                           new ConstraintViolationException(vViolations));
         } 
@@ -164,9 +172,14 @@ public class TopoManagerImpl extends AbstractManager implements TopoManager {
 	        TransactionStatus vTScommit = vTransactionStatus;
 	        vTransactionStatus = null;
 	        platformTransactionManager.commit(vTScommit);
+	        logger.info(getText("manager.toposite.logging.newlink", 
+	        		pTopoSite.getTopo().getName(), 
+	        		pTopoSite.getSite().getName())
+	        );
 	    } finally {
 	        if (vTransactionStatus != null) {
 	            platformTransactionManager.rollback(vTransactionStatus);
+	            logger.error(resourceBundle.getString("manager.toposite.logging.databaseError"));
 	        }
 	    }
 	}
@@ -209,11 +222,14 @@ public class TopoManagerImpl extends AbstractManager implements TopoManager {
 	@Override
 	public void addSite(Site pSite) throws FunctionalException {
 		if (pSite == null) {
+			logger.error(resourceBundle.getString("manager.site.logging.null"));
             throw new FunctionalException(resourceBundle.getString("manager.site.error.null"));
         }
 
         Set<ConstraintViolation<Site>> vViolations = getConstraintValidator().validate(pSite);
         if (!vViolations.isEmpty()) {
+        	logger.warn(resourceBundle.getString("manager.site.logging.validation") 
+        			+ vViolations.toString());
             throw new FunctionalException(resourceBundle.getString("manager.site.error.validation"),
                                           new ConstraintViolationException(vViolations));
         } 
@@ -226,9 +242,11 @@ public class TopoManagerImpl extends AbstractManager implements TopoManager {
 	        TransactionStatus vTScommit = vTransactionStatus;
 	        vTransactionStatus = null;
 	        platformTransactionManager.commit(vTScommit);
+	        logger.info(resourceBundle.getString("manager.site.logging.newSite"));
 	    } finally {
 	        if (vTransactionStatus != null) {
 	            platformTransactionManager.rollback(vTransactionStatus);
+	            logger.error(resourceBundle.getString("manager.site.logging.databaseError"));
 	        }
 	    }
 	}
@@ -299,11 +317,14 @@ public class TopoManagerImpl extends AbstractManager implements TopoManager {
 	@Override
 	public void addSector(Sector pSector) throws FunctionalException {
 		if (pSector == null) {
+			logger.error(resourceBundle.getString("manager.sector.logging.null"));
             throw new FunctionalException(resourceBundle.getString("manager.sector.error.null"));
         }
 
         Set<ConstraintViolation<Sector>> vViolations = getConstraintValidator().validate(pSector);
         if (!vViolations.isEmpty() || pSector.getSite().getName().isEmpty()) {
+        	logger.warn(resourceBundle.getString("manager.sector.logging.validation") 
+        			+ vViolations.toString());
             throw new FunctionalException(resourceBundle.getString("manager.sector.error.validation"),
                                           new ConstraintViolationException(vViolations));
         } 
@@ -320,9 +341,11 @@ public class TopoManagerImpl extends AbstractManager implements TopoManager {
 	        TransactionStatus vTScommit = vTransactionStatus;
 	        vTransactionStatus = null;
 	        platformTransactionManager.commit(vTScommit);
+	        logger.info(getText("manager.sector.logging.newSector", pSector.getSite().getName()));
 	    } finally {
 	        if (vTransactionStatus != null) {
 	            platformTransactionManager.rollback(vTransactionStatus);
+	            logger.error(resourceBundle.getString("manager.sector.logging.databaseError"));
 	        }
 	    }
 	}
@@ -373,11 +396,14 @@ public class TopoManagerImpl extends AbstractManager implements TopoManager {
 	@Override
 	public void addRoute(Route pRoute) throws FunctionalException {
 		if (pRoute == null) {
+			logger.error(resourceBundle.getString("manager.route.logging.null"));
             throw new FunctionalException(resourceBundle.getString("manager.route.error.null"));
         }
 
         Set<ConstraintViolation<Route>> vViolations = getConstraintValidator().validate(pRoute);
         if (!vViolations.isEmpty() || pRoute.getSector().getName().isEmpty()) {
+        	logger.warn(resourceBundle.getString("manager.route.logging.validation") 
+        			+ vViolations.toString());
             throw new FunctionalException(resourceBundle.getString("manager.route.error.validation"),
                                           new ConstraintViolationException(vViolations));
         } 
@@ -394,9 +420,11 @@ public class TopoManagerImpl extends AbstractManager implements TopoManager {
 	        TransactionStatus vTScommit = vTransactionStatus;
 	        vTransactionStatus = null;
 	        platformTransactionManager.commit(vTScommit);
+	        logger.info(getText("manager.route.logging.newRoute", pRoute.getSector().getName()));
 	    } finally {
 	        if (vTransactionStatus != null) {
 	            platformTransactionManager.rollback(vTransactionStatus);
+	            logger.error(resourceBundle.getString("manager.route.logging.databaseError"));
 	        }
 	    }
 	    

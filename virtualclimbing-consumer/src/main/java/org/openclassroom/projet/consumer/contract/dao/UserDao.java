@@ -13,25 +13,29 @@ public interface UserDao {
 
 	/**
 	 * Get {@link User} from database
+	 * 
 	 * @param pPseudo -
-	 * @throws FunctionalException 
+	 * @return {@link User}
 	 */
 	User getUser(String pPseudo) throws FunctionalException;
 	
 	/**
 	 * Get the list of all {@link User} in database
+	 * 
+	 * @return List<{@link User}>
 	 */
 	List<User> getListUser();
 	
 	/**
 	 * Add a {@link User} in database
+	 * 
 	 * @param pUser -
-	 * @throws FunctionalException 
 	 */
 	void addUser(User pUser) throws FunctionalException;
 
 	/**
 	 * Change the password of an existing {@link User}
+	 * 
 	 * @param pUser -
 	 */
 	void changePassword(User pUser);

@@ -29,6 +29,7 @@ public class UserManagerImpl extends AbstractManager implements UserManager {
 		try {
 			vUser = getDaoFactory().getUserDao().getUser(pPseudo);
 		} catch (FunctionalException e) {
+			logger.warn(e.getMessage());
 			throw new FunctionalException(e.getMessage());
 		}
 		
@@ -37,12 +38,15 @@ public class UserManagerImpl extends AbstractManager implements UserManager {
 		try {
 			hashedPassword = hashPassword(pPassword);
 		} catch (GeneralSecurityException e) {
+			logger.error(e);
 			throw new FunctionalException(resourceBundle.getString("manager.user.error.generalSecurity"));
 		}
 		
 		if (vUser.getPassword().equals(hashedPassword)) {
+			logger.info(getText("manager.user.logging.connect", pPseudo));
 			return vUser;
 		} else {
+			logger.warn(resourceBundle.getString("manager.user.logging.failedConnect"));
 			throw new FunctionalException(resourceBundle.getString("manager.user.error.incorrectPassword"));
 		}
 		
@@ -51,11 +55,14 @@ public class UserManagerImpl extends AbstractManager implements UserManager {
 	@Override
 	public void addUser(User pUser) throws FunctionalException {
 		if (pUser == null) {
+			logger.error(resourceBundle.getString("manager.user.logging.null"));
             throw new FunctionalException(resourceBundle.getString("manager.user.error.null"));
         }
 
         Set<ConstraintViolation<User>> vViolations = getConstraintValidator().validate(pUser);
         if (!vViolations.isEmpty()) {
+        	logger.warn(resourceBundle.getString("manager.user.logging.validation") 
+        			+ vViolations.toString());
             throw new FunctionalException(resourceBundle.getString("manager.user.error.validation"),
                                           new ConstraintViolationException(vViolations));
         } 
@@ -66,6 +73,7 @@ public class UserManagerImpl extends AbstractManager implements UserManager {
 			pUser.setPassword(hashedPassword);
 		} catch (GeneralSecurityException e) {
 			e.printStackTrace();
+			logger.error(resourceBundle.getString("manager.user.logging.hashError") + e);
 		}
 		
         TransactionStatus vTransactionStatus
@@ -76,26 +84,36 @@ public class UserManagerImpl extends AbstractManager implements UserManager {
 	        TransactionStatus vTScommit = vTransactionStatus;
 	        vTransactionStatus = null;
 	        platformTransactionManager.commit(vTScommit);
+	        logger.info(getText("manager.user.logging.newUser", pUser.getPseudo()));
 		} finally {
 	        if (vTransactionStatus != null) {
 	            platformTransactionManager.rollback(vTransactionStatus);
+	            logger.error(resourceBundle.getString("manager.user.logging.databaseError.user"));
 	        }
 	    }
 	}
 	
 	@Override
 	public void changePassword(User pUser, String pConfirmPassword) throws FunctionalException {
-		if (pUser == null)
+		if (pUser == null) {
+			logger.error(resourceBundle.getString("manager.user.logging.null"));
             throw new FunctionalException(resourceBundle.getString("manager.user.error.null"));
+		}
 		
-		if (pUser.getPseudo() == null || pUser.getPseudo().equals(""))
+		if (pUser.getPseudo() == null || pUser.getPseudo().equals("")) {
+			logger.error(resourceBundle.getString("manager.user.logging.403.password"));
 			throw new FunctionalException(resourceBundle.getString("manager.user.error.mustConnected"));
+		}
 		
-		if (pUser.getPassword() == null || pUser.getPassword().equals(""))
+		if (pUser.getPassword() == null || pUser.getPassword().equals("")) {
+			logger.warn(resourceBundle.getString("manager.user.logging.emptyPassword"));
 			throw new FunctionalException(resourceBundle.getString("manager.user.error.emptyPassword"));
+		}
 		
-		if (!pUser.getPassword().equals(pConfirmPassword))
+		if (!pUser.getPassword().equals(pConfirmPassword)) {
+			logger.warn(resourceBundle.getString("manager.user.logging.badConfirmPassword"));
 			throw new FunctionalException(resourceBundle.getString("manager.user.error.badConfirmPassword"));
+		}
 		
 		String rawPassword = pUser.getPassword();
         try {
@@ -103,6 +121,7 @@ public class UserManagerImpl extends AbstractManager implements UserManager {
 			pUser.setPassword(hashedPassword);
 		} catch (GeneralSecurityException e) {
 			e.printStackTrace();
+			logger.error(resourceBundle.getString("manager.user.logging.hashError") + e);
 		}
 		
         TransactionStatus vTransactionStatus
@@ -113,9 +132,11 @@ public class UserManagerImpl extends AbstractManager implements UserManager {
 	        TransactionStatus vTScommit = vTransactionStatus;
 	        vTransactionStatus = null;
 	        platformTransactionManager.commit(vTScommit);
+	        logger.info(getText("manager.user.logging.newPassword", pUser.getPseudo()));
 		} finally {
 	        if (vTransactionStatus != null) {
 	            platformTransactionManager.rollback(vTransactionStatus);
+	            logger.error(resourceBundle.getString("manager.user.logging.databaseError.password"));
 	        }
 	    }
 	}

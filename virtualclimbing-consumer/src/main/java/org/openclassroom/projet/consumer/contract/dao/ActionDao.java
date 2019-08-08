@@ -21,13 +21,16 @@ public interface ActionDao {
 	
 	/**
 	 * Add reservation of {@link Topo} in the database
+	 * 
 	 * @param pBooking -
 	 */
 	void rentTopo(Booking pBooking);
 	
 	/**
 	 * Return the list of {@link Booking} for an {@link User}
+	 * 
 	 * @param pUser -
+	 * @return List<{@link Booking}>
 	 */
 	List<Booking> listBooking(User pUser);
 	
@@ -39,12 +42,15 @@ public interface ActionDao {
 	
 	/**
 	 * Return the list of {@link Comment} for a {@link Sector} in database
+	 * 
 	 * @param pSector -
+	 * @return List<{@link Comment}>
 	 */
 	List<Comment> getListComment(Sector pSector);
 	
 	/**
 	 * Add the {@link Comment} in database
+	 * 
 	 * @param pComment -
 	 */
 	void addComment(Comment pComment);

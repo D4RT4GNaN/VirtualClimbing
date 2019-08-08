@@ -1,14 +1,13 @@
 package org.openclassroom.projet.webapp.action;
 
+import java.util.Collections;
 import java.util.Date;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.SessionAware;
-import org.openclassroom.projet.model.bean.action.Booking;
 import org.openclassroom.projet.model.bean.user.User;
 import org.openclassroom.projet.model.exception.FunctionalException;
 import org.openclassroom.projet.model.exception.TechnicalException;
@@ -56,7 +55,12 @@ public class UserManagmentAction extends AbstractAction implements SessionAware,
 	
 	
 	// ==================== Methods ====================		
-	/***/
+	/**
+	 * Get information on login form and test the Pseudo/Password couple
+	 * If its the good couple, it put the {@link User} in session
+	 * 
+	 * @return input / success
+	 */
 	public String doLogin() {
 		String vResult = ActionSupport.INPUT;
 		
@@ -75,13 +79,24 @@ public class UserManagmentAction extends AbstractAction implements SessionAware,
 		return vResult;
 	}
 	
-	/***/
+	/**
+	 * Invalidate the {@link User} session on logout
+	 * 
+	 * @return success
+	 */
 	public String doLogout() {
+		user = (User)session.get("user");
+		logger.info(getText("action.logout", Collections.singletonList(user.getPseudo())));
 		this.servletRequest.getSession().invalidate();
 		return ActionSupport.SUCCESS;
 	}
 	
-	/***/
+	/**
+	 * Get information on sign up form and test it.
+	 * If no error is returned, a new {@link User} is created. 
+	 * 
+	 * @return input / success / error
+	 */
 	public String doSignin() {
 		String vResult = ActionSupport.INPUT;
 		
@@ -107,6 +122,12 @@ public class UserManagmentAction extends AbstractAction implements SessionAware,
 		return vResult;
 	}
 	
+	/**
+	 * Get information on form and test the 2 password.
+	 * If no error is returned, the password of the {@link User} is changed
+	 * 
+	 * @return input / success
+	 */
 	public String doChangePassword() {
 		String vResult = ActionSupport.INPUT;
 		
