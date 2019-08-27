@@ -59,7 +59,7 @@ public class TopoDaoImpl extends AbstractDao implements TopoDao {
 
 	@Override
 	public List<Topo> searchTopo(String pKeyword) {
-		String vRequest = "SELECT * FROM topo WHERE lower(name) LIKE ? AND private=false";
+		String vRequest = "SELECT * FROM topo WHERE lower(name) LIKE lower(?) AND private=false";
 		RowMapper<Topo> vRowMapper = new TopoRM();
 		
 		JdbcTemplate vJdbcTemplate = new JdbcTemplate(getDataSource());
@@ -178,7 +178,7 @@ public class TopoDaoImpl extends AbstractDao implements TopoDao {
 	
 	@Override
 	public List<Site> searchSite(String pKeyword) {
-		String vRequest = "SELECT * FROM site WHERE lower(name) LIKE ?";
+		String vRequest = "SELECT * FROM site WHERE lower(name) LIKE lower(?)";
 		RowMapper<Site> vRowMapper = new SiteRM();
 		
 		JdbcTemplate vJdbcTemplate = new JdbcTemplate(getDataSource());
@@ -271,12 +271,13 @@ public class TopoDaoImpl extends AbstractDao implements TopoDao {
 
 	@Override
 	public List<Sector> searchSector(String pKeyword) {
-		String vRequest = "SELECT * FROM sector WHERE lower(name) LIKE ?";
+		String vRequest = "SELECT * FROM sector WHERE lower(name) LIKE lower(?)";
 		RowMapper<Sector> vRowMapper = new SectorRM();
 		
 		JdbcTemplate vJdbcTemplate = new JdbcTemplate(getDataSource());
 		List<Sector> vListSector = vJdbcTemplate.query(vRequest, vRowMapper, "%" + pKeyword + "%");
 		
+		System.out.println(vListSector);
 		return vListSector;
 	}
 
@@ -354,7 +355,7 @@ public class TopoDaoImpl extends AbstractDao implements TopoDao {
 
 	@Override
 	public List<Route> searchRoute(String pKeyword) {
-		String vRequest = "SELECT * FROM route WHERE lower(name) LIKE ?";
+		String vRequest = "SELECT * FROM route WHERE lower(name) LIKE lower(?)";
 		RowMapper<Route> vRowMapper = new RouteRM();
 		
 		JdbcTemplate vJdbcTemplate = new JdbcTemplate(getDataSource());

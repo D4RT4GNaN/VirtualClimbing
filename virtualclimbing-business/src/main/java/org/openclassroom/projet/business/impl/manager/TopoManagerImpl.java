@@ -212,10 +212,10 @@ public class TopoManagerImpl extends AbstractManager implements TopoManager {
 	@Override
 	public List<Site> searchSite(String pKeyword) {
 		List<Site> vListSite = null;
-		if (pKeyword != null && !pKeyword.isEmpty())
-			vListSite = getDaoFactory().getTopoDao().getListSite();
-		else 
+		if (pKeyword != null && pKeyword != "")
 			vListSite = getDaoFactory().getTopoDao().searchSite(pKeyword);
+		else 
+			vListSite = getDaoFactory().getTopoDao().getListSite();
 		return vListSite;
 	}
 	
@@ -301,10 +301,11 @@ public class TopoManagerImpl extends AbstractManager implements TopoManager {
 	@Override
 	public List<Sector> searchSector(String pKeyword) {
 		List<Sector> vListSector = null;
-		if (pKeyword != null && !pKeyword.isEmpty())
-			vListSector = getDaoFactory().getTopoDao().getListSector();
-		else
+		if (pKeyword != null && pKeyword != "")
 			vListSector = getDaoFactory().getTopoDao().searchSector(pKeyword);
+		else 
+			vListSector = getDaoFactory().getTopoDao().getListSector();
+			
 		return vListSector;
 	}
 
@@ -380,10 +381,11 @@ public class TopoManagerImpl extends AbstractManager implements TopoManager {
 	@Override
 	public List<Route> searchRoute(String pKeyword) {
 		List<Route> vListRoute = null;
-		if (pKeyword != null && !pKeyword.isEmpty())
-			vListRoute = getDaoFactory().getTopoDao().getListRoute();
-		else
+		if (pKeyword != null && !(pKeyword.isEmpty()))
 			vListRoute = getDaoFactory().getTopoDao().searchRoute(pKeyword);
+		else
+			vListRoute = getDaoFactory().getTopoDao().getListRoute();
+			
 		return vListRoute;
 	}
 
